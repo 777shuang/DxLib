@@ -1,0 +1,22 @@
+type HandleType* {.pure.} = enum
+    NONE
+    GRAPH
+    SOFTIMAGE
+    SOUND
+    SOFTSOUND
+    MUSIC
+    MOVIE
+    GMASK
+    FONT
+    KEYINPUT
+    NETWORK
+    LIGHT
+    SHADER
+    MODEL_BASE
+    MODEL
+    VERTEX_BUFFER
+    INDEX_BUFFER
+    FILE
+    SHADOWMAP
+    SHADER_CONSTANT_BUFFER
+    LIVE2D_CUBISM4_MODEL
