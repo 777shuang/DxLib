@@ -1,7 +1,0 @@
-const
-    PI* = 3.1415926535897932384626433832795f
-    TWO_PI* = PI * 2.0f
-
-import handletype/HANDLETYPE
-export HANDLETYPE
-
