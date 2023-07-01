@@ -1,5 +1,6 @@
 import os, strutils, encodings
 import puppy
+from zippy/ziparchives {.all.} import ZipArchiveReader
 import zippy/ziparchives
 
 {.push header: "DxLibHeaderSpliter.c".}
@@ -21,42 +22,44 @@ const url =   "https://dxlib.xsrv.jp/DxLib/DxLibMake" &
   ch &
   ".zip"
 
-var res: Response
-try:
-  res = url.get
-except PuppyError:
-  echo "Failed to connect"
-if res.code != 200:
-  echo "Failed to connect"
-
 const zipFileName = "DxLibMake.zip"
+var res: Response
 var fileRead, fileWrite : File
-try:
-  fileWrite = open(zipFileName, FileMode.fmWrite)
-except IOError:
-  echo getCurrentExceptionMsg()
+if not fileExists(zipFileName):
+  try:
+    res = url.get
+    if res.code != 200:
+      raise newException(PuppyError, res.code.intToStr)
+    fileWrite = open(zipFileName, FileMode.fmWrite)
+    fileWrite.write(res.body)
+    fileWrite.close()
+  except PuppyError:
+    echo getCurrentExceptionMsg()
+  except IOError:
+    echo getCurrentExceptionMsg()
 
-fileWrite.write(res.body)
-fileWrite.close()
-
-var lines: seq[string]
+var reader: ZipArchiveReader
 try:
-  let reader = openZipArchive(zipFileName)
-  lines = reader.extractFile("DxLibMake/DxLib.h").convert(srcEncoding="shiftjis", destEncoding="UTF-8").split("\r\n")
-  reader.close()
+  reader = openZipArchive(zipFileName)
 except ZippyError:
   echo getCurrentExceptionMsg()
 
-when defined(windows):
-  const DataType = "DxDataTypeWin.h"
-else:
-  const DataType = "DxDataTypeLinux.h"
+proc c2nim(option: string) = discard execShellCmd("c2nim " & option)
+
+const DataType = "DxDataTypeWin.h"
+try:
+  fileWrite = open(DataType, FileMode.fmWrite)
+  fileWrite.write(reader.extractFile("DxLibMake/" & DataType))
+  fileWrite.close()
+except IOError:
+  echo getCurrentExceptionMsg()
+c2nim(DataType & " -o:" & "src" / DataType.splitFile.name & ".nim")
+
 type Flag = enum
   NULL = ""
   DEFINE = "DxDefine.h"
   STRUCT = "DxStruct.h"
   FUNCTION = "DxFunctions.h"
-
 var flag: Flag = NULL
 proc changeFlag(f: Flag) =
   flag = f
@@ -65,7 +68,7 @@ proc changeFlag(f: Flag) =
   except IOError:
     echo getCurrentExceptionMsg()
 
-proc c2nim(option: string) = discard execShellCmd("c2nim " & option)
+let lines = reader.extractFile("DxLibMake/DxLib.h").convert(srcEncoding="shiftjis", destEncoding="UTF-8").split("\r\n")
 for line in lines:
   case flag
   of NULL:
@@ -85,11 +88,10 @@ for line in lines:
     if line == "#define DX_DEFINE_END":
       flag = NULL
       fileWrite.close()
-      const name = splitFile($DEFINE).name
       const
-        before = name & "_.nim"
-        after = name & ".nim"
-      c2nim($DEFINE & " --out:" & before)
+        before = splitFile($DEFINE).name & ".nim"
+        after = "src" / before
+      c2nim($DEFINE)
       try:
         fileRead = open(before, FileMode.fmRead)
         fileWrite = open(after, FileMode.fmWrite)
@@ -117,3 +119,5 @@ for line in lines:
       c2nim($FUNCTION)
     else:
       fileWrite.writeLine(line)
+
+reader.close()
