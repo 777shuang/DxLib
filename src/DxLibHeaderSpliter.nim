@@ -1,6 +1,5 @@
 import os, strutils, encodings, nre
 import puppy
-from zippy/ziparchives {.all.} import ZipArchiveReader
 import zippy/ziparchives
 
 {.push header: "DxLibHeaderSpliter.c".}
