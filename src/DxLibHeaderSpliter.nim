@@ -107,7 +107,7 @@ try:
         fileWrite.writeLine("import winim")
         fileWrite.writeLine("import DxDefine")
         while not fileRead.endOfFile:
-          fileWrite.writeLine(fileRead.readLine)
+          fileWrite.writeLine(fileRead.readLine.replace("VERTEX_3D", "VERTEX3D_OLD"))
         fileRead.close()
         fileWrite.close()
       else:
@@ -128,7 +128,7 @@ try:
         for str in ary:
           fileWrite.writeLine(str)
         while not fileRead.endOfFile:
-          fileWrite.writeLine(fileRead.readLine)
+          fileWrite.writeLine(fileRead.readLine.replace("0xffffffff", "0xffffffff'u32"))
         fileWrite.writeLine("")
         fileWrite.writeLine("{.pop.}")
         fileRead.close()
