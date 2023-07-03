@@ -1,4 +1,4 @@
-import os, strutils, encodings
+import os, strutils, encodings, nre
 import puppy
 from zippy/ziparchives {.all.} import ZipArchiveReader
 import zippy/ziparchives
@@ -9,8 +9,12 @@ proc SEEK_END(): cint {.importc: "get_SEEK_END".}
 proc SEEK_CUR(): cint {.importc: "get_SEEK_CUR".}
 {.pop.}
 
+var fileRead, fileWrite : File
+
+# このパッケージのバージョンと DX ライブラリのバージョンは対応する。
 const NimblePkgVersion {.strdefine.} = "0.0.0"
 const DxLibVersion = NimblePkgVersion.split(".")
+# DX ライブラリのバージョン表記は [数字1桁].[数字2桁][アルファベット小文字1文字(ないこともある)] である
 when DxLibVersion[2] != "0":
   const ch = $char(int('a') + DxLibVersion[2].parseInt - 1)
 else:
@@ -23,11 +27,9 @@ const url =   "https://dxlib.xsrv.jp/DxLib/DxLibMake" &
   ".zip"
 
 const zipFileName = "DxLibMake.zip"
-var res: Response
-var fileRead, fileWrite : File
 if not fileExists(zipFileName):
   try:
-    res = url.get
+    let res = url.get
     if res.code != 200:
       raise newException(PuppyError, res.code.intToStr)
     fileWrite = open(zipFileName, FileMode.fmWrite)
@@ -46,15 +48,6 @@ except ZippyError:
 
 proc c2nim(option: string) = discard execShellCmd("c2nim " & option)
 
-const DataType = "DxDataTypeWin.h"
-try:
-  fileWrite = open(DataType, FileMode.fmWrite)
-  fileWrite.write(reader.extractFile("DxLibMake/" & DataType))
-  fileWrite.close()
-except IOError:
-  echo getCurrentExceptionMsg()
-c2nim(DataType & " -o:" & "src" / DataType.splitFile.name & ".nim")
-
 type Flag = enum
   NULL = ""
   DEFINE = "DxDefine.h"
@@ -63,12 +56,10 @@ type Flag = enum
 var flag: Flag = NULL
 proc changeFlag(f: Flag) =
   flag = f
-  try:
-    fileWrite = open($f, FileMode.fmWrite)
-  except IOError:
-    echo getCurrentExceptionMsg()
+  fileWrite = open($f, FileMode.fmWrite)
 
 let lines = reader.extractFile("DxLibMake/DxLib.h").convert(srcEncoding="shiftjis", destEncoding="UTF-8").split("\r\n")
+# c2nim では入力ファイルが大きすぎるとエラーが出るため、内容を分割する
 for line in lines:
   case flag
   of NULL:
@@ -82,7 +73,6 @@ for line in lines:
       changeFlag(STRUCT)
     of "#define DX_FUNCTION_START":
       changeFlag(FUNCTION)
-      fileWrite.writeLine("#define DEFAULTPARAM(param) param")
       
   of DEFINE:
     if line == "#define DX_DEFINE_END":
@@ -92,11 +82,8 @@ for line in lines:
         before = splitFile($DEFINE).name & ".nim"
         after = "src" / before
       c2nim($DEFINE)
-      try:
-        fileRead = open(before, FileMode.fmRead)
-        fileWrite = open(after, FileMode.fmWrite)
-      except IOError:
-        echo getCurrentExceptionMsg()
+      fileRead = open(before, FileMode.fmRead)
+      fileWrite = open(after, FileMode.fmWrite)
       while not fileRead.endOfFile:
         fileWrite.writeLine(fileRead.readLine.replace("div", "/").replace("(DX_FONTTYPE_NORMAL)", "0"))
       fileRead.close()
@@ -109,6 +96,15 @@ for line in lines:
       flag = NULL
       fileWrite.close()
       c2nim($STRUCT)
+      const
+        before = splitFile($STRUCT).name & ".nim"
+        after = "src" / before
+      fileRead = open(before, FileMode.fmRead)
+      fileWrite = open(after, FileMode.fmWrite)
+      fileWrite.writeLine("import winim")
+      fileWrite.writeLine("import DxDataType")
+      while not fileRead.endOfFile:
+        fileWrite.writeLine(fileRead.readLine)
     else:
       fileWrite.writeLine(line)
 
@@ -116,8 +112,24 @@ for line in lines:
     if line == "#define DX_FUNCTION_END":
       flag = NULL
       fileWrite.close()
-      c2nim($FUNCTION)
+      c2nim("--cpp " & $FUNCTION)
+      const
+        before = splitFile($STRUCT).name & ".nim"
+        after = "src" / before
+      fileRead = open(before, FileMode.fmRead)
+      fileWrite = open(after, FileMode.fmWrite)
+      fileWrite.writeLine("import winim")
+      while not fileRead.endOfFile:
+        fileWrite.writeLine(fileRead.readLine)
     else:
-      fileWrite.writeLine(line)
+      if not line.strip.startsWith("#"):
+        var buf:string = line
+        # DEFAULTPARAM を外す
+        while buf.contains("DEFAULTPARAM"):
+          buf = buf.replace(
+            re"(.*)(DEFAULTPARAM[  ]*\([  ]*=[  ]*)([^\)]*)([   ]*\))(.*)",
+            proc(match: RegexMatch): string = return $match.captures[0] & " = " & $match.captures[2] & $match.captures[4]
+          )
+        fileWrite.writeLine(buf.replace("__inline", "inline"))
 
 reader.close()
