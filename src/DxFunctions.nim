@@ -1,4 +1,5 @@
 import winim
+import DxDefine
 import DxStruct
 import DxDll
 
@@ -895,7 +896,7 @@ proc DrawObtainsNString*(x: cint; y: cint; AddY: cint; String: ptr TCHAR;
 proc DrawObtainsString_CharClip*(x: cint; y: cint; AddY: cint; String: ptr TCHAR;
                                 StrColor: cuint; StrEdgeColor: cuint = 0;
                                 FontHandle: cint = -1;
-                                SelectBackColor: cuint = 0xffffffff'u32;
+                                SelectBackColor: cuint = 0xffffffff;
                                 SelectStrColor: cuint = 0;
                                 SelectStrEdgeColor: cuint = 0xffffffff;
                                 SelectStart: cint = -1; SelectEnd: cint = -1): cint
@@ -958,12 +959,14 @@ proc SetKeyInputStringColor*(NmlStr: ULONGLONG; NmlCur: ULONGLONG;
                             IMELine: ULONGLONG; IMESelectStr: ULONGLONG;
                             IMEModeStr: ULONGLONG; NmlStrE: ULONGLONG = 0;
                             IMESelectStrE: ULONGLONG = 0;
-                            IMEModeStrE: ULONGLONG = 0; IMESelectWinE: ULONGLONG = ULL_PARAM(
-    0xffffffffffffffff'u); IMESelectWinF: ULONGLONG = ULL_PARAM(0xffffffffffffffff'u);
-    SelectStrBackColor: ULONGLONG = ULL_PARAM(0xffffffffffffffff'u); SelectStrColor: ULONGLONG = ULL_PARAM(
-    0xffffffffffffffff'u); SelectStrEdgeColor: ULONGLONG = ULL_PARAM(
-    0xffffffffffffffff'u); IMEStr: ULONGLONG = ULL_PARAM(0xffffffffffffffff'u);
-    IMEStrE: ULONGLONG = ULL_PARAM(0xffffffffffffffff'u)): cint
+                            IMEModeStrE: ULONGLONG = 0;
+                            IMESelectWinE: ULONGLONG = (0xffffffffffffffff'i64);
+                            IMESelectWinF: ULONGLONG = (0xffffffffffffffff'i64);
+    SelectStrBackColor: ULONGLONG = (0xffffffffffffffff'i64);
+                            SelectStrColor: ULONGLONG = (0xffffffffffffffff'i64);
+    SelectStrEdgeColor: ULONGLONG = (0xffffffffffffffff'i64);
+                            IMEStr: ULONGLONG = (0xffffffffffffffff'i64);
+                            IMEStrE: ULONGLONG = (0xffffffffffffffff'i64)): cint
 ##  ( SetKeyInputStringColor2 の旧関数 )InputString関数使用時の文字の各色を変更する
 
 proc SetKeyInputStringColor2*(TargetColor: cint; ##  DX_KEYINPSTRCOLOR_NORMAL_STR 等
@@ -2182,7 +2185,7 @@ proc DrawPixel*(x: cint; y: cint; Color: cuint): cint
 ##  点を描画する
 
 proc Paint*(x: cint; y: cint; FillColor: cuint;
-           BoundaryColor: ULONGLONG = ULL_PARAM(0xffffffffffffffff'u)): cint
+           BoundaryColor: ULONGLONG = (0xffffffffffffffff'i64)): cint
 ##  指定点から境界色があるところまで塗りつぶす(境界色を -1 にすると指定点の色の領域を塗りつぶす)
 
 proc DrawPixelSet*(PointDataArray: ptr POINTDATA; Num: cint): cint

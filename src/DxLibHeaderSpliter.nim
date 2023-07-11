@@ -124,11 +124,10 @@ try:
           after = "src" / before
         fileRead = open(before, FileMode.fmRead)
         fileWrite = open(after, FileMode.fmWrite)
-        const ary = ["import winim", "import DxStruct", "import DxDll", "", "{.push header: DLL.}"]
-        for str in ary:
+        for str in ["import winim", "import DxDefine", "import DxStruct", "import DxDll", "", "{.push header: DLL.}"]:
           fileWrite.writeLine(str)
         while not fileRead.endOfFile:
-          fileWrite.writeLine(fileRead.readLine.replace("0xffffffff", "0xffffffff'u32"))
+          fileWrite.writeLine(fileRead.readLine.replace("0xffffffffffffffff'u", "0xffffffffffffffff'i64"))
         fileWrite.writeLine("")
         fileWrite.writeLine("{.pop.}")
         fileRead.close()
@@ -142,6 +141,8 @@ try:
               re"(.*)(DEFAULTPARAM[  ]*\([  ]*=[  ]*)([^\)]*)([   ]*\))(.*)",
               proc(match: RegexMatch): string = return $match.captures[0] & " = " & $match.captures[2] & $match.captures[4]
             )
+          for str in ["ULL_NUM", "LL_NUM", "ULL_PARAM", "LL_PARAM"]:
+            buf = buf.replace(str, "")
           fileWrite.writeLine(buf.replace("__inline", "inline"))
 except IOError:
   echo getCurrentExceptionMsg()
