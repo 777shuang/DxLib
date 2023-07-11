@@ -65,11 +65,12 @@ try:
     case flag
     of NULL:
       case line
-      of "#define DX_DEFINE_START":
+      of "#ifndef DX_MAKE":
         changeFlag(DEFINE)
         fileWrite.writeLine("#define SEEK_SET " & SEEK_SET().intToStr)
         fileWrite.writeLine("#define SEEK_END " & SEEK_END().intToStr)
         fileWrite.writeLine("#define SEEK_CUR " & SEEK_CUR().intToStr)
+        fileWrite.writeLine("#ifndef DX_MAKE")
       of "#define DX_STRUCT_START":
         changeFlag(STRUCT)
       of "#define DX_FUNCTION_START":
@@ -87,11 +88,17 @@ try:
         fileRead = open(before, FileMode.fmRead)
         fileWrite = open(after, FileMode.fmWrite)
         while not fileRead.endOfFile:
-          fileWrite.writeLine(fileRead.readLine.replace("div", "/").replace("(DX_FONTTYPE_NORMAL)", "0"))
+          var buf = fileRead.readLine
+          buf = buf.replace("div", "/")
+          buf = buf.replace("(DX_FONTTYPE_NORMAL)", "0")
+          fileWrite.writeLine(buf)
         fileRead.close()
         fileWrite.close()
       else:
-        fileWrite.writeLine(line)
+        if line.startsWith("#define DX_CHAR\t"):
+          fileWrite.writeLine("typedef char DX_CHAR;")
+        else:
+          fileWrite.writeLine(line)
 
     of STRUCT:
       # 構造体定義部
@@ -127,7 +134,11 @@ try:
         for str in ["import winim", "import DxDefine", "import DxStruct", "import DxDll", "", "{.push header: DLL.}"]:
           fileWrite.writeLine(str)
         while not fileRead.endOfFile:
-          fileWrite.writeLine(fileRead.readLine.replace("0xffffffffffffffff'u", "0xffffffffffffffff'i64"))
+          var buf = fileRead.readLine
+          buf = buf.replace("0xffffffff;", "0xffffffff'u32;")
+          buf = buf.replace("0xffffffffffffffff'u", "0xffffffffffffffff'i64")
+          buf = buf.replace("VERTEX_3D", "VERTEX3D_OLD")
+          fileWrite.writeLine(buf)
         fileWrite.writeLine("")
         fileWrite.writeLine("{.pop.}")
         fileRead.close()

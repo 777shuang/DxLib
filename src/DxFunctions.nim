@@ -878,36 +878,36 @@ proc GetStringLength*(String: ptr TCHAR): cint
 
 proc DrawObtainsString*(x: cint; y: cint; AddY: cint; String: ptr TCHAR; StrColor: cuint;
                        StrEdgeColor: cuint = 0; FontHandle: cint = -1;
-                       SelectBackColor: cuint = 0xffffffff;
+                       SelectBackColor: cuint = 0xffffffff'u32;
                        SelectStrColor: cuint = 0;
-                       SelectStrEdgeColor: cuint = 0xffffffff;
+                       SelectStrEdgeColor: cuint = 0xffffffff'u32;
                        SelectStart: cint = -1; SelectEnd: cint = -1): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画
 
 proc DrawObtainsNString*(x: cint; y: cint; AddY: cint; String: ptr TCHAR;
                         StringLength: csize_t; StrColor: cuint;
                         StrEdgeColor: cuint = 0; FontHandle: cint = -1;
-                        SelectBackColor: cuint = 0xffffffff;
+                        SelectBackColor: cuint = 0xffffffff'u32;
                         SelectStrColor: cuint = 0;
-                        SelectStrEdgeColor: cuint = 0xffffffff;
+                        SelectStrEdgeColor: cuint = 0xffffffff'u32;
                         SelectStart: cint = -1; SelectEnd: cint = -1): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画
 
 proc DrawObtainsString_CharClip*(x: cint; y: cint; AddY: cint; String: ptr TCHAR;
                                 StrColor: cuint; StrEdgeColor: cuint = 0;
                                 FontHandle: cint = -1;
-                                SelectBackColor: cuint = 0xffffffff;
+                                SelectBackColor: cuint = 0xffffffff'u32;
                                 SelectStrColor: cuint = 0;
-                                SelectStrEdgeColor: cuint = 0xffffffff;
+                                SelectStrEdgeColor: cuint = 0xffffffff'u32;
                                 SelectStart: cint = -1; SelectEnd: cint = -1): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画( クリップが文字単位 )
 
 proc DrawObtainsNString_CharClip*(x: cint; y: cint; AddY: cint; String: ptr TCHAR;
                                  StringLength: csize_t; StrColor: cuint;
                                  StrEdgeColor: cuint = 0; FontHandle: cint = -1;
-                                 SelectBackColor: cuint = 0xffffffff;
+                                 SelectBackColor: cuint = 0xffffffff'u32;
                                  SelectStrColor: cuint = 0;
-                                 SelectStrEdgeColor: cuint = 0xffffffff;
+                                 SelectStrEdgeColor: cuint = 0xffffffff'u32;
                                  SelectStart: cint = -1; SelectEnd: cint = -1): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画( クリップが文字単位 )
 
@@ -2634,25 +2634,25 @@ proc DrawPolygon32bitIndexed3D*(VertexArray: ptr VERTEX3D; VertexNum: cint;
                                GrHandle: cint; TransFlag: cint): cint
 ##  ３Ｄポリゴンを描画する( 頂点インデックスを使用 )
 
-proc DrawPolygonIndexed3DBase*(VertexArray: ptr VERTEX_3D; VertexNum: cint;
+proc DrawPolygonIndexed3DBase*(VertexArray: ptr VERTEX3D_OLD; VertexNum: cint;
                               IndexArray: ptr cushort; IndexNum: cint; PrimitiveType: cint; ##  DX_PRIMTYPE_TRIANGLELIST 等
                               GrHandle: cint; TransFlag: cint): cint
 ##  ３Ｄポリゴンを描画する( 頂点インデックスを使用 )( 旧バージョン用 )
 
-proc DrawPolygon32bitIndexed3DBase*(VertexArray: ptr VERTEX_3D; VertexNum: cint;
+proc DrawPolygon32bitIndexed3DBase*(VertexArray: ptr VERTEX3D_OLD; VertexNum: cint;
                                    IndexArray: ptr cuint; IndexNum: cint; PrimitiveType: cint; ##  DX_PRIMTYPE_TRIANGLELIST 等
                                    GrHandle: cint; TransFlag: cint): cint
 ##  ３Ｄポリゴンを描画する( 頂点インデックスを使用 )( 旧バージョン用 )
 
-proc DrawPolygon3DBase*(VertexArray: ptr VERTEX_3D; VertexNum: cint; PrimitiveType: cint; ##  DX_PRIMTYPE_TRIANGLELIST 等
+proc DrawPolygon3DBase*(VertexArray: ptr VERTEX3D_OLD; VertexNum: cint; PrimitiveType: cint; ##  DX_PRIMTYPE_TRIANGLELIST 等
                        GrHandle: cint; TransFlag: cint): cint
 ##  ３Ｄポリゴンを描画する( 旧バージョン用 )
 
-proc DrawPolygon3D*(VertexArray: ptr VERTEX_3D; PolygonNum: cint; GrHandle: cint;
+proc DrawPolygon3D*(VertexArray: ptr VERTEX3D_OLD; PolygonNum: cint; GrHandle: cint;
                    TransFlag: cint): cint
 ##  ３Ｄポリゴンを描画する( 旧バージョン用 )
 
-proc DrawPolygon3D2*(VertexArray: ptr VERTEX_3D; PolygonNum: cint; GrHandle: cint;
+proc DrawPolygon3D2*(VertexArray: ptr VERTEX3D_OLD; PolygonNum: cint; GrHandle: cint;
                     TransFlag: cint): cint
 ##  ３Ｄポリゴンを描画する( 旧バージョン用 )
 
