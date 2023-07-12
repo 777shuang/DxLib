@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxHandle.cpp関数プロトタイプ宣言
 
 proc SetDeleteHandleFlag*(Handle: cint; DeleteFlag: ptr cint): cint

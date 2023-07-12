@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxMemory.cpp関数プロトタイプ宣言
 ##  メモリ確保系関数
 

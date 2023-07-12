@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxSystem.cpp関数プロトタイプ宣言
 ##  初期化終了系関数
 

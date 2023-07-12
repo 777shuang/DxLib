@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxBaseFunc.cpp 関数プロトタイプ宣言
 ##  文字コード関係
 

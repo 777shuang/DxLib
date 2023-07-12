@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxBaseImage.cpp 関数プロトタイプ宣言
 ##  基本イメージデータのロード＋ＤＩＢ関係
 

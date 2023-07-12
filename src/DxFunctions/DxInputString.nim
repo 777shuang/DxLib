@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxInputString.cpp関数プロトタイプ宣言
 ##  文字コードバッファ操作関係
 

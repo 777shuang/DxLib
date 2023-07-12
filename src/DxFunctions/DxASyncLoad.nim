@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxASyncLoad.cpp関数プロトタイプ宣言
 ##  非同期読み込み関係
 

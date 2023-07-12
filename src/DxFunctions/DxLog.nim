@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxLog.cpp関数プロトタイプ宣言
 ##  ログファイル関数
 

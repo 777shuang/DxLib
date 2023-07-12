@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxMask.cpp 関数プロトタイプ宣言
 ##  マスク関係
 

@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxFont.cpp 関数プロトタイプ宣言
 ##  フォント、文字列描画関係関数
 

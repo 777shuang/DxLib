@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxFile.cpp関数プロトタイプ宣言
 ##  ファイルアクセス関数
 

@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxInput.cpp関数プロトタイプ宣言
 ##  入力状態取得関数
 

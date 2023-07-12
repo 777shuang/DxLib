@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxModel.cpp 関数 プロトタイプ宣言
 ##  モデルの読み込み・複製関係
 

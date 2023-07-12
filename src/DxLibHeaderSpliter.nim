@@ -124,34 +124,38 @@ try:
 
     of  FUNCTION:
       # 関数前方宣言部
+
+      proc close() =
+        fileWrite.close()
+        c2nim("--cpp " & functionsWriting)
+        let
+          before = functionsWriting.splitFile.name & ".nim"
+          after = "src" / "DxFunctions" / before
+        fileRead = open(before, FileMode.fmRead)
+        fileWrite = open(after, FileMode.fmWrite)
+        
+        fileWrite.writeLine("import ../DxDll")
+        fileWrite.writeLine("{.push dynlib: DLL, importc.}")
+        fileWrite.writeLine("")
+        while not fileRead.endOfFile:
+          var buf = fileRead.readLine
+          buf = buf.replace("0xffffffff;", "0xffffffff'u32;")
+          buf = buf.replace("0xffffffffffffffff'u", "0xffffffffffffffff'i64")
+          buf = buf.replace("VERTEX_3D", "VERTEX3D_OLD")
+          fileWrite.writeLine(buf)
+        fileWrite.writeLine("")
+        fileWrite.writeLine("{.pop.}")
+
+        fileRead.close()
+        fileWrite.close()
       if line == "#define DX_FUNCTION_END":
         flag = NULL
-        fileWrite.close()
+        close()
       else:
         let m = line.match(re"(// )(Dx[A-Za-z0-9]+)(\.cpp.*)")
         if m.isSome:
           if functionsWriting != "":
-            fileWrite.close()
-            c2nim("--cpp " & functionsWriting)
-            let
-              before = functionsWriting.splitFile.name & ".nim"
-              after = "src" / "DxFunctions" / before
-            fileRead = open(before, FileMode.fmRead)
-            fileWrite = open(after, FileMode.fmWrite)
-            
-            fileWrite.writeLine("import ../DxDll")
-            fileWrite.writeLine("{.push dynlib: DLL.}")
-            while not fileRead.endOfFile:
-              var buf = fileRead.readLine
-              buf = buf.replace("0xffffffff;", "0xffffffff'u32;")
-              buf = buf.replace("0xffffffffffffffff'u", "0xffffffffffffffff'i64")
-              buf = buf.replace("VERTEX_3D", "VERTEX3D_OLD")
-              fileWrite.writeLine(buf)
-            fileWrite.writeLine("")
-            fileWrite.writeLine("{.pop.}")
-
-            fileRead.close()
-            fileWrite.close()
+            close()
 
           else:
             discard existsOrCreateDir("src" / "DxFunctions")

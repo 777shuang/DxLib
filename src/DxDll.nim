@@ -1,4 +1,5 @@
 import winim
+export winim
 import DxDefine, DxStruct
 export DxDefine, DxStruct
 

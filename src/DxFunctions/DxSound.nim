@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxSound.cpp関数プロトタイプ宣言
 ##  サウンドデータ管理系関数
 

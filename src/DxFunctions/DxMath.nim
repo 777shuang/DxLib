@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxMath.cpp 関数プロトタイプ宣言
 ##  演算ライブラリ
 

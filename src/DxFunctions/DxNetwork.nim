@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxNetwork.cpp関数プロトタイプ宣言
 ##  通信関係
 

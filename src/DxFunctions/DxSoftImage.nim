@@ -1,5 +1,6 @@
 import ../DxDll
-{.push dynlib: DLL.}
+{.push dynlib: DLL, importc.}
+
 ##  DxSoftImage.cpp関数プロトタイプ宣言
 
 proc InitSoftImage*(): cint
