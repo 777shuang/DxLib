@@ -54,7 +54,9 @@ type Flag = enum
   DEFINE = "DxDefine.h"
   STRUCT = "DxStruct.h"
   FUNCTION
-var flag: Flag = NULL
+var
+  flag: Flag = NULL
+  functionsWriting = ""
 proc changeFlag(f: Flag) =
   flag = f
   fileWrite = open($f, FileMode.fmWrite)
@@ -125,30 +127,48 @@ try:
       if line == "#define DX_FUNCTION_END":
         flag = NULL
         fileWrite.close()
-        c2nim("--cpp " & $FUNCTION)
-        const
-          before = splitFile($FUNCTION).name & ".nim"
-          after = "src" / before
-        fileRead = open(before, FileMode.fmRead)
-        fileWrite = open(after, FileMode.fmWrite)
-        for str in ["import winim", "import DxDefine", "import DxStruct", "import DxDll", "", "{.push dynlib: DLL.}"]:
-          fileWrite.writeLine(str)
-        while not fileRead.endOfFile:
-          var buf = fileRead.readLine
-          buf = buf.replace("0xffffffff;", "0xffffffff'u32;")
-          buf = buf.replace("0xffffffffffffffff'u", "0xffffffffffffffff'i64")
-          buf = buf.replace("VERTEX_3D", "VERTEX3D_OLD")
-          fileWrite.writeLine(buf)
-        fileWrite.writeLine("")
-        fileWrite.writeLine("{.pop.}")
-        fileRead.close()
-        fileWrite.close()
       else:
-        let m = line.match(re"(// Dx)([A-Za-z0-9]+)(\.cpp.*)")
+        let m = line.match(re"(// )(Dx[A-Za-z0-9]+)(\.cpp.*)")
         if m.isSome:
+          if functionsWriting != "":
+            fileWrite.close()
+            c2nim("--cpp " & functionsWriting)
+            let
+              before = functionsWriting.splitFile.name & ".nim"
+              after = "src" / "DxFunctions" / before
+            fileRead = open(before, FileMode.fmRead)
+            fileWrite = open(after, FileMode.fmWrite)
+            
+            fileWrite.writeLine("import ../DxDll")
+            fileWrite.writeLine("{.push dynlib: DLL.}")
+            while not fileRead.endOfFile:
+              var buf = fileRead.readLine
+              buf = buf.replace("0xffffffff;", "0xffffffff'u32;")
+              buf = buf.replace("0xffffffffffffffff'u", "0xffffffffffffffff'i64")
+              buf = buf.replace("VERTEX_3D", "VERTEX3D_OLD")
+              fileWrite.writeLine(buf)
+            fileWrite.writeLine("")
+            fileWrite.writeLine("{.pop.}")
+
+            fileRead.close()
+            fileWrite.close()
+
+          else:
+            discard existsOrCreateDir("src" / "DxFunctions")
+            fileWrite = open("src" / "DxFunctions.nim", FileMode.fmWrite)
+            fileWrite.writeLine("# DXライブラリ 関数定義")
+            fileWrite.close()
+
+          fileWrite = open("src" / "DxFunctions.nim", FileMode.fmAppend)
+          fileWrite.writeLine("import DxFunctions/" & $m.get.captures[1])
+          fileWrite.writeLine("export " & $m.get.captures[1])
+          fileWrite.writeLine("")
           fileWrite.close()
-          fileWrite = open("Dx" & $m.get().captures[1] & ".nim", FileMode.fmWrite)
-        if not line.strip.startsWith("#"):
+
+          functionsWriting = m.get.captures[1] & ".h"
+          fileWrite = open(functionsWriting, FileMode.fmWrite)
+
+        if functionsWriting != "" and not line.strip.startsWith("#"):
           var buf:string = line
           # DEFAULTPARAM を外す
           while buf.contains("DEFAULTPARAM"):
