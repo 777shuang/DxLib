@@ -3,7 +3,7 @@ import DxDefine
 import DxStruct
 import DxDll
 
-{.push header: DLL.}
+{.push dynlib: DLL.}
 ##  DxSystem.cpp関数プロトタイプ宣言
 ##  初期化終了系関数
 

@@ -1,4 +1,4 @@
-import os, strutils, encodings, nre
+import os, strutils, encodings, nre, options
 import puppy
 import zippy/ziparchives
 
@@ -50,10 +50,10 @@ except ZippyError:
 proc c2nim(option: string) = discard execShellCmd("c2nim " & option)
 
 type Flag = enum
-  NULL = ""
+  NULL
   DEFINE = "DxDefine.h"
   STRUCT = "DxStruct.h"
-  FUNCTION = "DxFunctions.h"
+  FUNCTION
 var flag: Flag = NULL
 proc changeFlag(f: Flag) =
   flag = f
@@ -74,7 +74,7 @@ try:
       of "#define DX_STRUCT_START":
         changeFlag(STRUCT)
       of "#define DX_FUNCTION_START":
-        changeFlag(FUNCTION)
+        flag = FUNCTION
         
     of DEFINE:
       # マクロ定義部
@@ -131,7 +131,7 @@ try:
           after = "src" / before
         fileRead = open(before, FileMode.fmRead)
         fileWrite = open(after, FileMode.fmWrite)
-        for str in ["import winim", "import DxDefine", "import DxStruct", "import DxDll", "", "{.push header: DLL.}"]:
+        for str in ["import winim", "import DxDefine", "import DxStruct", "import DxDll", "", "{.push dynlib: DLL.}"]:
           fileWrite.writeLine(str)
         while not fileRead.endOfFile:
           var buf = fileRead.readLine
@@ -144,6 +144,10 @@ try:
         fileRead.close()
         fileWrite.close()
       else:
+        let m = line.match(re"(// Dx)([A-Za-z0-9]+)(\.cpp.*)")
+        if m.isSome:
+          fileWrite.close()
+          fileWrite = open("Dx" & $m.get().captures[1] & ".nim", FileMode.fmWrite)
         if not line.strip.startsWith("#"):
           var buf:string = line
           # DEFAULTPARAM を外す
