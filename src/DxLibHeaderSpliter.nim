@@ -40,10 +40,16 @@ if not fileExists(zipFileName):
     echo getCurrentExceptionMsg()
 
 var lines: seq[string]
+var functionWin: seq[string]
 try:
+  let encodingConverter = open(srcEncoding="shiftjis", destEncoding="UTF-8")
   var reader = openZipArchive(zipFileName)
-  lines = reader.extractFile("DxLibMake/DxLib.h").convert(srcEncoding="shiftjis", destEncoding="UTF-8").split("\r\n")
+  lines = encodingConverter.convert(reader.extractFile("DxLibMake/DxLib.h")).split("\r\n")
+  functionWin = encodingConverter.convert(reader.extractFile("DxLibMake/DxFunctionWin.h")).split("\r\n")
   reader.close()
+  encodingConverter.close()
+except IOError:
+  echo getCurrentExceptionMsg()
 except ZippyError:
   echo getCurrentExceptionMsg()
 
@@ -57,9 +63,70 @@ type Flag = enum
 var
   flag: Flag = NULL
   functionsWriting = ""
-proc changeFlag(f: Flag) =
-  flag = f
-  fileWrite = open($f, FileMode.fmWrite)
+
+# DEFAULTPARAM を外す
+proc convertC(line: string): string =
+  var buf = line
+  while buf.contains("DEFAULTPARAM"):
+    buf = buf.replace(
+      re"(.*)(DEFAULTPARAM[  ]*\([  ]*=[  ]*)([^\)]*)([   ]*\))(.*)",
+      proc(match: RegexMatch): string = return $match.captures[0] & " = " & $match.captures[2] & $match.captures[4]
+    )
+  for str in ["ULL_NUM", "LL_NUM", "ULL_PARAM", "LL_PARAM"]:
+    buf = buf.replace(str, "")
+  return buf.replace("__inline", "inline")
+
+proc convertNim(line: string): string =
+  var buf = line
+  buf = buf.replace("0xffffffff;", "0xffffffff'u32;")
+  buf = buf.replace("0xffffffffffffffff'u", "0xffffffffffffffff'i64")
+  buf = buf.replace("VERTEX_3D", "VERTEX3D_OLD")
+  if buf.startsWith("proc _GetSystemInfo"):
+    buf = buf.replace("_GetSystemInfo", "GetSystemInfo")
+    buf = buf & " {.importc: \"_GetSystemInfo\".}"
+    return buf
+  return buf
+
+proc close(path: string) =
+  fileWrite.close()
+  c2nim("--cpp " & functionsWriting)
+
+  let
+    before = functionsWriting.splitFile.name & ".nim"
+    after = "src" / path / before
+  fileRead = open(before, FileMode.fmRead)
+  fileWrite = open(after, FileMode.fmWrite)       
+  fileWrite.writeLine("import ../DxDll")
+  fileWrite.writeLine("{.push dynlib: DLL, importc.}")
+  fileWrite.writeLine("")
+  while not fileRead.endOfFile:
+    fileWrite.writeLine(convertNim(fileRead.readLine))
+  fileWrite.writeLine("")
+  fileWrite.writeLine("{.pop.}")
+  fileRead.close()
+  fileWrite.close()
+
+proc functionSpliter(line, dir: string) =
+  let m = line.match(re"(// )(Dx[A-Za-z0-9]+)(\.cpp.*)")
+  if m.isSome:
+    if functionsWriting != "":
+      close(dir)
+    else:
+      discard existsOrCreateDir("src" / dir)
+      fileWrite = open("src" / dir & ".nim", FileMode.fmWrite)
+      fileWrite.close()
+
+    fileWrite = open("src" / dir & ".nim", FileMode.fmAppend)
+    fileWrite.writeLine("import " & dir & "/" & $m.get.captures[1])
+    fileWrite.writeLine("export " & $m.get.captures[1])
+    fileWrite.writeLine("")
+    fileWrite.close()
+
+    functionsWriting = m.get.captures[1] & ".h"
+    fileWrite = open(functionsWriting, FileMode.fmWrite)
+
+  if functionsWriting != "" and not line.strip.startsWith("#"):
+    fileWrite.writeLine(convertC(line))
 
 # c2nim では入力ファイルが大きすぎるとエラーが出るため、内容を分割する
 try:
@@ -68,13 +135,15 @@ try:
     of NULL:
       case line
       of "#ifndef DX_MAKE":
-        changeFlag(DEFINE)
+        flag = DEFINE
+        fileWrite = open($DEFINE, FileMode.fmWrite)
         fileWrite.writeLine("#define SEEK_SET " & SEEK_SET().intToStr)
         fileWrite.writeLine("#define SEEK_END " & SEEK_END().intToStr)
         fileWrite.writeLine("#define SEEK_CUR " & SEEK_CUR().intToStr)
         fileWrite.writeLine("#ifndef DX_MAKE")
       of "#define DX_STRUCT_START":
-        changeFlag(STRUCT)
+        flag = STRUCT
+        fileWrite = open($STRUCT, FileMode.fmWrite)
       of "#define DX_FUNCTION_START":
         flag = FUNCTION
         
@@ -116,72 +185,26 @@ try:
         fileWrite.writeLine("import winim")
         fileWrite.writeLine("import DxDefine")
         while not fileRead.endOfFile:
-          fileWrite.writeLine(fileRead.readLine.replace("VERTEX_3D", "VERTEX3D_OLD"))
+          fileWrite.writeLine(convertNim(fileRead.readLine))
         fileRead.close()
         fileWrite.close()
       else:
         fileWrite.writeLine(line)
 
     of  FUNCTION:
-      # 関数前方宣言部
-
-      proc close() =
-        fileWrite.close()
-        c2nim("--cpp " & functionsWriting)
-        let
-          before = functionsWriting.splitFile.name & ".nim"
-          after = "src" / "DxFunctions" / before
-        fileRead = open(before, FileMode.fmRead)
-        fileWrite = open(after, FileMode.fmWrite)
-        
-        fileWrite.writeLine("import ../DxDll")
-        fileWrite.writeLine("{.push dynlib: DLL, importc.}")
-        fileWrite.writeLine("")
-        while not fileRead.endOfFile:
-          var buf = fileRead.readLine
-          buf = buf.replace("0xffffffff;", "0xffffffff'u32;")
-          buf = buf.replace("0xffffffffffffffff'u", "0xffffffffffffffff'i64")
-          buf = buf.replace("VERTEX_3D", "VERTEX3D_OLD")
-          fileWrite.writeLine(buf)
-        fileWrite.writeLine("")
-        fileWrite.writeLine("{.pop.}")
-
-        fileRead.close()
-        fileWrite.close()
+      const DxFunctions = "DxFunctions"
       if line == "#define DX_FUNCTION_END":
         flag = NULL
-        close()
+        close(DxFunctions)
       else:
-        let m = line.match(re"(// )(Dx[A-Za-z0-9]+)(\.cpp.*)")
-        if m.isSome:
-          if functionsWriting != "":
-            close()
+        functionSpliter(line, DxFunctions)
 
-          else:
-            discard existsOrCreateDir("src" / "DxFunctions")
-            fileWrite = open("src" / "DxFunctions.nim", FileMode.fmWrite)
-            fileWrite.writeLine("# DXライブラリ 関数定義")
-            fileWrite.close()
-
-          fileWrite = open("src" / "DxFunctions.nim", FileMode.fmAppend)
-          fileWrite.writeLine("import DxFunctions/" & $m.get.captures[1])
-          fileWrite.writeLine("export " & $m.get.captures[1])
-          fileWrite.writeLine("")
-          fileWrite.close()
-
-          functionsWriting = m.get.captures[1] & ".h"
-          fileWrite = open(functionsWriting, FileMode.fmWrite)
-
-        if functionsWriting != "" and not line.strip.startsWith("#"):
-          var buf:string = line
-          # DEFAULTPARAM を外す
-          while buf.contains("DEFAULTPARAM"):
-            buf = buf.replace(
-              re"(.*)(DEFAULTPARAM[  ]*\([  ]*=[  ]*)([^\)]*)([   ]*\))(.*)",
-              proc(match: RegexMatch): string = return $match.captures[0] & " = " & $match.captures[2] & $match.captures[4]
-            )
-          for str in ["ULL_NUM", "LL_NUM", "ULL_PARAM", "LL_PARAM"]:
-            buf = buf.replace(str, "")
-          fileWrite.writeLine(buf.replace("__inline", "inline"))
+  const DxFunctionWin = "DxFunctionWin"
+  functionsWriting = ""
+  for line in functionWin:
+    if line == "#define DX_FUNCTION_END":
+      close(DxFunctionWin)
+      break
+    functionSpliter(line, DxFunctionWin)
 except IOError:
   echo getCurrentExceptionMsg()

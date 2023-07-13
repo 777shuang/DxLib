@@ -1,4 +1,3 @@
-# DXライブラリ 関数定義
 import DxFunctions/DxSystem
 export DxSystem
 
