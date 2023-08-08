@@ -16,6 +16,7 @@ var fileRead, fileWrite : File
 const NimblePkgVersion {.strdefine.} = "0.0.0"
 const DxLibVersion = NimblePkgVersion.split(".")
 # DX ライブラリのバージョン表記は [数字1桁].[数字2桁][アルファベット小文字1文字(ないこともある)] である
+# バインディングのバージョン表記は[数字1桁].[数字2桁].[数字1桁(0:何もなし,1:a,2:b,3:c...)].[バインディング内部のバージョン]
 when DxLibVersion[2] != "0":
   const ch = $char(int('a') + DxLibVersion[2].parseInt - 1)
 else:
