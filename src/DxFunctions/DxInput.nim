@@ -1002,7 +1002,7 @@ proc DrawPixel*(x: cint; y: cint; Color: cuint): cint
 ##  点を描画する
 
 proc Paint*(x: cint; y: cint; FillColor: cuint;
-           BoundaryColor: ULONGLONG = (0xffffffffffffffff'i64)): cint
+           BoundaryColor: ULONGLONG = (-1'i64)): cint
 ##  指定点から境界色があるところまで塗りつぶす(境界色を -1 にすると指定点の色の領域を塗りつぶす)
 
 proc DrawPixelSet*(PointDataArray: ptr POINTDATA; Num: cint): cint
@@ -1962,7 +1962,7 @@ proc SetFullScreenScalingMode*(ScalingMode: cint; ##  DX_FSSCALINGMODE_NEAREST �
                               FitScaling: cint = FALSE): cint
 ##  フルスクリーンモード時の画面拡大モードを設定する
 
-proc SetEmulation320x240*(Flag: cint): cint
+proc SetEmulation32576*(Flag: cint): cint
 ##  ６４０ｘ４８０の画面で３２０ｘ２４０の画面解像度にするかどうかを設定する、６４０ｘ４８０以外の解像度では無効( TRUE:有効  FALSE:無効 )
 
 proc SetZBufferSize*(ZBufferSizeX: cint; ZBufferSizeY: cint): cint

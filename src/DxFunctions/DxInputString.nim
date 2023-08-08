@@ -145,13 +145,13 @@ proc SetKeyInputStringColor*(NmlStr: ULONGLONG; NmlCur: ULONGLONG;
                             IMEModeStr: ULONGLONG; NmlStrE: ULONGLONG = 0;
                             IMESelectStrE: ULONGLONG = 0;
                             IMEModeStrE: ULONGLONG = 0;
-                            IMESelectWinE: ULONGLONG = (0xffffffffffffffff'i64);
-                            IMESelectWinF: ULONGLONG = (0xffffffffffffffff'i64);
-    SelectStrBackColor: ULONGLONG = (0xffffffffffffffff'i64);
-                            SelectStrColor: ULONGLONG = (0xffffffffffffffff'i64);
-    SelectStrEdgeColor: ULONGLONG = (0xffffffffffffffff'i64);
-                            IMEStr: ULONGLONG = (0xffffffffffffffff'i64);
-                            IMEStrE: ULONGLONG = (0xffffffffffffffff'i64)): cint
+                            IMESelectWinE: ULONGLONG = (-1'i64);
+                            IMESelectWinF: ULONGLONG = (-1'i64);
+    SelectStrBackColor: ULONGLONG = (-1'i64);
+                            SelectStrColor: ULONGLONG = (-1'i64);
+    SelectStrEdgeColor: ULONGLONG = (-1'i64);
+                            IMEStr: ULONGLONG = (-1'i64);
+                            IMEStrE: ULONGLONG = (-1'i64)): cint
 ##  ( SetKeyInputStringColor2 の旧関数 )InputString関数使用時の文字の各色を変更する
 
 proc SetKeyInputStringColor2*(TargetColor: cint; ##  DX_KEYINPSTRCOLOR_NORMAL_STR 等

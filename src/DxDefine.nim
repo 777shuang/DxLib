@@ -19,10 +19,10 @@ type
   DX_CHAR* = char
 
 const
-  MAX_IMAGE_NUM* = (0x40000)    ##  同時に持てるグラフィックハンドルの最大数( ハンドルエラーチェックのマスクに使用しているので 0x40000 以下の 2 のべき乗にして下さい )
+  MAX_IMAGE_NUM* = (262144)    ##  同時に持てるグラフィックハンドルの最大数( ハンドルエラーチェックのマスクに使用しているので 262144 以下の 2 のべき乗にして下さい )
   MAX_IMAGE_DIVNUM* = (64)      ##  画像分割の最大数
   MAX_SHADOWMAP_NUM* = (8192)   ##  シャドウマップデータの最大数
-  MAX_SOFTIMAGE_NUM* = (8192)   ##  同時に持てるソフトイメージハンドルの最大数( ハンドルエラーチェックのマスクに使用しているので 0x40000 以下の 2 のべき乗にして下さい )
+  MAX_SOFTIMAGE_NUM* = (8192)   ##  同時に持てるソフトイメージハンドルの最大数( ハンドルエラーチェックのマスクに使用しているので 262144 以下の 2 のべき乗にして下さい )
   MAX_SOUND_NUM* = (32768)      ##  同時に持てるサウンドハンドルの最大数
   MAX_SOFTSOUND_NUM* = (8192)   ##  同時に持てるソフトウエアサウンドハンドルの最大数
   MAX_MUSIC_NUM* = (256)        ##  同時に持てるミュージックハンドルの最大数
@@ -84,36 +84,36 @@ const
 ##  ＷＩＮＤＯＷＳのバージョンマクロ
 
 const
-  DX_WINDOWSVERSION_31* = (0x000)
-  DX_WINDOWSVERSION_95* = (0x001)
-  DX_WINDOWSVERSION_98* = (0x002)
-  DX_WINDOWSVERSION_ME* = (0x003)
-  DX_WINDOWSVERSION_NT31* = (0x104)
-  DX_WINDOWSVERSION_NT40* = (0x105)
-  DX_WINDOWSVERSION_2000* = (0x106)
-  DX_WINDOWSVERSION_XP* = (0x107)
-  DX_WINDOWSVERSION_VISTA* = (0x108)
-  DX_WINDOWSVERSION_7* = (0x109)
-  DX_WINDOWSVERSION_8* = (0x10A)
-  DX_WINDOWSVERSION_8_1* = (0x10B)
-  DX_WINDOWSVERSION_10* = (0x10C)
-  DX_WINDOWSVERSION_11* = (0x10D)
-  DX_WINDOWSVERSION_NT_TYPE* = (0x100)
+  DX_WINDOWSVERSION_31* = (0)
+  DX_WINDOWSVERSION_95* = (1)
+  DX_WINDOWSVERSION_98* = (2)
+  DX_WINDOWSVERSION_ME* = (3)
+  DX_WINDOWSVERSION_NT31* = (260)
+  DX_WINDOWSVERSION_NT40* = (261)
+  DX_WINDOWSVERSION_2000* = (262)
+  DX_WINDOWSVERSION_XP* = (263)
+  DX_WINDOWSVERSION_VISTA* = (264)
+  DX_WINDOWSVERSION_7* = (265)
+  DX_WINDOWSVERSION_8* = (266)
+  DX_WINDOWSVERSION_8_1* = (267)
+  DX_WINDOWSVERSION_10* = (268)
+  DX_WINDOWSVERSION_11* = (269)
+  DX_WINDOWSVERSION_NT_TYPE* = (256)
 
 ##  DirectXのバージョン
 
 const
   DX_DIRECTXVERSION_NON* = (0)
-  DX_DIRECTXVERSION_1* = (0x10000)
-  DX_DIRECTXVERSION_2* = (0x20000)
-  DX_DIRECTXVERSION_3* = (0x30000)
-  DX_DIRECTXVERSION_4* = (0x40000)
-  DX_DIRECTXVERSION_5* = (0x50000)
-  DX_DIRECTXVERSION_6* = (0x60000)
-  DX_DIRECTXVERSION_6_1* = (0x60100)
-  DX_DIRECTXVERSION_7* = (0x70000)
-  DX_DIRECTXVERSION_8* = (0x80000)
-  DX_DIRECTXVERSION_8_1* = (0x80100)
+  DX_DIRECTXVERSION_1* = (65536)
+  DX_DIRECTXVERSION_2* = (131072)
+  DX_DIRECTXVERSION_3* = (196608)
+  DX_DIRECTXVERSION_4* = (262144)
+  DX_DIRECTXVERSION_5* = (327680)
+  DX_DIRECTXVERSION_6* = (393216)
+  DX_DIRECTXVERSION_6_1* = (393472)
+  DX_DIRECTXVERSION_7* = (458752)
+  DX_DIRECTXVERSION_8* = (524288)
+  DX_DIRECTXVERSION_8_1* = (524544)
 
 ##  Direct3Dのバージョン
 
@@ -126,13 +126,13 @@ const
 ##  Direct3D11 の Feature Level
 
 const
-  DX_DIRECT3D_11_FEATURE_LEVEL_9_1* = (0x9100)
-  DX_DIRECT3D_11_FEATURE_LEVEL_9_2* = (0x9200)
-  DX_DIRECT3D_11_FEATURE_LEVEL_9_3* = (0x9300)
-  DX_DIRECT3D_11_FEATURE_LEVEL_10_0* = (0xa000)
-  DX_DIRECT3D_11_FEATURE_LEVEL_10_1* = (0xa100)
-  DX_DIRECT3D_11_FEATURE_LEVEL_11_0* = (0xb000)
-  DX_DIRECT3D_11_FEATURE_LEVEL_11_1* = (0xb100)
+  DX_DIRECT3D_11_FEATURE_LEVEL_9_1* = (37120)
+  DX_DIRECT3D_11_FEATURE_LEVEL_9_2* = (37376)
+  DX_DIRECT3D_11_FEATURE_LEVEL_9_3* = (37632)
+  DX_DIRECT3D_11_FEATURE_LEVEL_10_0* = (40960)
+  DX_DIRECT3D_11_FEATURE_LEVEL_10_1* = (41216)
+  DX_DIRECT3D_11_FEATURE_LEVEL_11_0* = (45056)
+  DX_DIRECT3D_11_FEATURE_LEVEL_11_1* = (45312)
 
 ##  文字セット
 
@@ -184,16 +184,16 @@ const
 ##  フォントのタイプ
 
 const
-  DX_FONTTYPE_NORMAL* = (0x00)  ##  ノーマルフォント
-  DX_FONTTYPE_EDGE* = (0x01)    ##  エッジつきフォント
-  DX_FONTTYPE_ANTIALIASING* = (0x02) ##  アンチエイリアスフォント( 標準機能アンチエイリアス )
-  DX_FONTTYPE_ANTIALIASING_4X4* = (0x12) ##  アンチエイリアスフォント( 4x4サンプリング )
-  DX_FONTTYPE_ANTIALIASING_8X8* = (0x22) ##  アンチエイリアスフォント( 8x8サンプリング )
-  DX_FONTTYPE_ANTIALIASING_16X16* = (0x32) ##  アンチエイリアスフォント( 16x16サンプリング )
-  DX_FONTTYPE_ANTIALIASING_EDGE* = (0x03) ##  アンチエイリアス＆エッジ付きフォント( 標準機能アンチエイリアス )
-  DX_FONTTYPE_ANTIALIASING_EDGE_4X4* = (0x13) ##  アンチエイリアス＆エッジ付きフォント( 4x4サンプリング )
-  DX_FONTTYPE_ANTIALIASING_EDGE_8X8* = (0x23) ##  アンチエイリアス＆エッジ付きフォント( 8x8サンプリング )
-  DX_FONTTYPE_ANTIALIASING_EDGE_16X16* = (0x33) ##  アンチエイリアス＆エッジ付きフォント( 16x16サンプリング )
+  DX_FONTTYPE_NORMAL* = (0)  ##  ノーマルフォント
+  DX_FONTTYPE_EDGE* = (1)    ##  エッジつきフォント
+  DX_FONTTYPE_ANTIALIASING* = (2) ##  アンチエイリアスフォント( 標準機能アンチエイリアス )
+  DX_FONTTYPE_ANTIALIASING_4X4* = (18) ##  アンチエイリアスフォント( 4x4サンプリング )
+  DX_FONTTYPE_ANTIALIASING_8X8* = (34) ##  アンチエイリアスフォント( 8x8サンプリング )
+  DX_FONTTYPE_ANTIALIASING_16X16* = (50) ##  アンチエイリアスフォント( 16x16サンプリング )
+  DX_FONTTYPE_ANTIALIASING_EDGE* = (3) ##  アンチエイリアス＆エッジ付きフォント( 標準機能アンチエイリアス )
+  DX_FONTTYPE_ANTIALIASING_EDGE_4X4* = (19) ##  アンチエイリアス＆エッジ付きフォント( 4x4サンプリング )
+  DX_FONTTYPE_ANTIALIASING_EDGE_8X8* = (35) ##  アンチエイリアス＆エッジ付きフォント( 8x8サンプリング )
+  DX_FONTTYPE_ANTIALIASING_EDGE_16X16* = (51) ##  アンチエイリアス＆エッジ付きフォント( 16x16サンプリング )
 
 ##  フォント画像の階調ビット数
 
@@ -400,12 +400,12 @@ const
 ##  クリッピング方向
 
 const
-  DX_CAMERACLIP_LEFT* = (0x01)  ##  画面左方向にクリップ
-  DX_CAMERACLIP_RIGHT* = (0x02) ##  画面右方向にクリップ
-  DX_CAMERACLIP_BOTTOM* = (0x04) ##  画面下方向にクリップ
-  DX_CAMERACLIP_TOP* = (0x08)   ##  画面上方向にクリップ
-  DX_CAMERACLIP_BACK* = (0x10)  ##  画面後方向にクリップ
-  DX_CAMERACLIP_FRONT* = (0x20) ##  画面前方向にクリップ
+  DX_CAMERACLIP_LEFT* = (1)  ##  画面左方向にクリップ
+  DX_CAMERACLIP_RIGHT* = (2) ##  画面右方向にクリップ
+  DX_CAMERACLIP_BOTTOM* = (4) ##  画面下方向にクリップ
+  DX_CAMERACLIP_TOP* = (8)   ##  画面上方向にクリップ
+  DX_CAMERACLIP_BACK* = (16)  ##  画面後方向にクリップ
+  DX_CAMERACLIP_FRONT* = (32) ##  画面前方向にクリップ
 
 ##  MV1モデルの描画モード
 
@@ -443,8 +443,8 @@ const
 ##  MV1ファイルの保存タイプ
 
 const
-  MV1_SAVETYPE_MESH* = (0x0001) ##  メッシュ情報のみ保存
-  MV1_SAVETYPE_ANIM* = (0x0002) ##  アニメーション情報のみ保存
+  MV1_SAVETYPE_MESH* = (1) ##  メッシュ情報のみ保存
+  MV1_SAVETYPE_ANIM* = (2) ##  アニメーション情報のみ保存
   MV1_SAVETYPE_NORMAL* = (MV1_SAVETYPE_MESH or MV1_SAVETYPE_ANIM) ##  通常保存
 
 ##  アニメーションキーデータタイプ
@@ -488,12 +488,12 @@ const
 ##  描画先画面指定用定義
 
 const
-  DX_SCREEN_FRONT* = (0xfffffffc)
-  DX_SCREEN_BACK* = (0xfffffffe)
-  DX_SCREEN_WORK* = (0xfffffffd)
-  DX_SCREEN_TEMPFRONT* = (0xfffffff0)
-  DX_SCREEN_OTHER* = (0xfffffffa)
-  DX_NONE_GRAPH* = (0xfffffffb) ##  グラフィックなしハンドル
+  DX_SCREEN_FRONT* = (-4)
+  DX_SCREEN_BACK* = (-2)
+  DX_SCREEN_WORK* = (-3)
+  DX_SCREEN_TEMPFRONT* = (-16)
+  DX_SCREEN_OTHER* = (-6)
+  DX_NONE_GRAPH* = (-5) ##  グラフィックなしハンドル
 
 ##  グラフィック減色時の画像劣化緩和処理モード
 
@@ -513,8 +513,8 @@ const
 ##  サウンド再生形態指定用定義
 
 const
-  DX_PLAYTYPE_LOOPBIT* = (0x0002) ##  ループ再生ビット
-  DX_PLAYTYPE_BACKBIT* = (0x0001) ##  バックグラウンド再生ビット
+  DX_PLAYTYPE_LOOPBIT* = (2) ##  ループ再生ビット
+  DX_PLAYTYPE_BACKBIT* = (1) ##  バックグラウンド再生ビット
   DX_PLAYTYPE_NORMAL* = (0)     ##  ノーマル再生
   DX_PLAYTYPE_BACK* = (DX_PLAYTYPE_BACKBIT) ##  バックグラウンド再生
   DX_PLAYTYPE_LOOP* = (DX_PLAYTYPE_LOOPBIT or DX_PLAYTYPE_BACKBIT) ##  ループ再生
@@ -888,7 +888,7 @@ const
 ##  親メニューのＩＤ
 
 const
-  MENUITEM_IDTOP* = (0xabababab)
+  MENUITEM_IDTOP* = (-1414812757)
 
 ##  メニューに追加する際のタイプ
 
@@ -914,33 +914,33 @@ const
 ##  CheckHitKeyAll で調べる入力タイプ
 
 const
-  DX_CHECKINPUT_KEY* = (0x0001) ##  キー入力を調べる
-  DX_CHECKINPUT_PAD* = (0x0002) ##  パッド入力を調べる
-  DX_CHECKINPUT_MOUSE* = (0x0004) ##  マウスボタン入力を調べる
+  DX_CHECKINPUT_KEY* = (1) ##  キー入力を調べる
+  DX_CHECKINPUT_PAD* = (2) ##  パッド入力を調べる
+  DX_CHECKINPUT_MOUSE* = (4) ##  マウスボタン入力を調べる
   DX_CHECKINPUT_ALL* = (
     DX_CHECKINPUT_KEY or DX_CHECKINPUT_PAD or DX_CHECKINPUT_MOUSE) ##  すべての入力を調べる
 
 ##  パッド入力取得パラメータ
 
 const
-  DX_INPUT_KEY_PAD1* = (0x1001) ##  キー入力とパッド１入力
-  DX_INPUT_PAD1* = (0x0001)     ##  パッド１入力
-  DX_INPUT_PAD2* = (0x0002)     ##  パッド２入力
-  DX_INPUT_PAD3* = (0x0003)     ##  パッド３入力
-  DX_INPUT_PAD4* = (0x0004)     ##  パッド４入力
-  DX_INPUT_PAD5* = (0x0005)     ##  パッド５入力
-  DX_INPUT_PAD6* = (0x0006)     ##  パッド６入力
-  DX_INPUT_PAD7* = (0x0007)     ##  パッド７入力
-  DX_INPUT_PAD8* = (0x0008)     ##  パッド８入力
-  DX_INPUT_PAD9* = (0x0009)     ##  パッド９入力
-  DX_INPUT_PAD10* = (0x000a)    ##  パッド１０入力
-  DX_INPUT_PAD11* = (0x000b)    ##  パッド１１入力
-  DX_INPUT_PAD12* = (0x000c)    ##  パッド１２入力
-  DX_INPUT_PAD13* = (0x000d)    ##  パッド１３入力
-  DX_INPUT_PAD14* = (0x000e)    ##  パッド１４入力
-  DX_INPUT_PAD15* = (0x000f)    ##  パッド１５入力
-  DX_INPUT_PAD16* = (0x0010)    ##  パッド１６入力
-  DX_INPUT_KEY* = (0x1000)      ##  キー入力
+  DX_INPUT_KEY_PAD1* = (4097) ##  キー入力とパッド１入力
+  DX_INPUT_PAD1* = (1)     ##  パッド１入力
+  DX_INPUT_PAD2* = (2)     ##  パッド２入力
+  DX_INPUT_PAD3* = (3)     ##  パッド３入力
+  DX_INPUT_PAD4* = (4)     ##  パッド４入力
+  DX_INPUT_PAD5* = (5)     ##  パッド５入力
+  DX_INPUT_PAD6* = (6)     ##  パッド６入力
+  DX_INPUT_PAD7* = (7)     ##  パッド７入力
+  DX_INPUT_PAD8* = (8)     ##  パッド８入力
+  DX_INPUT_PAD9* = (9)     ##  パッド９入力
+  DX_INPUT_PAD10* = (10)    ##  パッド１０入力
+  DX_INPUT_PAD11* = (11)    ##  パッド１１入力
+  DX_INPUT_PAD12* = (12)    ##  パッド１２入力
+  DX_INPUT_PAD13* = (13)    ##  パッド１３入力
+  DX_INPUT_PAD14* = (14)    ##  パッド１４入力
+  DX_INPUT_PAD15* = (15)    ##  パッド１５入力
+  DX_INPUT_PAD16* = (16)    ##  パッド１６入力
+  DX_INPUT_KEY* = (4096)      ##  キー入力
 
 ##  ゲームコントローラータイプ
 
@@ -965,66 +965,66 @@ const
 ##  パッド入力定義
 
 const
-  PAD_INPUT_DOWN* = (0x00000001) ##  ↓チェックマスク
-  PAD_INPUT_LEFT* = (0x00000002) ##  ←チェックマスク
-  PAD_INPUT_RIGHT* = (0x00000004) ##  →チェックマスク
-  PAD_INPUT_UP* = (0x00000008)  ##  ↑チェックマスク
-  PAD_INPUT_A* = (0x00000010)   ##  Ａボタンチェックマスク
-  PAD_INPUT_B* = (0x00000020)   ##  Ｂボタンチェックマスク
-  PAD_INPUT_C* = (0x00000040)   ##  Ｃボタンチェックマスク
-  PAD_INPUT_X* = (0x00000080)   ##  Ｘボタンチェックマスク
-  PAD_INPUT_Y* = (0x00000100)   ##  Ｙボタンチェックマスク
-  PAD_INPUT_Z* = (0x00000200)   ##  Ｚボタンチェックマスク
-  PAD_INPUT_L* = (0x00000400)   ##  Ｌボタンチェックマスク
-  PAD_INPUT_R* = (0x00000800)   ##  Ｒボタンチェックマスク
-  PAD_INPUT_START* = (0x00001000) ##  ＳＴＡＲＴボタンチェックマスク
-  PAD_INPUT_M* = (0x00002000)   ##  Ｍボタンチェックマスク
-  PAD_INPUT_D* = (0x00004000)
-  PAD_INPUT_F* = (0x00008000)
-  PAD_INPUT_G* = (0x00010000)
-  PAD_INPUT_H* = (0x00020000)
-  PAD_INPUT_I* = (0x00040000)
-  PAD_INPUT_J* = (0x00080000)
-  PAD_INPUT_K* = (0x00100000)
-  PAD_INPUT_LL* = (0x00200000)
-  PAD_INPUT_N* = (0x00400000)
-  PAD_INPUT_O* = (0x00800000)
-  PAD_INPUT_P* = (0x01000000)
-  PAD_INPUT_RR* = (0x02000000)
-  PAD_INPUT_S* = (0x04000000)
-  PAD_INPUT_T* = (0x08000000)
-  PAD_INPUT_U* = (0x10000000)
-  PAD_INPUT_V* = (0x20000000)
-  PAD_INPUT_W* = (0x40000000)
-  PAD_INPUT_XX* = (0x80000000)
-  PAD_INPUT_1* = (0x00000010)
-  PAD_INPUT_2* = (0x00000020)
-  PAD_INPUT_3* = (0x00000040)
-  PAD_INPUT_4* = (0x00000080)
-  PAD_INPUT_5* = (0x00000100)
-  PAD_INPUT_6* = (0x00000200)
-  PAD_INPUT_7* = (0x00000400)
-  PAD_INPUT_8* = (0x00000800)
-  PAD_INPUT_9* = (0x00001000)
-  PAD_INPUT_10* = (0x00002000)
-  PAD_INPUT_11* = (0x00004000)
-  PAD_INPUT_12* = (0x00008000)
-  PAD_INPUT_13* = (0x00010000)
-  PAD_INPUT_14* = (0x00020000)
-  PAD_INPUT_15* = (0x00040000)
-  PAD_INPUT_16* = (0x00080000)
-  PAD_INPUT_17* = (0x00100000)
-  PAD_INPUT_18* = (0x00200000)
-  PAD_INPUT_19* = (0x00400000)
-  PAD_INPUT_20* = (0x00800000)
-  PAD_INPUT_21* = (0x01000000)
-  PAD_INPUT_22* = (0x02000000)
-  PAD_INPUT_23* = (0x04000000)
-  PAD_INPUT_24* = (0x08000000)
-  PAD_INPUT_25* = (0x10000000)
-  PAD_INPUT_26* = (0x20000000)
-  PAD_INPUT_27* = (0x40000000)
-  PAD_INPUT_28* = (0x80000000)
+  PAD_INPUT_DOWN* = (1) ##  ↓チェックマスク
+  PAD_INPUT_LEFT* = (2) ##  ←チェックマスク
+  PAD_INPUT_RIGHT* = (4) ##  →チェックマスク
+  PAD_INPUT_UP* = (8)  ##  ↑チェックマスク
+  PAD_INPUT_A* = (16)   ##  Ａボタンチェックマスク
+  PAD_INPUT_B* = (32)   ##  Ｂボタンチェックマスク
+  PAD_INPUT_C* = (64)   ##  Ｃボタンチェックマスク
+  PAD_INPUT_X* = (128)   ##  Ｘボタンチェックマスク
+  PAD_INPUT_Y* = (256)   ##  Ｙボタンチェックマスク
+  PAD_INPUT_Z* = (512)   ##  Ｚボタンチェックマスク
+  PAD_INPUT_L* = (1024)   ##  Ｌボタンチェックマスク
+  PAD_INPUT_R* = (2048)   ##  Ｒボタンチェックマスク
+  PAD_INPUT_START* = (4096) ##  ＳＴＡＲＴボタンチェックマスク
+  PAD_INPUT_M* = (8192)   ##  Ｍボタンチェックマスク
+  PAD_INPUT_D* = (16384)
+  PAD_INPUT_F* = (32768)
+  PAD_INPUT_G* = (65536)
+  PAD_INPUT_H* = (131072)
+  PAD_INPUT_I* = (262144)
+  PAD_INPUT_J* = (524288)
+  PAD_INPUT_K* = (1048576)
+  PAD_INPUT_LL* = (2097152)
+  PAD_INPUT_N* = (4194304)
+  PAD_INPUT_O* = (8388608)
+  PAD_INPUT_P* = (16777216)
+  PAD_INPUT_RR* = (33554432)
+  PAD_INPUT_S* = (67108864)
+  PAD_INPUT_T* = (134217728)
+  PAD_INPUT_U* = (268435456)
+  PAD_INPUT_V* = (536870912)
+  PAD_INPUT_W* = (1073741824)
+  PAD_INPUT_XX* = (-2147483648)
+  PAD_INPUT_1* = (16)
+  PAD_INPUT_2* = (32)
+  PAD_INPUT_3* = (64)
+  PAD_INPUT_4* = (128)
+  PAD_INPUT_5* = (256)
+  PAD_INPUT_6* = (512)
+  PAD_INPUT_7* = (1024)
+  PAD_INPUT_8* = (2048)
+  PAD_INPUT_9* = (4096)
+  PAD_INPUT_10* = (8192)
+  PAD_INPUT_11* = (16384)
+  PAD_INPUT_12* = (32768)
+  PAD_INPUT_13* = (65536)
+  PAD_INPUT_14* = (131072)
+  PAD_INPUT_15* = (262144)
+  PAD_INPUT_16* = (524288)
+  PAD_INPUT_17* = (1048576)
+  PAD_INPUT_18* = (2097152)
+  PAD_INPUT_19* = (4194304)
+  PAD_INPUT_20* = (8388608)
+  PAD_INPUT_21* = (16777216)
+  PAD_INPUT_22* = (33554432)
+  PAD_INPUT_23* = (67108864)
+  PAD_INPUT_24* = (134217728)
+  PAD_INPUT_25* = (268435456)
+  PAD_INPUT_26* = (536870912)
+  PAD_INPUT_27* = (1073741824)
+  PAD_INPUT_28* = (-2147483648)
 
 ##  XInputボタン入力定義
 
@@ -1047,17 +1047,17 @@ const
 ##  マウス入力定義
 
 const
-  MOUSE_INPUT_LEFT* = (0x0001)  ##  マウス左ボタン
-  MOUSE_INPUT_RIGHT* = (0x0002) ##  マウス右ボタン
-  MOUSE_INPUT_MIDDLE* = (0x0004) ##  マウス中央ボタン
-  MOUSE_INPUT_1* = (0x0001)     ##  マウス１ボタン
-  MOUSE_INPUT_2* = (0x0002)     ##  マウス２ボタン
-  MOUSE_INPUT_3* = (0x0004)     ##  マウス３ボタン
-  MOUSE_INPUT_4* = (0x0008)     ##  マウス４ボタン
-  MOUSE_INPUT_5* = (0x0010)     ##  マウス５ボタン
-  MOUSE_INPUT_6* = (0x0020)     ##  マウス６ボタン
-  MOUSE_INPUT_7* = (0x0040)     ##  マウス７ボタン
-  MOUSE_INPUT_8* = (0x0080)     ##  マウス８ボタン
+  MOUSE_INPUT_LEFT* = (1)  ##  マウス左ボタン
+  MOUSE_INPUT_RIGHT* = (2) ##  マウス右ボタン
+  MOUSE_INPUT_MIDDLE* = (4) ##  マウス中央ボタン
+  MOUSE_INPUT_1* = (1)     ##  マウス１ボタン
+  MOUSE_INPUT_2* = (2)     ##  マウス２ボタン
+  MOUSE_INPUT_3* = (4)     ##  マウス３ボタン
+  MOUSE_INPUT_4* = (8)     ##  マウス４ボタン
+  MOUSE_INPUT_5* = (16)     ##  マウス５ボタン
+  MOUSE_INPUT_6* = (32)     ##  マウス６ボタン
+  MOUSE_INPUT_7* = (64)     ##  マウス７ボタン
+  MOUSE_INPUT_8* = (128)     ##  マウス８ボタン
 
 ##  マウスのログ情報タイプ
 
@@ -1068,137 +1068,137 @@ const
 ##  キー定義
 
 const
-  KEY_INPUT_BACK* = (0x0E)      ##  BackSpaceキー	D_DIK_BACK
-  KEY_INPUT_TAB* = (0x0F)       ##  Tabキー			D_DIK_TAB
-  KEY_INPUT_RETURN* = (0x1C)    ##  Enterキー		D_DIK_RETURN
-  KEY_INPUT_LSHIFT* = (0x2A)    ##  左Shiftキー		D_DIK_LSHIFT
-  KEY_INPUT_RSHIFT* = (0x36)    ##  右Shiftキー		D_DIK_RSHIFT
-  KEY_INPUT_LCONTROL* = (0x1D)  ##  左Ctrlキー		D_DIK_LCONTROL
-  KEY_INPUT_RCONTROL* = (0x9D)  ##  右Ctrlキー		D_DIK_RCONTROL
-  KEY_INPUT_ESCAPE* = (0x01)    ##  Escキー			D_DIK_ESCAPE
-  KEY_INPUT_SPACE* = (0x39)     ##  スペースキー		D_DIK_SPACE
-  KEY_INPUT_PGUP* = (0xC9)      ##  PageUpキー		D_DIK_PGUP
-  KEY_INPUT_PGDN* = (0xD1)      ##  PageDownキー		D_DIK_PGDN
-  KEY_INPUT_END* = (0xCF)       ##  Endキー			D_DIK_END
-  KEY_INPUT_HOME* = (0xC7)      ##  Homeキー			D_DIK_HOME
-  KEY_INPUT_LEFT* = (0xCB)      ##  左キー			D_DIK_LEFT
-  KEY_INPUT_UP* = (0xC8)        ##  上キー			D_DIK_UP
-  KEY_INPUT_RIGHT* = (0xCD)     ##  右キー			D_DIK_RIGHT
-  KEY_INPUT_DOWN* = (0xD0)      ##  下キー			D_DIK_DOWN
-  KEY_INPUT_INSERT* = (0xD2)    ##  Insertキー		D_DIK_INSERT
-  KEY_INPUT_DELETE* = (0xD3)    ##  Deleteキー		D_DIK_DELETE
-  KEY_INPUT_MINUS* = (0x0C)     ##  －キー			D_DIK_MINUS
-  KEY_INPUT_YEN* = (0x7D)       ##  ￥キー			D_DIK_YEN
-  KEY_INPUT_PREVTRACK* = (0x90) ##  ＾キー			D_DIK_PREVTRACK
-  KEY_INPUT_PERIOD* = (0x34)    ##  ．キー			D_DIK_PERIOD
-  KEY_INPUT_SLASH* = (0x35)     ##  ／キー			D_DIK_SLASH
-  KEY_INPUT_LALT* = (0x38)      ##  左Altキー		D_DIK_LALT
-  KEY_INPUT_RALT* = (0xB8)      ##  右Altキー		D_DIK_RALT
-  KEY_INPUT_SCROLL* = (0x46)    ##  ScrollLockキー	D_DIK_SCROLL
-  KEY_INPUT_SEMICOLON* = (0x27) ##  ；キー			D_DIK_SEMICOLON
-  KEY_INPUT_COLON* = (0x92)     ##  ：キー			D_DIK_COLON
-  KEY_INPUT_LBRACKET* = (0x1A)  ##  ［キー			D_DIK_LBRACKET
-  KEY_INPUT_RBRACKET* = (0x1B)  ##  ］キー			D_DIK_RBRACKET
-  KEY_INPUT_AT* = (0x91)        ##  ＠キー			D_DIK_AT
-  KEY_INPUT_BACKSLASH* = (0x2B) ##  ＼キー			D_DIK_BACKSLASH
-  KEY_INPUT_COMMA* = (0x33)     ##  ，キー			D_DIK_COMMA
-  KEY_INPUT_KANJI* = (0x94)     ##  漢字キー			D_DIK_KANJI
-  KEY_INPUT_CONVERT* = (0x79)   ##  変換キー			D_DIK_CONVERT
-  KEY_INPUT_NOCONVERT* = (0x7B) ##  無変換キー		D_DIK_NOCONVERT
-  KEY_INPUT_KANA* = (0x70)      ##  カナキー			D_DIK_KANA
-  KEY_INPUT_APPS* = (0xDD)      ##  アプリケーションメニューキー		D_DIK_APPS
-  KEY_INPUT_CAPSLOCK* = (0x3A)  ##  CaspLockキー		D_DIK_CAPSLOCK
-  KEY_INPUT_SYSRQ* = (0xB7)     ##  PrintScreenキー	D_DIK_SYSRQ
-  KEY_INPUT_PAUSE* = (0xC5)     ##  PauseBreakキー	D_DIK_PAUSE
-  KEY_INPUT_LWIN* = (0xDB)      ##  左Winキー		D_DIK_LWIN
-  KEY_INPUT_RWIN* = (0xDC)      ##  右Winキー		D_DIK_RWIN
-  KEY_INPUT_NUMLOCK* = (0x45)   ##  テンキーNumLockキー		D_DIK_NUMLOCK
-  KEY_INPUT_NUMPAD0* = (0x52)   ##  テンキー０				D_DIK_NUMPAD0
-  KEY_INPUT_NUMPAD1* = (0x4F)   ##  テンキー１				D_DIK_NUMPAD1
-  KEY_INPUT_NUMPAD2* = (0x50)   ##  テンキー２				D_DIK_NUMPAD2
-  KEY_INPUT_NUMPAD3* = (0x51)   ##  テンキー３				D_DIK_NUMPAD3
-  KEY_INPUT_NUMPAD4* = (0x4B)   ##  テンキー４				D_DIK_NUMPAD4
-  KEY_INPUT_NUMPAD5* = (0x4C)   ##  テンキー５				D_DIK_NUMPAD5
-  KEY_INPUT_NUMPAD6* = (0x4D)   ##  テンキー６				D_DIK_NUMPAD6
-  KEY_INPUT_NUMPAD7* = (0x47)   ##  テンキー７				D_DIK_NUMPAD7
-  KEY_INPUT_NUMPAD8* = (0x48)   ##  テンキー８				D_DIK_NUMPAD8
-  KEY_INPUT_NUMPAD9* = (0x49)   ##  テンキー９				D_DIK_NUMPAD9
-  KEY_INPUT_MULTIPLY* = (0x37)  ##  テンキー＊キー			D_DIK_MULTIPLY
-  KEY_INPUT_ADD* = (0x4E)       ##  テンキー＋キー			D_DIK_ADD
-  KEY_INPUT_SUBTRACT* = (0x4A)  ##  テンキー－キー			D_DIK_SUBTRACT
-  KEY_INPUT_DECIMAL* = (0x53)   ##  テンキー．キー			D_DIK_DECIMAL
-  KEY_INPUT_DIVIDE* = (0xB5)    ##  テンキー／キー			D_DIK_DIVIDE
-  KEY_INPUT_NUMPADENTER* = (0x9C) ##  テンキーのエンターキー	D_DIK_NUMPADENTER
-  KEY_INPUT_F1* = (0x3B)        ##  Ｆ１キー			D_DIK_F1
-  KEY_INPUT_F2* = (0x3C)        ##  Ｆ２キー			D_DIK_F2
-  KEY_INPUT_F3* = (0x3D)        ##  Ｆ３キー			D_DIK_F3
-  KEY_INPUT_F4* = (0x3E)        ##  Ｆ４キー			D_DIK_F4
-  KEY_INPUT_F5* = (0x3F)        ##  Ｆ５キー			D_DIK_F5
-  KEY_INPUT_F6* = (0x40)        ##  Ｆ６キー			D_DIK_F6
-  KEY_INPUT_F7* = (0x41)        ##  Ｆ７キー			D_DIK_F7
-  KEY_INPUT_F8* = (0x42)        ##  Ｆ８キー			D_DIK_F8
-  KEY_INPUT_F9* = (0x43)        ##  Ｆ９キー			D_DIK_F9
-  KEY_INPUT_F10* = (0x44)       ##  Ｆ１０キー		D_DIK_F10
-  KEY_INPUT_F11* = (0x57)       ##  Ｆ１１キー		D_DIK_F11
-  KEY_INPUT_F12* = (0x58)       ##  Ｆ１２キー		D_DIK_F12
-  KEY_INPUT_A* = (0x1E)         ##  Ａキー			D_DIK_A
-  KEY_INPUT_B* = (0x30)         ##  Ｂキー			D_DIK_B
-  KEY_INPUT_C* = (0x2E)         ##  Ｃキー			D_DIK_C
-  KEY_INPUT_D* = (0x20)         ##  Ｄキー			D_DIK_D
-  KEY_INPUT_E* = (0x12)         ##  Ｅキー			D_DIK_E
-  KEY_INPUT_F* = (0x21)         ##  Ｆキー			D_DIK_F
-  KEY_INPUT_G* = (0x22)         ##  Ｇキー			D_DIK_G
-  KEY_INPUT_H* = (0x23)         ##  Ｈキー			D_DIK_H
-  KEY_INPUT_I* = (0x17)         ##  Ｉキー			D_DIK_I
-  KEY_INPUT_J* = (0x24)         ##  Ｊキー			D_DIK_J
-  KEY_INPUT_K* = (0x25)         ##  Ｋキー			D_DIK_K
-  KEY_INPUT_L* = (0x26)         ##  Ｌキー			D_DIK_L
-  KEY_INPUT_M* = (0x32)         ##  Ｍキー			D_DIK_M
-  KEY_INPUT_N* = (0x31)         ##  Ｎキー			D_DIK_N
-  KEY_INPUT_O* = (0x18)         ##  Ｏキー			D_DIK_O
-  KEY_INPUT_P* = (0x19)         ##  Ｐキー			D_DIK_P
-  KEY_INPUT_Q* = (0x10)         ##  Ｑキー			D_DIK_Q
-  KEY_INPUT_R* = (0x13)         ##  Ｒキー			D_DIK_R
-  KEY_INPUT_S* = (0x1F)         ##  Ｓキー			D_DIK_S
-  KEY_INPUT_T* = (0x14)         ##  Ｔキー			D_DIK_T
-  KEY_INPUT_U* = (0x16)         ##  Ｕキー			D_DIK_U
-  KEY_INPUT_V* = (0x2F)         ##  Ｖキー			D_DIK_V
-  KEY_INPUT_W* = (0x11)         ##  Ｗキー			D_DIK_W
-  KEY_INPUT_X* = (0x2D)         ##  Ｘキー			D_DIK_X
-  KEY_INPUT_Y* = (0x15)         ##  Ｙキー			D_DIK_Y
-  KEY_INPUT_Z* = (0x2C)         ##  Ｚキー			D_DIK_Z
-  KEY_INPUT_0* = (0x0B)         ##  ０キー			D_DIK_0
-  KEY_INPUT_1* = (0x02)         ##  １キー			D_DIK_1
-  KEY_INPUT_2* = (0x03)         ##  ２キー			D_DIK_2
-  KEY_INPUT_3* = (0x04)         ##  ３キー			D_DIK_3
-  KEY_INPUT_4* = (0x05)         ##  ４キー			D_DIK_4
-  KEY_INPUT_5* = (0x06)         ##  ５キー			D_DIK_5
-  KEY_INPUT_6* = (0x07)         ##  ６キー			D_DIK_6
-  KEY_INPUT_7* = (0x08)         ##  ７キー			D_DIK_7
-  KEY_INPUT_8* = (0x09)         ##  ８キー			D_DIK_8
-  KEY_INPUT_9* = (0x0A)         ##  ９キー			D_DIK_9
+  KEY_INPUT_BACK* = (14)      ##  BackSpaceキー	D_DIK_BACK
+  KEY_INPUT_TAB* = (15)       ##  Tabキー			D_DIK_TAB
+  KEY_INPUT_RETURN* = (28)    ##  Enterキー		D_DIK_RETURN
+  KEY_INPUT_LSHIFT* = (42)    ##  左Shiftキー		D_DIK_LSHIFT
+  KEY_INPUT_RSHIFT* = (54)    ##  右Shiftキー		D_DIK_RSHIFT
+  KEY_INPUT_LCONTROL* = (29)  ##  左Ctrlキー		D_DIK_LCONTROL
+  KEY_INPUT_RCONTROL* = (157)  ##  右Ctrlキー		D_DIK_RCONTROL
+  KEY_INPUT_ESCAPE* = (1)    ##  Escキー			D_DIK_ESCAPE
+  KEY_INPUT_SPACE* = (57)     ##  スペースキー		D_DIK_SPACE
+  KEY_INPUT_PGUP* = (201)      ##  PageUpキー		D_DIK_PGUP
+  KEY_INPUT_PGDN* = (209)      ##  PageDownキー		D_DIK_PGDN
+  KEY_INPUT_END* = (207)       ##  Endキー			D_DIK_END
+  KEY_INPUT_HOME* = (199)      ##  Homeキー			D_DIK_HOME
+  KEY_INPUT_LEFT* = (203)      ##  左キー			D_DIK_LEFT
+  KEY_INPUT_UP* = (200)        ##  上キー			D_DIK_UP
+  KEY_INPUT_RIGHT* = (205)     ##  右キー			D_DIK_RIGHT
+  KEY_INPUT_DOWN* = (208)      ##  下キー			D_DIK_DOWN
+  KEY_INPUT_INSERT* = (210)    ##  Insertキー		D_DIK_INSERT
+  KEY_INPUT_DELETE* = (211)    ##  Deleteキー		D_DIK_DELETE
+  KEY_INPUT_MINUS* = (12)     ##  －キー			D_DIK_MINUS
+  KEY_INPUT_YEN* = (125)       ##  ￥キー			D_DIK_YEN
+  KEY_INPUT_PREVTRACK* = (144) ##  ＾キー			D_DIK_PREVTRACK
+  KEY_INPUT_PERIOD* = (52)    ##  ．キー			D_DIK_PERIOD
+  KEY_INPUT_SLASH* = (53)     ##  ／キー			D_DIK_SLASH
+  KEY_INPUT_LALT* = (56)      ##  左Altキー		D_DIK_LALT
+  KEY_INPUT_RALT* = (184)      ##  右Altキー		D_DIK_RALT
+  KEY_INPUT_SCROLL* = (70)    ##  ScrollLockキー	D_DIK_SCROLL
+  KEY_INPUT_SEMICOLON* = (39) ##  ；キー			D_DIK_SEMICOLON
+  KEY_INPUT_COLON* = (146)     ##  ：キー			D_DIK_COLON
+  KEY_INPUT_LBRACKET* = (26)  ##  ［キー			D_DIK_LBRACKET
+  KEY_INPUT_RBRACKET* = (27)  ##  ］キー			D_DIK_RBRACKET
+  KEY_INPUT_AT* = (145)        ##  ＠キー			D_DIK_AT
+  KEY_INPUT_BACKSLASH* = (43) ##  ＼キー			D_DIK_BACKSLASH
+  KEY_INPUT_COMMA* = (51)     ##  ，キー			D_DIK_COMMA
+  KEY_INPUT_KANJI* = (148)     ##  漢字キー			D_DIK_KANJI
+  KEY_INPUT_CONVERT* = (121)   ##  変換キー			D_DIK_CONVERT
+  KEY_INPUT_NOCONVERT* = (123) ##  無変換キー		D_DIK_NOCONVERT
+  KEY_INPUT_KANA* = (112)      ##  カナキー			D_DIK_KANA
+  KEY_INPUT_APPS* = (221)      ##  アプリケーションメニューキー		D_DIK_APPS
+  KEY_INPUT_CAPSLOCK* = (58)  ##  CaspLockキー		D_DIK_CAPSLOCK
+  KEY_INPUT_SYSRQ* = (183)     ##  PrintScreenキー	D_DIK_SYSRQ
+  KEY_INPUT_PAUSE* = (197)     ##  PauseBreakキー	D_DIK_PAUSE
+  KEY_INPUT_LWIN* = (219)      ##  左Winキー		D_DIK_LWIN
+  KEY_INPUT_RWIN* = (220)      ##  右Winキー		D_DIK_RWIN
+  KEY_INPUT_NUMLOCK* = (69)   ##  テンキーNumLockキー		D_DIK_NUMLOCK
+  KEY_INPUT_NUMPAD0* = (82)   ##  テンキー０				D_DIK_NUMPAD0
+  KEY_INPUT_NUMPAD1* = (79)   ##  テンキー１				D_DIK_NUMPAD1
+  KEY_INPUT_NUMPAD2* = (80)   ##  テンキー２				D_DIK_NUMPAD2
+  KEY_INPUT_NUMPAD3* = (81)   ##  テンキー３				D_DIK_NUMPAD3
+  KEY_INPUT_NUMPAD4* = (75)   ##  テンキー４				D_DIK_NUMPAD4
+  KEY_INPUT_NUMPAD5* = (76)   ##  テンキー５				D_DIK_NUMPAD5
+  KEY_INPUT_NUMPAD6* = (77)   ##  テンキー６				D_DIK_NUMPAD6
+  KEY_INPUT_NUMPAD7* = (71)   ##  テンキー７				D_DIK_NUMPAD7
+  KEY_INPUT_NUMPAD8* = (72)   ##  テンキー８				D_DIK_NUMPAD8
+  KEY_INPUT_NUMPAD9* = (73)   ##  テンキー９				D_DIK_NUMPAD9
+  KEY_INPUT_MULTIPLY* = (55)  ##  テンキー＊キー			D_DIK_MULTIPLY
+  KEY_INPUT_ADD* = (78)       ##  テンキー＋キー			D_DIK_ADD
+  KEY_INPUT_SUBTRACT* = (74)  ##  テンキー－キー			D_DIK_SUBTRACT
+  KEY_INPUT_DECIMAL* = (83)   ##  テンキー．キー			D_DIK_DECIMAL
+  KEY_INPUT_DIVIDE* = (181)    ##  テンキー／キー			D_DIK_DIVIDE
+  KEY_INPUT_NUMPADENTER* = (156) ##  テンキーのエンターキー	D_DIK_NUMPADENTER
+  KEY_INPUT_F1* = (59)        ##  Ｆ１キー			D_DIK_F1
+  KEY_INPUT_F2* = (60)        ##  Ｆ２キー			D_DIK_F2
+  KEY_INPUT_F3* = (61)        ##  Ｆ３キー			D_DIK_F3
+  KEY_INPUT_F4* = (62)        ##  Ｆ４キー			D_DIK_F4
+  KEY_INPUT_F5* = (63)        ##  Ｆ５キー			D_DIK_F5
+  KEY_INPUT_F6* = (64)        ##  Ｆ６キー			D_DIK_F6
+  KEY_INPUT_F7* = (65)        ##  Ｆ７キー			D_DIK_F7
+  KEY_INPUT_F8* = (66)        ##  Ｆ８キー			D_DIK_F8
+  KEY_INPUT_F9* = (67)        ##  Ｆ９キー			D_DIK_F9
+  KEY_INPUT_F10* = (68)       ##  Ｆ１０キー		D_DIK_F10
+  KEY_INPUT_F11* = (87)       ##  Ｆ１１キー		D_DIK_F11
+  KEY_INPUT_F12* = (88)       ##  Ｆ１２キー		D_DIK_F12
+  KEY_INPUT_A* = (30)         ##  Ａキー			D_DIK_A
+  KEY_INPUT_B* = (48)         ##  Ｂキー			D_DIK_B
+  KEY_INPUT_C* = (46)         ##  Ｃキー			D_DIK_C
+  KEY_INPUT_D* = (32)         ##  Ｄキー			D_DIK_D
+  KEY_INPUT_E* = (18)         ##  Ｅキー			D_DIK_E
+  KEY_INPUT_F* = (33)         ##  Ｆキー			D_DIK_F
+  KEY_INPUT_G* = (34)         ##  Ｇキー			D_DIK_G
+  KEY_INPUT_H* = (35)         ##  Ｈキー			D_DIK_H
+  KEY_INPUT_I* = (23)         ##  Ｉキー			D_DIK_I
+  KEY_INPUT_J* = (36)         ##  Ｊキー			D_DIK_J
+  KEY_INPUT_K* = (37)         ##  Ｋキー			D_DIK_K
+  KEY_INPUT_L* = (38)         ##  Ｌキー			D_DIK_L
+  KEY_INPUT_M* = (50)         ##  Ｍキー			D_DIK_M
+  KEY_INPUT_N* = (49)         ##  Ｎキー			D_DIK_N
+  KEY_INPUT_O* = (24)         ##  Ｏキー			D_DIK_O
+  KEY_INPUT_P* = (25)         ##  Ｐキー			D_DIK_P
+  KEY_INPUT_Q* = (16)         ##  Ｑキー			D_DIK_Q
+  KEY_INPUT_R* = (19)         ##  Ｒキー			D_DIK_R
+  KEY_INPUT_S* = (31)         ##  Ｓキー			D_DIK_S
+  KEY_INPUT_T* = (20)         ##  Ｔキー			D_DIK_T
+  KEY_INPUT_U* = (22)         ##  Ｕキー			D_DIK_U
+  KEY_INPUT_V* = (47)         ##  Ｖキー			D_DIK_V
+  KEY_INPUT_W* = (17)         ##  Ｗキー			D_DIK_W
+  KEY_INPUT_X* = (45)         ##  Ｘキー			D_DIK_X
+  KEY_INPUT_Y* = (21)         ##  Ｙキー			D_DIK_Y
+  KEY_INPUT_Z* = (44)         ##  Ｚキー			D_DIK_Z
+  KEY_INPUT_0* = (11)         ##  ０キー			D_DIK_0
+  KEY_INPUT_1* = (2)         ##  １キー			D_DIK_1
+  KEY_INPUT_2* = (3)         ##  ２キー			D_DIK_2
+  KEY_INPUT_3* = (4)         ##  ３キー			D_DIK_3
+  KEY_INPUT_4* = (5)         ##  ４キー			D_DIK_4
+  KEY_INPUT_5* = (6)         ##  ５キー			D_DIK_5
+  KEY_INPUT_6* = (7)         ##  ６キー			D_DIK_6
+  KEY_INPUT_7* = (8)         ##  ７キー			D_DIK_7
+  KEY_INPUT_8* = (9)         ##  ８キー			D_DIK_8
+  KEY_INPUT_9* = (10)         ##  ９キー			D_DIK_9
 
 ##  アスキーコントロールキーコード
 
 const
-  CTRL_CODE_BS* = (0x08)        ##  バックスペース
-  CTRL_CODE_TAB* = (0x09)       ##  タブ
-  CTRL_CODE_CR* = (0x0d)        ##  改行
-  CTRL_CODE_DEL* = (0x10)       ##  ＤＥＬキー
-  CTRL_CODE_COPY* = (0x03)      ##  コピー
-  CTRL_CODE_PASTE* = (0x16)     ##  ペースト
-  CTRL_CODE_CUT* = (0x18)       ##  カット
-  CTRL_CODE_ALL* = (0x01)       ##  全て選択
-  CTRL_CODE_LEFT* = (0x1d)      ##  ←キー
-  CTRL_CODE_RIGHT* = (0x1c)     ##  →キー
-  CTRL_CODE_UP* = (0x1e)        ##  ↑キー
-  CTRL_CODE_DOWN* = (0x1f)      ##  ↓キー
-  CTRL_CODE_HOME* = (0x1a)      ##  ＨＯＭＥボタン
-  CTRL_CODE_END* = (0x19)       ##  ＥＮＤボタン
-  CTRL_CODE_PAGE_UP* = (0x17)   ##  ＰＡＧＥ ＵＰ
-  CTRL_CODE_PAGE_DOWN* = (0x15) ##  ＰＡＧＥ ＤＯＷＮ
-  CTRL_CODE_ESC* = (0x1b)       ##  ＥＳＣキー
-  CTRL_CODE_CMP* = (0x20)       ##  制御コード敷居値
+  CTRL_CODE_BS* = (8)        ##  バックスペース
+  CTRL_CODE_TAB* = (9)       ##  タブ
+  CTRL_CODE_CR* = (13)        ##  改行
+  CTRL_CODE_DEL* = (16)       ##  ＤＥＬキー
+  CTRL_CODE_COPY* = (3)      ##  コピー
+  CTRL_CODE_PASTE* = (22)     ##  ペースト
+  CTRL_CODE_CUT* = (24)       ##  カット
+  CTRL_CODE_ALL* = (1)       ##  全て選択
+  CTRL_CODE_LEFT* = (29)      ##  ←キー
+  CTRL_CODE_RIGHT* = (28)     ##  →キー
+  CTRL_CODE_UP* = (30)        ##  ↑キー
+  CTRL_CODE_DOWN* = (31)      ##  ↓キー
+  CTRL_CODE_HOME* = (26)      ##  ＨＯＭＥボタン
+  CTRL_CODE_END* = (25)       ##  ＥＮＤボタン
+  CTRL_CODE_PAGE_UP* = (23)   ##  ＰＡＧＥ ＵＰ
+  CTRL_CODE_PAGE_DOWN* = (21) ##  ＰＡＧＥ ＤＯＷＮ
+  CTRL_CODE_ESC* = (27)       ##  ＥＳＣキー
+  CTRL_CODE_CMP* = (32)       ##  制御コード敷居値
 
 ##  SetKeyInputStringColor2 に渡す色変更対象を指定するための識別子
 

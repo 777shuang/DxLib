@@ -6,6 +6,8 @@ import zippy/ziparchives
 proc SEEK_SET(): cint {.importc: "get_SEEK_SET".}
 proc SEEK_END(): cint {.importc: "get_SEEK_END".}
 proc SEEK_CUR(): cint {.importc: "get_SEEK_CUR".}
+
+proc HexToInt(hex: cstring): cint
 {.pop.}
 
 var fileRead, fileWrite : File
@@ -78,8 +80,16 @@ proc convertC(line: string): string =
 
 proc convertNim(line: string): string =
   var buf = line
-  buf = buf.replace("0xffffffff;", "0xffffffff'u32;")
   buf = buf.replace("0xffffffffffffffff'u", "0xffffffffffffffff'i64")
+  # 負の数として表現される16進数を正しく変換する
+  buf = buf.replace(
+    re"(0x[0-9A-Fa-f]+)",
+    proc(match: RegexMatch): string =
+      if $match.captures[0] != "0xffffffff":
+        return $HexToInt(cstring($match.captures[0]))
+      else:
+        return "0xffffffff'u32"
+  )
   buf = buf.replace("VERTEX_3D", "VERTEX3D_OLD")
   if buf.startsWith("proc _GetSystemInfo"):
     buf = buf.replace("_GetSystemInfo", "GetSystemInfo")
@@ -159,7 +169,7 @@ try:
         fileRead = open(before, FileMode.fmRead)
         fileWrite = open(after, FileMode.fmWrite)
         while not fileRead.endOfFile:
-          var buf = fileRead.readLine
+          var buf = convertNim(fileRead.readLine)
           buf = buf.replace("div", "/")
           buf = buf.replace("(DX_FONTTYPE_NORMAL)", "0")
           fileWrite.writeLine(buf)
