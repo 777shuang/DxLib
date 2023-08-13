@@ -6,22 +6,22 @@ import ../DxDll
 proc InitSoftImage*(): cint
 ##  ソフトウエアイメージハンドルを全て削除する
 
-proc LoadSoftImage*(FileName: ptr TCHAR): cint
+proc LoadSoftImage*(FileName: cstring): cint
 ##  画像ファイルを読み込みソフトウエアイメージハンドルを作成する( -1:エラー  -1以外:イメージハンドル )
 
-proc LoadSoftImageWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc LoadSoftImageWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  画像ファイルを読み込みソフトウエアイメージハンドルを作成する( -1:エラー  -1以外:イメージハンドル )
 
-proc LoadARGB8ColorSoftImage*(FileName: ptr TCHAR): cint
+proc LoadARGB8ColorSoftImage*(FileName: cstring): cint
 ##  画像ファイルを読み込みソフトウエアイメージハンドルを作成する( -1:エラー  -1以外:イメージハンドル )( 読み込んだ画像が RGBA8 以外のフォーマットだった場合は RGBA8 カラーに変換 )
 
-proc LoadARGB8ColorSoftImageWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc LoadARGB8ColorSoftImageWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  画像ファイルを読み込みソフトウエアイメージハンドルを作成する( -1:エラー  -1以外:イメージハンドル )( 読み込んだ画像が RGBA8 以外のフォーマットだった場合は RGBA8 カラーに変換 )
 
-proc LoadXRGB8ColorSoftImage*(FileName: ptr TCHAR): cint
+proc LoadXRGB8ColorSoftImage*(FileName: cstring): cint
 ##  画像ファイルを読み込みソフトウエアイメージハンドルを作成する( -1:エラー  -1以外:イメージハンドル )( 読み込んだ画像が XGBA8 以外のフォーマットだった場合は XGBA8 カラーに変換 )
 
-proc LoadXRGB8ColorSoftImageWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc LoadXRGB8ColorSoftImageWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  画像ファイルを読み込みソフトウエアイメージハンドルを作成する( -1:エラー  -1以外:イメージハンドル )( 読み込んだ画像が XGBA8 以外のフォーマットだった場合は XGBA8 カラーに変換 )
 
 proc LoadSoftImageToMem*(FileImage: pointer; FileImageSize: cint): cint
@@ -198,22 +198,22 @@ proc ConvertPremulAlphaSoftImage*(SIHandle: cint): cint
 proc ConvertInterpAlphaSoftImage*(SIHandle: cint): cint
 ##  乗算済みαチャンネル付き画像を通常のαチャンネル付き画像に変換する( ピクセルフォーマットが ARGB8 以外の場合は ARGB8 に変換されます )
 
-proc BltStringSoftImage*(x: cint; y: cint; StrData: ptr TCHAR; DestSIHandle: cint;
+proc BltStringSoftImage*(x: cint; y: cint; StrData: cstring; DestSIHandle: cint;
                         DestEdgeSIHandle: cint = -1; VerticalFlag: cint = FALSE): cint
 ##  ソフトウエアイメージハンドルに文字列を描画する( デフォルトフォントハンドルを使用する )
 
-proc BltStringSoftImageWithStrLen*(x: cint; y: cint; StrData: ptr TCHAR;
+proc BltStringSoftImageWithStrLen*(x: cint; y: cint; StrData: cstring;
                                   StrDataLength: csize_t; DestSIHandle: cint;
                                   DestEdgeSIHandle: cint = -1;
                                   VerticalFlag: cint = FALSE): cint
 ##  ソフトウエアイメージハンドルに文字列を描画する( デフォルトフォントハンドルを使用する )
 
-proc BltStringSoftImageToHandle*(x: cint; y: cint; StrData: ptr TCHAR;
+proc BltStringSoftImageToHandle*(x: cint; y: cint; StrData: cstring;
                                 DestSIHandle: cint; DestEdgeSIHandle: cint; ##  縁が必要ない場合は -1
                                 FontHandle: cint; VerticalFlag: cint = FALSE): cint
 ##  ソフトウエアイメージハンドルに文字列を描画する( フォントハンドル使用版 )
 
-proc BltStringSoftImageToHandleWithStrLen*(x: cint; y: cint; StrData: ptr TCHAR;
+proc BltStringSoftImageToHandleWithStrLen*(x: cint; y: cint; StrData: cstring;
     StrDataLength: csize_t; DestSIHandle: cint; DestEdgeSIHandle: cint; ##  縁が必要ない場合は -1
     FontHandle: cint; VerticalFlag: cint = FALSE): cint
 ##  ソフトウエアイメージハンドルに文字列を描画する( フォントハンドル使用版 )
@@ -221,32 +221,32 @@ proc BltStringSoftImageToHandleWithStrLen*(x: cint; y: cint; StrData: ptr TCHAR;
 proc DrawSoftImage*(x: cint; y: cint; SIHandle: cint): cint
 ##  ソフトウエアイメージハンドルを画面に描画する
 
-proc SaveSoftImageToBmp*(FilePath: ptr TCHAR; SIHandle: cint): cint
+proc SaveSoftImageToBmp*(FilePath: cstring; SIHandle: cint): cint
 ##  ソフトウエアイメージハンドルをＢＭＰ画像ファイルとして保存する
 
-proc SaveSoftImageToBmpWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t;
+proc SaveSoftImageToBmpWithStrLen*(FilePath: cstring; FilePathLength: csize_t;
                                   SIHandle: cint): cint
 ##  ソフトウエアイメージハンドルをＢＭＰ画像ファイルとして保存する
 
-proc SaveSoftImageToDds*(FilePath: ptr TCHAR; SIHandle: cint): cint
+proc SaveSoftImageToDds*(FilePath: cstring; SIHandle: cint): cint
 ##  ソフトウエアイメージハンドルをＤＤＳ画像ファイルとして保存する
 
-proc SaveSoftImageToDdsWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t;
+proc SaveSoftImageToDdsWithStrLen*(FilePath: cstring; FilePathLength: csize_t;
                                   SIHandle: cint): cint
 ##  ソフトウエアイメージハンドルをＤＤＳ画像ファイルとして保存する
 
-proc SaveSoftImageToPng*(FilePath: ptr TCHAR; SIHandle: cint; CompressionLevel: cint): cint
+proc SaveSoftImageToPng*(FilePath: cstring; SIHandle: cint; CompressionLevel: cint): cint
 ##  ソフトウエアイメージハンドルをＰＮＧ画像ファイルとして保存する CompressionLevel = 圧縮率、値が大きいほど高圧縮率高負荷、０は無圧縮,0～9
 
-proc SaveSoftImageToPngWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t;
+proc SaveSoftImageToPngWithStrLen*(FilePath: cstring; FilePathLength: csize_t;
                                   SIHandle: cint; CompressionLevel: cint): cint
 ##  ソフトウエアイメージハンドルをＰＮＧ画像ファイルとして保存する CompressionLevel = 圧縮率、値が大きいほど高圧縮率高負荷、０は無圧縮,0～9
 
-proc SaveSoftImageToJpeg*(FilePath: ptr TCHAR; SIHandle: cint; Quality: cint;
+proc SaveSoftImageToJpeg*(FilePath: cstring; SIHandle: cint; Quality: cint;
                          Sample2x1: cint): cint
 ##  ソフトウエアイメージハンドルをＪＰＥＧ画像ファイルとして保存する Quality = 画質、値が大きいほど低圧縮高画質,0～100
 
-proc SaveSoftImageToJpegWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t;
+proc SaveSoftImageToJpegWithStrLen*(FilePath: cstring; FilePathLength: csize_t;
                                    SIHandle: cint; Quality: cint; Sample2x1: cint): cint
 ##  ソフトウエアイメージハンドルをＪＰＥＧ画像ファイルとして保存する Quality = 画質、値が大きいほど低圧縮高画質,0～100
 

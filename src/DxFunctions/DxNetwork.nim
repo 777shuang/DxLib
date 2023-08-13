@@ -7,20 +7,20 @@ import ../DxDll
 proc ProcessNetMessage*(RunReleaseProcess: cint = FALSE): cint
 ##  通信メッセージの処理をする関数
 
-proc GetHostIPbyName*(HostName: ptr TCHAR; IPDataBuf: ptr IPDATA;
+proc GetHostIPbyName*(HostName: cstring; IPDataBuf: ptr IPDATA;
                      IPDataBufLength: cint = 1; IPDataGetNum: ptr cint = nil): cint
 ##  ＤＮＳサーバーを使ってホスト名からＩＰアドレスを取得する( IPv4版 )
 
-proc GetHostIPbyNameWithStrLen*(HostName: ptr TCHAR; HostNameLength: csize_t;
+proc GetHostIPbyNameWithStrLen*(HostName: cstring; HostNameLength: csize_t;
                                IPDataBuf: ptr IPDATA; IPDataBufLength: cint = 1;
                                IPDataGetNum: ptr cint = nil): cint
 ##  ＤＮＳサーバーを使ってホスト名からＩＰアドレスを取得する( IPv4版 )
 
-proc GetHostIPbyName_IPv6*(HostName: ptr TCHAR; IPDataBuf: ptr IPDATA_IPv6;
+proc GetHostIPbyName_IPv6*(HostName: cstring; IPDataBuf: ptr IPDATA_IPv6;
                           IPDataBufLength: cint = 1; IPDataGetNum: ptr cint = nil): cint
 ##  ＤＮＳサーバーを使ってホスト名からＩＰアドレスを取得する( IPv6版 )
 
-proc GetHostIPbyName_IPv6WithStrLen*(HostName: ptr TCHAR; HostNameLength: csize_t;
+proc GetHostIPbyName_IPv6WithStrLen*(HostName: cstring; HostNameLength: csize_t;
                                     IPDataBuf: ptr IPDATA_IPv6;
                                     IPDataBufLength: cint = 1;
                                     IPDataGetNum: ptr cint = nil): cint

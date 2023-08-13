@@ -16,10 +16,10 @@ proc GetInputChar*(DeleteFlag: cint): TCHAR
 proc GetInputCharWait*(DeleteFlag: cint): TCHAR
 ##  文字コードバッファに溜まったデータから文字コードを一つ取得する、バッファになにも文字コードがない場合は文字コードがバッファに一文字分溜まるまで待つ
 
-proc GetOneChar*(CharBuffer: ptr TCHAR; DeleteFlag: cint): cint
+proc GetOneChar*(CharBuffer: cstring; DeleteFlag: cint): cint
 ##  文字コードバッファに溜まったデータから１文字分取得する
 
-proc GetOneCharWait*(CharBuffer: ptr TCHAR; DeleteFlag: cint): cint
+proc GetOneCharWait*(CharBuffer: cstring; DeleteFlag: cint): cint
 ##  文字コードバッファに溜まったデータから１文字分取得する、バッファに何も文字コードがない場合は文字コードがバッファに一文字分溜まるまで待つ
 
 proc GetCtrlCodeCmp*(Char: TCHAR): cint
@@ -46,22 +46,22 @@ proc SetInputStringMaxLengthIMESync*(Flag: cint): cint
 proc SetIMEInputStringMaxLength*(Length: cint): cint
 ##  ＩＭＥで一度に入力できる最大文字数を設定する( 0:制限なし  1以上:指定の文字数で制限 )
 
-proc GetStringPoint*(String: ptr TCHAR; Point: cint): cint
+proc GetStringPoint*(String: cstring; Point: cint): cint
 ##  全角文字、半角文字入り乱れる中から指定の文字数での半角文字数を得る
 
-proc GetStringPointWithStrLen*(String: ptr TCHAR; StringLength: csize_t; Point: cint): cint
+proc GetStringPointWithStrLen*(String: cstring; StringLength: csize_t; Point: cint): cint
 ##  全角文字、半角文字入り乱れる中から指定の文字数での半角文字数を得る
 
-proc GetStringPoint2*(String: ptr TCHAR; Point: cint): cint
+proc GetStringPoint2*(String: cstring; Point: cint): cint
 ##  全角文字、半角文字入り乱れる中から指定の半角文字数での文字数を得る
 
-proc GetStringPoint2WithStrLen*(String: ptr TCHAR; StringLength: csize_t; Point: cint): cint
+proc GetStringPoint2WithStrLen*(String: cstring; StringLength: csize_t; Point: cint): cint
 ##  全角文字、半角文字入り乱れる中から指定の半角文字数での文字数を得る
 
-proc GetStringLength*(String: ptr TCHAR): cint
+proc GetStringLength*(String: cstring): cint
 ##  全角文字、半角文字入り乱れる中から文字数を取得する
 
-proc DrawObtainsString*(x: cint; y: cint; AddY: cint; String: ptr TCHAR; StrColor: cuint;
+proc DrawObtainsString*(x: cint; y: cint; AddY: cint; String: cstring; StrColor: cuint;
                        StrEdgeColor: cuint = 0; FontHandle: cint = -1;
                        SelectBackColor: cuint = 0xffffffff'u32;
                        SelectStrColor: cuint = 0;
@@ -69,7 +69,7 @@ proc DrawObtainsString*(x: cint; y: cint; AddY: cint; String: ptr TCHAR; StrColo
                        SelectStart: cint = -1; SelectEnd: cint = -1): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画
 
-proc DrawObtainsNString*(x: cint; y: cint; AddY: cint; String: ptr TCHAR;
+proc DrawObtainsNString*(x: cint; y: cint; AddY: cint; String: cstring;
                         StringLength: csize_t; StrColor: cuint;
                         StrEdgeColor: cuint = 0; FontHandle: cint = -1;
                         SelectBackColor: cuint = 0xffffffff'u32;
@@ -78,7 +78,7 @@ proc DrawObtainsNString*(x: cint; y: cint; AddY: cint; String: ptr TCHAR;
                         SelectStart: cint = -1; SelectEnd: cint = -1): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画
 
-proc DrawObtainsString_CharClip*(x: cint; y: cint; AddY: cint; String: ptr TCHAR;
+proc DrawObtainsString_CharClip*(x: cint; y: cint; AddY: cint; String: cstring;
                                 StrColor: cuint; StrEdgeColor: cuint = 0;
                                 FontHandle: cint = -1;
                                 SelectBackColor: cuint = 0xffffffff'u32;
@@ -87,7 +87,7 @@ proc DrawObtainsString_CharClip*(x: cint; y: cint; AddY: cint; String: ptr TCHAR
                                 SelectStart: cint = -1; SelectEnd: cint = -1): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画( クリップが文字単位 )
 
-proc DrawObtainsNString_CharClip*(x: cint; y: cint; AddY: cint; String: ptr TCHAR;
+proc DrawObtainsNString_CharClip*(x: cint; y: cint; AddY: cint; String: cstring;
                                  StringLength: csize_t; StrColor: cuint;
                                  StrEdgeColor: cuint = 0; FontHandle: cint = -1;
                                  SelectBackColor: cuint = 0xffffffff'u32;
@@ -96,47 +96,47 @@ proc DrawObtainsNString_CharClip*(x: cint; y: cint; AddY: cint; String: ptr TCHA
                                  SelectStart: cint = -1; SelectEnd: cint = -1): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画( クリップが文字単位 )
 
-proc GetObtainsStringCharPosition*(x: cint; y: cint; AddY: cint; String: ptr TCHAR;
+proc GetObtainsStringCharPosition*(x: cint; y: cint; AddY: cint; String: cstring;
                                   StrLen: cint; PosX: ptr cint; PosY: ptr cint;
                                   FontHandle: cint = -1): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画した場合の文字列の末端の座標を取得する
 
 proc GetObtainsStringCharPosition_CharClip*(x: cint; y: cint; AddY: cint;
-    String: ptr TCHAR; StrLen: cint; PosX: ptr cint; PosY: ptr cint; FontHandle: cint = -1): cint
+    String: cstring; StrLen: cint; PosX: ptr cint; PosY: ptr cint; FontHandle: cint = -1): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画した場合の文字列の末端の座標を取得する( クリップが文字単位 )
 
 proc DrawObtainsBox*(x1: cint; y1: cint; x2: cint; y2: cint; AddY: cint; Color: cuint;
                     FillFlag: cint): cint
 ##  描画可能領域に収まるように補正を加えながら矩形を描画
 
-proc InputStringToCustom*(x: cint; y: cint; BufLength: csize_t; StrBuffer: ptr TCHAR;
+proc InputStringToCustom*(x: cint; y: cint; BufLength: csize_t; StrBuffer: cstring;
                          CancelValidFlag: cint; SingleCharOnlyFlag: cint;
                          NumCharOnlyFlag: cint; DoubleCharOnlyFlag: cint = FALSE;
                          EnableNewLineFlag: cint = FALSE;
                          DisplayCandidateList: cint = TRUE): cint
 ##  文字列の入力取得
 
-proc KeyInputString*(x: cint; y: cint; CharMaxLength: csize_t; StrBuffer: ptr TCHAR;
+proc KeyInputString*(x: cint; y: cint; CharMaxLength: csize_t; StrBuffer: cstring;
                     CancelValidFlag: cint): cint
 ##  文字列の入力取得
 
 proc KeyInputSingleCharString*(x: cint; y: cint; CharMaxLength: csize_t;
-                              StrBuffer: ptr TCHAR; CancelValidFlag: cint): cint
+                              StrBuffer: cstring; CancelValidFlag: cint): cint
 ##  半角文字列のみの入力取得
 
 proc KeyInputNumber*(x: cint; y: cint; MaxNum: cint; MinNum: cint; CancelValidFlag: cint): cint
 ##  数値の入力取得
 
-proc GetIMEInputModeStr*(GetBuffer: ptr TCHAR): cint
+proc GetIMEInputModeStr*(GetBuffer: cstring): cint
 ##  IMEの入力モード文字列を取得する
 
 proc GetIMEInputData*(): ptr IMEINPUTDATA
 ##  IMEで入力中の文字列の情報を取得する
 
-proc SetIMEInputString*(String: ptr TCHAR): cint
+proc SetIMEInputString*(String: cstring): cint
 ##  IMEで入力中の文字列を変更する( IMEで文字列を入力中ではなかった場合は何も起こりません )
 
-proc SetIMEInputStringWithStrLen*(String: ptr TCHAR; StringLength: csize_t): cint
+proc SetIMEInputStringWithStrLen*(String: cstring; StringLength: csize_t): cint
 ##  IMEで入力中の文字列を変更する( IMEで文字列を入力中ではなかった場合は何も起こりません )
 
 proc SetKeyInputStringColor*(NmlStr: ULONGLONG; NmlCur: ULONGLONG;
@@ -228,10 +228,10 @@ proc SetKeyInputCursorBrinkTime*(Time: cint): cint
 proc SetKeyInputCursorBrinkFlag*(Flag: cint): cint
 ##  キー入力ハンドルのキー入力時のカーソルを点滅させるかどうかをセットする
 
-proc SetKeyInputString*(String: ptr TCHAR; InputHandle: cint): cint
+proc SetKeyInputString*(String: cstring; InputHandle: cint): cint
 ##  キー入力ハンドルに指定の文字列をセットする
 
-proc SetKeyInputStringWithStrLen*(String: ptr TCHAR; StringLength: csize_t;
+proc SetKeyInputStringWithStrLen*(String: cstring; StringLength: csize_t;
                                  InputHandle: cint): cint
 ##  キー入力ハンドルに指定の文字列をセットする
 
@@ -241,7 +241,7 @@ proc SetKeyInputNumber*(Number: cint; InputHandle: cint): cint
 proc SetKeyInputNumberToFloat*(Number: cfloat; InputHandle: cint): cint
 ##  キー入力ハンドルに指定の浮動小数点値を文字に置き換えてセットする
 
-proc GetKeyInputString*(StrBuffer: ptr TCHAR; InputHandle: cint): cint
+proc GetKeyInputString*(StrBuffer: cstring; InputHandle: cint): cint
 ##  キー入力ハンドルの入力中の文字列を取得する
 
 proc GetKeyInputNumber*(InputHandle: cint): cint

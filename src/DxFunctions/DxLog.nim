@@ -4,13 +4,13 @@ import ../DxDll
 ##  DxLog.cpp関数プロトタイプ宣言
 ##  ログファイル関数
 
-proc LogFileAdd*(String: ptr TCHAR): cint
+proc LogFileAdd*(String: cstring): cint
 ##  ログファイル( Log.txt ) に文字列を出力する
 
-proc LogFileAddWithStrLen*(String: ptr TCHAR; StringLength: csize_t): cint
+proc LogFileAddWithStrLen*(String: cstring; StringLength: csize_t): cint
 ##  ログファイル( Log.txt ) に文字列を出力する
 
-proc LogFileFmtAdd*(FormatString: ptr TCHAR): cint {.varargs.}
+proc LogFileFmtAdd*(FormatString: cstring): cint {.varargs.}
 ##  書式付きで ログファイル( Log.txt ) に文字列を出力する( 書式は printf と同じ )
 
 proc LogFileTabAdd*(): cint
@@ -19,10 +19,10 @@ proc LogFileTabAdd*(): cint
 proc LogFileTabSub*(): cint
 ##  ログファイル( Log.txt ) に出力する文字列の前に付けるタブの数を一つ減らす
 
-proc ErrorLogAdd*(String: ptr TCHAR): cint
+proc ErrorLogAdd*(String: cstring): cint
 ##  LogFileAdd の旧名称関数
 
-proc ErrorLogFmtAdd*(FormatString: ptr TCHAR): cint {.varargs.}
+proc ErrorLogFmtAdd*(FormatString: cstring): cint {.varargs.}
 ##  LogFileFmtAdd の旧名称関数
 
 proc ErrorLogTabAdd*(): cint
@@ -34,7 +34,7 @@ proc ErrorLogTabSub*(): cint
 proc SetUseTimeStampFlag*(UseFlag: cint): cint
 ##  ログファイル( Log.txt ) に出力する文字列の前に起動してからの時間を付けるかどうかを設定する( TRUE:付ける( デフォルト)  FALSE:付けない )
 
-proc AppLogAdd*(String: ptr TCHAR): cint {.varargs.}
+proc AppLogAdd*(String: cstring): cint {.varargs.}
 ##  LogFileFmtAdd と同じ機能の関数
 ##  ログ出力設定関数
 
@@ -44,17 +44,17 @@ proc SetOutApplicationLogValidFlag*(Flag: cint): cint
 proc SetOutApplicationSystemLogValidFlag*(Flag: cint): cint
 ##  ログファイル( Log.txt ) にＤＸライブラリ内部のログ出力を行うかどうか設定する( TRUE:ＤＸライブラリ内部のログ出力を行う( デフォルト )  FALSE:ＤＸライブラリ内部のログ出力を行わない )
 
-proc SetApplicationLogFileName*(FileName: ptr TCHAR): cint
+proc SetApplicationLogFileName*(FileName: cstring): cint
 ##  ログファイルの名前を設定する( Log.txt 以外にしたい場合に使用 )
 
-proc SetApplicationLogFileNameWithStrLen*(FileName: ptr TCHAR;
+proc SetApplicationLogFileNameWithStrLen*(FileName: cstring;
     FileNameLength: csize_t): cint
 ##  ログファイルの名前を設定する( Log.txt 以外にしたい場合に使用 )
 
-proc SetApplicationLogSaveDirectory*(DirectoryPath: ptr TCHAR): cint
+proc SetApplicationLogSaveDirectory*(DirectoryPath: cstring): cint
 ##  ログファイル( Log.txt ) を保存するディレクトリパスを設定する
 
-proc SetApplicationLogSaveDirectoryWithStrLen*(DirectoryPath: ptr TCHAR;
+proc SetApplicationLogSaveDirectoryWithStrLen*(DirectoryPath: cstring;
     DirectoryPathLength: csize_t): cint
 ##  ログファイル( Log.txt ) を保存するディレクトリパスを設定する
 
@@ -78,13 +78,13 @@ proc SetLogDrawArea*(x1: cint; y1: cint; x2: cint; y2: cint): cint
 ##  printfDx の結果を画面に出力する際の描画する領域を設定する
 ##  簡易画面出力関数
 
-proc printfDx*(FormatString: ptr TCHAR): cint {.varargs.}
+proc printfDx*(FormatString: cstring): cint {.varargs.}
 ##  printf と同じ引数で画面に文字列を表示するための関数
 
-proc putsDx*(String: ptr TCHAR; NewLine: cint = TRUE): cint
+proc putsDx*(String: cstring; NewLine: cint = TRUE): cint
 ##  puts と同じ引数で画面に文字列を表示するための関数
 
-proc putsDxWithStrLen*(String: ptr TCHAR; StringLength: csize_t; NewLine: cint = TRUE): cint
+proc putsDxWithStrLen*(String: cstring; StringLength: csize_t; NewLine: cint = TRUE): cint
 ##  puts と同じ引数で画面に文字列を表示するための関数
 
 proc clsDx*(): cint

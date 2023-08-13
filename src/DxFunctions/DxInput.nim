@@ -196,99 +196,99 @@ proc BltBmpOrGraphImageToDivGraphF*(BmpColorData: ptr COLORDATA; RgbBmp: HBITMAP
 ##  ＢＭＰ か BASEIMAGE を分割作成したグラフィックハンドルたちに転送( float型 )
 ##  画像からグラフィックハンドルを作成する関数
 
-proc LoadBmpToGraph*(FileName: ptr TCHAR; TextureFlag: cint; ReverseFlag: cint;
+proc LoadBmpToGraph*(FileName: cstring; TextureFlag: cint; ReverseFlag: cint;
                     SurfaceMode: cint = DX_MOVIESURFACE_NORMAL): cint
 ##  画像ファイルからグラフィックハンドルを作成する
 
-proc LoadBmpToGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadBmpToGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                               TextureFlag: cint; ReverseFlag: cint;
                               SurfaceMode: cint = DX_MOVIESURFACE_NORMAL): cint
 ##  画像ファイルからグラフィックハンドルを作成する
 
-proc LoadGraph*(FileName: ptr TCHAR; NotUse3DFlag: cint = FALSE): cint
+proc LoadGraph*(FileName: cstring; NotUse3DFlag: cint = FALSE): cint
 ##  画像ファイルからグラフィックハンドルを作成する
 
-proc LoadGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                          NotUse3DFlag: cint = FALSE): cint
 ##  画像ファイルからグラフィックハンドルを作成する
 
-proc LoadReverseGraph*(FileName: ptr TCHAR; NotUse3DFlag: cint = FALSE): cint
+proc LoadReverseGraph*(FileName: cstring; NotUse3DFlag: cint = FALSE): cint
 ##  画像ファイルを反転したものでグラフィックハンドルを作成する
 
-proc LoadReverseGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadReverseGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                 NotUse3DFlag: cint = FALSE): cint
 ##  画像ファイルを反転したものでグラフィックハンドルを作成する
 
-proc LoadDivGraph*(FileName: ptr TCHAR; AllNum: cint; XNum: cint; YNum: cint; XSize: cint;
+proc LoadDivGraph*(FileName: cstring; AllNum: cint; XNum: cint; YNum: cint; XSize: cint;
                   YSize: cint; HandleArray: ptr cint; NotUse3DFlag: cint = FALSE;
                   XStride: cint = 0; YStride: cint = 0): cint
 ##  画像ファイルを分割してグラフィックハンドルを作成する
 
-proc LoadDivGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadDivGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                             AllNum: cint; XNum: cint; YNum: cint; XSize: cint;
                             YSize: cint; HandleArray: ptr cint;
                             NotUse3DFlag: cint = FALSE; XStride: cint = 0;
                             YStride: cint = 0): cint
 ##  画像ファイルを分割してグラフィックハンドルを作成する
 
-proc LoadDivGraphF*(FileName: ptr TCHAR; AllNum: cint; XNum: cint; YNum: cint;
+proc LoadDivGraphF*(FileName: cstring; AllNum: cint; XNum: cint; YNum: cint;
                    XSize: cfloat; YSize: cfloat; HandleArray: ptr cint;
                    NotUse3DFlag: cint = FALSE; XStride: cfloat = 0; YStride: cfloat = 0): cint
 ##  画像ファイルを分割してグラフィックハンドルを作成する
 
-proc LoadDivGraphFWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadDivGraphFWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                              AllNum: cint; XNum: cint; YNum: cint; XSize: cfloat;
                              YSize: cfloat; HandleArray: ptr cint;
                              NotUse3DFlag: cint = FALSE; XStride: cfloat = 0;
                              YStride: cfloat = 0): cint
 ##  画像ファイルを分割してグラフィックハンドルを作成する
 
-proc LoadDivBmpToGraph*(FileName: ptr TCHAR; AllNum: cint; XNum: cint; YNum: cint;
+proc LoadDivBmpToGraph*(FileName: cstring; AllNum: cint; XNum: cint; YNum: cint;
                        SizeX: cint; SizeY: cint; HandleArray: ptr cint;
                        TextureFlag: cint; ReverseFlag: cint; XStride: cint = 0;
                        YStride: cint = 0): cint
 ##  画像ファイルを分割してグラフィックハンドルを作成する
 
-proc LoadDivBmpToGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadDivBmpToGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                  AllNum: cint; XNum: cint; YNum: cint; SizeX: cint;
                                  SizeY: cint; HandleArray: ptr cint;
                                  TextureFlag: cint; ReverseFlag: cint;
                                  XStride: cint = 0; YStride: cint = 0): cint
 ##  画像ファイルを分割してグラフィックハンドルを作成する
 
-proc LoadDivBmpToGraphF*(FileName: ptr TCHAR; AllNum: cint; XNum: cint; YNum: cint;
+proc LoadDivBmpToGraphF*(FileName: cstring; AllNum: cint; XNum: cint; YNum: cint;
                         SizeX: cfloat; SizeY: cfloat; HandleArray: ptr cint;
                         TextureFlag: cint; ReverseFlag: cint; XStride: cfloat = 0;
                         YStride: cfloat = 0): cint
 ##  画像ファイルを分割してグラフィックハンドルを作成する
 
-proc LoadDivBmpToGraphFWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadDivBmpToGraphFWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                   AllNum: cint; XNum: cint; YNum: cint; SizeX: cfloat;
                                   SizeY: cfloat; HandleArray: ptr cint;
                                   TextureFlag: cint; ReverseFlag: cint;
                                   XStride: cfloat = 0; YStride: cfloat = 0): cint
 ##  画像ファイルを分割してグラフィックハンドルを作成する
 
-proc LoadReverseDivGraph*(FileName: ptr TCHAR; AllNum: cint; XNum: cint; YNum: cint;
+proc LoadReverseDivGraph*(FileName: cstring; AllNum: cint; XNum: cint; YNum: cint;
                          XSize: cint; YSize: cint; HandleArray: ptr cint;
                          NotUse3DFlag: cint = FALSE; XStride: cint = 0;
                          YStride: cint = 0): cint
 ##  画像ファイルを反転したものを分割してグラフィックハンドルを作成する
 
-proc LoadReverseDivGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadReverseDivGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                    AllNum: cint; XNum: cint; YNum: cint; XSize: cint;
                                    YSize: cint; HandleArray: ptr cint;
                                    NotUse3DFlag: cint = FALSE; XStride: cint = 0;
                                    YStride: cint = 0): cint
 ##  画像ファイルを反転したものを分割してグラフィックハンドルを作成する
 
-proc LoadReverseDivGraphF*(FileName: ptr TCHAR; AllNum: cint; XNum: cint; YNum: cint;
+proc LoadReverseDivGraphF*(FileName: cstring; AllNum: cint; XNum: cint; YNum: cint;
                           XSize: cfloat; YSize: cfloat; HandleArray: ptr cint;
                           NotUse3DFlag: cint = FALSE; XStride: cfloat = 0;
                           YStride: cfloat = 0): cint
 ##  画像ファイルを反転したものを分割してグラフィックハンドルを作成する
 
-proc LoadReverseDivGraphFWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadReverseDivGraphFWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                     AllNum: cint; XNum: cint; YNum: cint;
                                     XSize: cfloat; YSize: cfloat;
                                     HandleArray: ptr cint;
@@ -296,10 +296,10 @@ proc LoadReverseDivGraphFWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_
                                     YStride: cfloat = 0): cint
 ##  画像ファイルを反転したものを分割してグラフィックハンドルを作成する
 
-proc LoadBlendGraph*(FileName: ptr TCHAR): cint
+proc LoadBlendGraph*(FileName: cstring): cint
 ##  画像ファイルからブレンド用グラフィックハンドルを作成する
 
-proc LoadBlendGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc LoadBlendGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  画像ファイルからブレンド用グラフィックハンドルを作成する
 
 proc CreateGraphFromMem*(RGBFileImage: pointer; RGBFileImageSize: cint;
@@ -599,56 +599,56 @@ proc ReCreateDivGraphFFromBaseImage*(BaseImage: ptr BASEIMAGE; AllNum: cint;
                                     SizeY: cfloat; HandleArray: ptr cint): cint
 ##  基本イメージデータから既存の分割グラフィックハンドルにデータを転送する( float版 )
 
-proc ReloadGraph*(FileName: ptr TCHAR; GrHandle: cint; ReverseFlag: cint = FALSE): cint
+proc ReloadGraph*(FileName: cstring; GrHandle: cint; ReverseFlag: cint = FALSE): cint
 ##  画像ファイルからグラフィックハンドルへ画像データを転送する
 
-proc ReloadGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc ReloadGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                            GrHandle: cint; ReverseFlag: cint = FALSE): cint
 ##  画像ファイルからグラフィックハンドルへ画像データを転送する
 
-proc ReloadDivGraph*(FileName: ptr TCHAR; AllNum: cint; XNum: cint; YNum: cint;
+proc ReloadDivGraph*(FileName: cstring; AllNum: cint; XNum: cint; YNum: cint;
                     XSize: cint; YSize: cint; HandleArray: ptr cint;
                     ReverseFlag: cint = FALSE): cint
 ##  画像ファイルからグラフィックハンドルたちへ画像データを分割転送する
 
-proc ReloadDivGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc ReloadDivGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                               AllNum: cint; XNum: cint; YNum: cint; XSize: cint;
                               YSize: cint; HandleArray: ptr cint;
                               ReverseFlag: cint = FALSE): cint
 ##  画像ファイルからグラフィックハンドルたちへ画像データを分割転送する
 
-proc ReloadDivGraphF*(FileName: ptr TCHAR; AllNum: cint; XNum: cint; YNum: cint;
+proc ReloadDivGraphF*(FileName: cstring; AllNum: cint; XNum: cint; YNum: cint;
                      XSize: cfloat; YSize: cfloat; HandleArray: ptr cint;
                      ReverseFlag: cint = FALSE): cint
 ##  画像ファイルからグラフィックハンドルたちへ画像データを分割転送する( float版 )
 
-proc ReloadDivGraphFWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc ReloadDivGraphFWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                AllNum: cint; XNum: cint; YNum: cint; XSize: cfloat;
                                YSize: cfloat; HandleArray: ptr cint;
                                ReverseFlag: cint = FALSE): cint
 ##  画像ファイルからグラフィックハンドルたちへ画像データを分割転送する( float版 )
 
-proc ReloadReverseGraph*(FileName: ptr TCHAR; GrHandle: cint): cint
+proc ReloadReverseGraph*(FileName: cstring; GrHandle: cint): cint
 ##  ReloadGraph の画像反転処理追加版
 
-proc ReloadReverseGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc ReloadReverseGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                   GrHandle: cint): cint
 ##  ReloadGraph の画像反転処理追加版
 
-proc ReloadReverseDivGraph*(FileName: ptr TCHAR; AllNum: cint; XNum: cint; YNum: cint;
+proc ReloadReverseDivGraph*(FileName: cstring; AllNum: cint; XNum: cint; YNum: cint;
                            XSize: cint; YSize: cint; HandleArray: ptr cint): cint
 ##  ReloadDivGraph の画像反転処理追加版
 
-proc ReloadReverseDivGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc ReloadReverseDivGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                      AllNum: cint; XNum: cint; YNum: cint;
                                      XSize: cint; YSize: cint; HandleArray: ptr cint): cint
 ##  ReloadDivGraph の画像反転処理追加版
 
-proc ReloadReverseDivGraphF*(FileName: ptr TCHAR; AllNum: cint; XNum: cint; YNum: cint;
+proc ReloadReverseDivGraphF*(FileName: cstring; AllNum: cint; XNum: cint; YNum: cint;
                             XSize: cfloat; YSize: cfloat; HandleArray: ptr cint): cint
 ##  ReloadDivGraph の画像反転処理追加版( float版 )
 
-proc ReloadReverseDivGraphFWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc ReloadReverseDivGraphFWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                       AllNum: cint; XNum: cint; YNum: cint;
                                       XSize: cfloat; YSize: cfloat;
                                       HandleArray: ptr cint): cint
@@ -877,7 +877,7 @@ proc GetGraphUseBaseGraphArea*(GrHandle: cint; UseX: ptr cint; UseY: ptr cint;
 proc GetGraphMipmapCount*(GrHandle: cint): cint
 ##  グラフィックハンドルが持つテクスチャのミップマップレベル数を取得する
 
-proc GetGraphFilePath*(GrHandle: cint; FilePathBuffer: ptr TCHAR): cint
+proc GetGraphFilePath*(GrHandle: cint; FilePathBuffer: cstring): cint
 ##  グラフィックハンドルが画像ファイルから読み込まれていた場合、その画像のファイルパスを取得する
 
 proc CheckDrawValidGraph*(GrHandle: cint): cint
@@ -1070,10 +1070,10 @@ proc DrawCone3DD*(TopPos: VECTOR_D; BottomPos: VECTOR_D; r: cdouble; DivNum: cin
 ##  ３Ｄの円錐を描画する
 ##  画像描画関数
 
-proc LoadGraphScreen*(x: cint; y: cint; GraphName: ptr TCHAR; TransFlag: cint): cint
+proc LoadGraphScreen*(x: cint; y: cint; GraphName: cstring; TransFlag: cint): cint
 ##  画像ファイルを読みこんで画面に描画する
 
-proc LoadGraphScreenWithStrLen*(x: cint; y: cint; GraphName: ptr TCHAR;
+proc LoadGraphScreenWithStrLen*(x: cint; y: cint; GraphName: cstring;
                                GraphNameLength: csize_t; TransFlag: cint): cint
 ##  画像ファイルを読みこんで画面に描画する
 
@@ -2101,47 +2101,47 @@ proc GetFPS*(): cfloat
 ##  Jpeg_Quality         = 0:低画質～100:高画質
 ##  Png_CompressionLevel = 0:無圧縮～  9:最高圧縮
 
-proc SaveDrawScreen*(x1: cint; y1: cint; x2: cint; y2: cint; FileName: ptr TCHAR;
+proc SaveDrawScreen*(x1: cint; y1: cint; x2: cint; y2: cint; FileName: cstring;
                     SaveType: cint = DX_IMAGESAVETYPE_BMP; Jpeg_Quality: cint = 80;
                     Jpeg_Sample2x1: cint = TRUE; Png_CompressionLevel: cint = -1): cint
 ##  現在描画対象になっている画面をファイルで保存する
 
 proc SaveDrawScreenWithStrLen*(x1: cint; y1: cint; x2: cint; y2: cint;
-                              FileName: ptr TCHAR; FileNameLength: csize_t;
+                              FileName: cstring; FileNameLength: csize_t;
                               SaveType: cint = DX_IMAGESAVETYPE_BMP;
                               Jpeg_Quality: cint = 80; Jpeg_Sample2x1: cint = TRUE;
                               Png_CompressionLevel: cint = -1): cint
 ##  現在描画対象になっている画面をファイルで保存する
 
-proc SaveDrawScreenToBMP*(x1: cint; y1: cint; x2: cint; y2: cint; FileName: ptr TCHAR): cint
+proc SaveDrawScreenToBMP*(x1: cint; y1: cint; x2: cint; y2: cint; FileName: cstring): cint
 ##  現在描画対象になっている画面をＢＭＰ形式で保存する
 
 proc SaveDrawScreenToBMPWithStrLen*(x1: cint; y1: cint; x2: cint; y2: cint;
-                                   FileName: ptr TCHAR; FileNameLength: csize_t): cint
+                                   FileName: cstring; FileNameLength: csize_t): cint
 ##  現在描画対象になっている画面をＢＭＰ形式で保存する
 
-proc SaveDrawScreenToDDS*(x1: cint; y1: cint; x2: cint; y2: cint; FileName: ptr TCHAR): cint
+proc SaveDrawScreenToDDS*(x1: cint; y1: cint; x2: cint; y2: cint; FileName: cstring): cint
 ##  現在描画対象になっている画面をＤＤＳ形式で保存する
 
 proc SaveDrawScreenToDDSWithStrLen*(x1: cint; y1: cint; x2: cint; y2: cint;
-                                   FileName: ptr TCHAR; FileNameLength: csize_t): cint
+                                   FileName: cstring; FileNameLength: csize_t): cint
 ##  現在描画対象になっている画面をＤＤＳ形式で保存する
 
-proc SaveDrawScreenToJPEG*(x1: cint; y1: cint; x2: cint; y2: cint; FileName: ptr TCHAR;
+proc SaveDrawScreenToJPEG*(x1: cint; y1: cint; x2: cint; y2: cint; FileName: cstring;
                           Quality: cint = 80; Sample2x1: cint = TRUE): cint
 ##  現在描画対象になっている画面をＪＰＥＧ形式で保存する Quality = 画質、値が大きいほど低圧縮高画質,0～100
 
 proc SaveDrawScreenToJPEGWithStrLen*(x1: cint; y1: cint; x2: cint; y2: cint;
-                                    FileName: ptr TCHAR; FileNameLength: csize_t;
+                                    FileName: cstring; FileNameLength: csize_t;
                                     Quality: cint = 80; Sample2x1: cint = TRUE): cint
 ##  現在描画対象になっている画面をＪＰＥＧ形式で保存する Quality = 画質、値が大きいほど低圧縮高画質,0～100
 
-proc SaveDrawScreenToPNG*(x1: cint; y1: cint; x2: cint; y2: cint; FileName: ptr TCHAR;
+proc SaveDrawScreenToPNG*(x1: cint; y1: cint; x2: cint; y2: cint; FileName: cstring;
                          CompressionLevel: cint = -1): cint
 ##  現在描画対象になっている画面をＰＮＧ形式で保存する CompressionLevel = 圧縮率、値が大きいほど高圧縮率高負荷、０は無圧縮,0～9
 
 proc SaveDrawScreenToPNGWithStrLen*(x1: cint; y1: cint; x2: cint; y2: cint;
-                                   FileName: ptr TCHAR; FileNameLength: csize_t;
+                                   FileName: cstring; FileNameLength: csize_t;
                                    CompressionLevel: cint = -1): cint
 ##  現在描画対象になっている画面をＰＮＧ形式で保存する CompressionLevel = 圧縮率、値が大きいほど高圧縮率高負荷、０は無圧縮,0～9
 ##  描画対象にできるグラフィックハンドル保存関数
@@ -2149,13 +2149,13 @@ proc SaveDrawScreenToPNGWithStrLen*(x1: cint; y1: cint; x2: cint; y2: cint;
 ##  Png_CompressionLevel = 0:無圧縮～  9:最高圧縮
 
 proc SaveDrawValidGraph*(GrHandle: cint; x1: cint; y1: cint; x2: cint; y2: cint;
-                        FileName: ptr TCHAR; SaveType: cint = DX_IMAGESAVETYPE_BMP;
+                        FileName: cstring; SaveType: cint = DX_IMAGESAVETYPE_BMP;
                         Jpeg_Quality: cint = 80; Jpeg_Sample2x1: cint = TRUE;
                         Png_CompressionLevel: cint = -1): cint
 ##  描画対象にできるグラフィックハンドルをファイルで保存する
 
 proc SaveDrawValidGraphWithStrLen*(GrHandle: cint; x1: cint; y1: cint; x2: cint;
-                                  y2: cint; FileName: ptr TCHAR;
+                                  y2: cint; FileName: cstring;
                                   FileNameLength: csize_t;
                                   SaveType: cint = DX_IMAGESAVETYPE_BMP;
                                   Jpeg_Quality: cint = 80;
@@ -2164,40 +2164,40 @@ proc SaveDrawValidGraphWithStrLen*(GrHandle: cint; x1: cint; y1: cint; x2: cint;
 ##  描画対象にできるグラフィックハンドルをファイルで保存する
 
 proc SaveDrawValidGraphToBMP*(GrHandle: cint; x1: cint; y1: cint; x2: cint; y2: cint;
-                             FileName: ptr TCHAR): cint
+                             FileName: cstring): cint
 ##  描画対象にできるグラフィックハンドルをＢＭＰ形式で保存する
 
 proc SaveDrawValidGraphToBMPWithStrLen*(GrHandle: cint; x1: cint; y1: cint; x2: cint;
-                                       y2: cint; FileName: ptr TCHAR;
+                                       y2: cint; FileName: cstring;
                                        FileNameLength: csize_t): cint
 ##  描画対象にできるグラフィックハンドルをＢＭＰ形式で保存する
 
 proc SaveDrawValidGraphToDDS*(GrHandle: cint; x1: cint; y1: cint; x2: cint; y2: cint;
-                             FileName: ptr TCHAR): cint
+                             FileName: cstring): cint
 ##  描画対象にできるグラフィックハンドルをＤＤＳ形式で保存する
 
 proc SaveDrawValidGraphToDDSWithStrLen*(GrHandle: cint; x1: cint; y1: cint; x2: cint;
-                                       y2: cint; FileName: ptr TCHAR;
+                                       y2: cint; FileName: cstring;
                                        FileNameLength: csize_t): cint
 ##  描画対象にできるグラフィックハンドルをＤＤＳ形式で保存する
 
 proc SaveDrawValidGraphToJPEG*(GrHandle: cint; x1: cint; y1: cint; x2: cint; y2: cint;
-                              FileName: ptr TCHAR; Quality: cint = 80;
+                              FileName: cstring; Quality: cint = 80;
                               Sample2x1: cint = TRUE): cint
 ##  描画対象にできるグラフィックハンドルをＪＰＥＧ形式で保存する Quality = 画質、値が大きいほど低圧縮高画質,0～100
 
 proc SaveDrawValidGraphToJPEGWithStrLen*(GrHandle: cint; x1: cint; y1: cint; x2: cint;
-                                        y2: cint; FileName: ptr TCHAR;
+                                        y2: cint; FileName: cstring;
                                         FileNameLength: csize_t;
                                         Quality: cint = 80; Sample2x1: cint = TRUE): cint
 ##  描画対象にできるグラフィックハンドルをＪＰＥＧ形式で保存する Quality = 画質、値が大きいほど低圧縮高画質,0～100
 
 proc SaveDrawValidGraphToPNG*(GrHandle: cint; x1: cint; y1: cint; x2: cint; y2: cint;
-                             FileName: ptr TCHAR; CompressionLevel: cint = -1): cint
+                             FileName: cstring; CompressionLevel: cint = -1): cint
 ##  描画対象にできるグラフィックハンドルをＰＮＧ形式で保存する CompressionLevel = 圧縮率、値が大きいほど高圧縮率高負荷、０は無圧縮,0～9
 
 proc SaveDrawValidGraphToPNGWithStrLen*(GrHandle: cint; x1: cint; y1: cint; x2: cint;
-                                       y2: cint; FileName: ptr TCHAR;
+                                       y2: cint; FileName: cstring;
                                        FileNameLength: csize_t;
                                        CompressionLevel: cint = -1): cint
 ##  描画対象にできるグラフィックハンドルをＰＮＧ形式で保存する CompressionLevel = 圧縮率、値が大きいほど高圧縮率高負荷、０は無圧縮,0～9
@@ -2255,22 +2255,22 @@ proc GetMaxVertexIndex*(): cint
 proc GetValidShaderVersion*(): cint
 ##  使用できるシェーダーのバージョンを取得する( 0=使えない  200=シェーダーモデル２．０が使用可能  300=シェーダーモデル３．０が使用可能 )
 
-proc LoadVertexShader*(FileName: ptr TCHAR): cint
+proc LoadVertexShader*(FileName: cstring): cint
 ##  頂点シェーダーバイナリをファイルから読み込み頂点シェーダーハンドルを作成する( 戻り値 -1:エラー  -1以外:シェーダーハンドル )
 
-proc LoadVertexShaderWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc LoadVertexShaderWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  頂点シェーダーバイナリをファイルから読み込み頂点シェーダーハンドルを作成する( 戻り値 -1:エラー  -1以外:シェーダーハンドル )
 
-proc LoadGeometryShader*(FileName: ptr TCHAR): cint
+proc LoadGeometryShader*(FileName: cstring): cint
 ##  ジオメトリシェーダーバイナリをファイルから読み込みジオメトリシェーダーハンドルを作成する( 戻り値 -1:エラー  -1以外:シェーダーハンドル )
 
-proc LoadGeometryShaderWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc LoadGeometryShaderWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  ジオメトリシェーダーバイナリをファイルから読み込みジオメトリシェーダーハンドルを作成する( 戻り値 -1:エラー  -1以外:シェーダーハンドル )
 
-proc LoadPixelShader*(FileName: ptr TCHAR): cint
+proc LoadPixelShader*(FileName: cstring): cint
 ##  ピクセルシェーダーバイナリをファイルから読み込みピクセルシェーダーハンドルを作成する( 戻り値 -1:エラー  -1以外:シェーダーハンドル )
 
-proc LoadPixelShaderWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc LoadPixelShaderWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  ピクセルシェーダーバイナリをファイルから読み込みピクセルシェーダーハンドルを作成する( 戻り値 -1:エラー  -1以外:シェーダーハンドル )
 
 proc LoadVertexShaderFromMem*(ImageAddress: pointer; ImageSize: cint): cint
@@ -2288,26 +2288,26 @@ proc DeleteShader*(ShaderHandle: cint): cint
 proc InitShader*(): cint
 ##  シェーダーハンドルを全て削除する( 頂点シェーダーハンドル・ピクセルシェーダーハンドルどちらもすべて削除 )
 
-proc GetConstIndexToShader*(ConstantName: ptr TCHAR; ShaderHandle: cint): cint
+proc GetConstIndexToShader*(ConstantName: cstring; ShaderHandle: cint): cint
 ##  指定の名前を持つ定数が使用するシェーダー定数の番号を取得する
 
-proc GetConstIndexToShaderWithStrLen*(ConstantName: ptr TCHAR;
+proc GetConstIndexToShaderWithStrLen*(ConstantName: cstring;
                                      ConstantNameLength: csize_t;
                                      ShaderHandle: cint): cint
 ##  指定の名前を持つ定数が使用するシェーダー定数の番号を取得する
 
-proc GetConstCountToShader*(ConstantName: ptr TCHAR; ShaderHandle: cint): cint
+proc GetConstCountToShader*(ConstantName: cstring; ShaderHandle: cint): cint
 ##  指定の名前を持つ定数が使用するシェーダー定数の数を取得する
 
-proc GetConstCountToShaderWithStrLen*(ConstantName: ptr TCHAR;
+proc GetConstCountToShaderWithStrLen*(ConstantName: cstring;
                                      ConstantNameLength: csize_t;
                                      ShaderHandle: cint): cint
 ##  指定の名前を持つ定数が使用するシェーダー定数の数を取得する
 
-proc GetConstDefaultParamFToShader*(ConstantName: ptr TCHAR; ShaderHandle: cint): ptr FLOAT4
+proc GetConstDefaultParamFToShader*(ConstantName: cstring; ShaderHandle: cint): ptr FLOAT4
 ##  指定の名前を持つ浮動小数点数定数のデフォルトパラメータが格納されているメモリアドレスを取得する
 
-proc GetConstDefaultParamFToShaderWithStrLen*(ConstantName: ptr TCHAR;
+proc GetConstDefaultParamFToShaderWithStrLen*(ConstantName: cstring;
     ConstantNameLength: csize_t; ShaderHandle: cint): ptr FLOAT4
 ##  指定の名前を持つ浮動小数点数定数のデフォルトパラメータが格納されているメモリアドレスを取得する
 
@@ -2636,17 +2636,17 @@ proc GraphBlendRectBlt2*(SrcGrHandle: cint; BlendGrHandle: cint; DestGrHandle: c
 ## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_MULTIPLE_A_ONLY ) ;
 ##  ムービーグラフィック関係関数
 
-proc PlayMovie*(FileName: ptr TCHAR; ExRate: cint; PlayType: cint): cint
+proc PlayMovie*(FileName: cstring; ExRate: cint; PlayType: cint): cint
 ##  動画ファイルの再生
 
-proc PlayMovieWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t; ExRate: cint;
+proc PlayMovieWithStrLen*(FileName: cstring; FileNameLength: csize_t; ExRate: cint;
                          PlayType: cint): cint
 ##  動画ファイルの再生
 
-proc GetMovieImageSize_File*(FileName: ptr TCHAR; SizeX: ptr cint; SizeY: ptr cint): cint
+proc GetMovieImageSize_File*(FileName: cstring; SizeX: ptr cint; SizeY: ptr cint): cint
 ##  動画ファイルの横ピクセル数と縦ピクセル数を取得する
 
-proc GetMovieImageSize_File_WithStrLen*(FileName: ptr TCHAR;
+proc GetMovieImageSize_File_WithStrLen*(FileName: cstring;
                                        FileNameLength: csize_t; SizeX: ptr cint;
                                        SizeY: ptr cint): cint
 ##  動画ファイルの横ピクセル数と縦ピクセル数を取得する
@@ -2655,10 +2655,10 @@ proc GetMovieImageSize_Mem*(FileImage: pointer; FileImageSize: cint; SizeX: ptr 
                            SizeY: ptr cint): cint
 ##  メモリ上に展開された動画ファイルの横ピクセル数と縦ピクセル数を取得する
 
-proc OpenMovieToGraph*(FileName: ptr TCHAR; FullColor: cint = TRUE): cint
+proc OpenMovieToGraph*(FileName: cstring; FullColor: cint = TRUE): cint
 ##  動画ファイルを開く
 
-proc OpenMovieToGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc OpenMovieToGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                 FullColor: cint = TRUE): cint
 ##  動画ファイルを開く
 

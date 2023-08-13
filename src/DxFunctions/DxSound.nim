@@ -20,11 +20,11 @@ proc AddStreamSoundMemToMem*(FileImage: pointer; FileImageSize: csize_t;
                             UnionHandle: cint = -1): cint
 ##  ストリーム再生タイプのサウンドハンドルにメモリ上に展開したサウンドファイルイメージを再生対象に追加する
 
-proc AddStreamSoundMemToFile*(WaveFile: ptr TCHAR; LoopNum: cint; SoundHandle: cint;
+proc AddStreamSoundMemToFile*(WaveFile: cstring; LoopNum: cint; SoundHandle: cint;
                              StreamDataType: cint; UnionHandle: cint = -1): cint
 ##  ストリーム再生タイプのサウンドハンドルにサウンドファイルを再生対象に追加する
 
-proc AddStreamSoundMemToFileWithStrLen*(WaveFile: ptr TCHAR;
+proc AddStreamSoundMemToFileWithStrLen*(WaveFile: cstring;
                                        WaveFilePathLength: csize_t; LoopNum: cint;
                                        SoundHandle: cint; StreamDataType: cint;
                                        UnionHandle: cint = -1): cint
@@ -61,37 +61,37 @@ proc ProcessStreamSoundMem*(SoundHandle: cint): cint
 proc ProcessStreamSoundMemAll*(): cint
 ##  有効なストリーム再生タイプのサウンドハンドルに対して ProcessStreamSoundMem を実行する( 内部で自動的に呼ばれます )
 
-proc LoadSoundMem2*(FileName1: ptr TCHAR; FileName2: ptr TCHAR): cint
+proc LoadSoundMem2*(FileName1: cstring; FileName2: cstring): cint
 ##  前奏部とループ部に分かれたサウンドファイルを読み込みサウンドハンドルを作成する
 
-proc LoadSoundMem2WithStrLen*(FileName1: ptr TCHAR; FileName1Length: csize_t;
-                             FileName2: ptr TCHAR; FileName2Length: csize_t): cint
+proc LoadSoundMem2WithStrLen*(FileName1: cstring; FileName1Length: csize_t;
+                             FileName2: cstring; FileName2Length: csize_t): cint
 ##  前奏部とループ部に分かれたサウンドファイルを読み込みサウンドハンドルを作成する
 
-proc LoadBGM*(FileName: ptr TCHAR): cint
+proc LoadBGM*(FileName: cstring): cint
 ##  主にＢＧＭを読み込みサウンドハンドルを作成するのに適した関数
 
-proc LoadBGMWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc LoadBGMWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  主にＢＧＭを読み込みサウンドハンドルを作成するのに適した関数
 
-proc LoadSoundMemBase*(FileName: ptr TCHAR; BufferNum: cint; UnionHandle: cint = -1): cint
+proc LoadSoundMemBase*(FileName: cstring; BufferNum: cint; UnionHandle: cint = -1): cint
 ##  サウンドファイルからサウンドハンドルを作成する
 
-proc LoadSoundMemBaseWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadSoundMemBaseWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                 BufferNum: cint; UnionHandle: cint = -1): cint
 ##  サウンドファイルからサウンドハンドルを作成する
 
-proc LoadSoundMem*(FileName: ptr TCHAR; BufferNum: cint = 3; UnionHandle: cint = -1): cint
+proc LoadSoundMem*(FileName: cstring; BufferNum: cint = 3; UnionHandle: cint = -1): cint
 ##  LoadSoundMemBase の別名関数
 
-proc LoadSoundMemWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadSoundMemWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                             BufferNum: cint = 3; UnionHandle: cint = -1): cint
 ##  LoadSoundMemBase の別名関数
 
-proc LoadSoundMemToBufNumSitei*(FileName: ptr TCHAR; BufferNum: cint): cint
+proc LoadSoundMemToBufNumSitei*(FileName: cstring; BufferNum: cint): cint
 ##  LoadSoundMem を使用して下さい
 
-proc LoadSoundMemToBufNumSiteiWithStrLen*(FileName: ptr TCHAR;
+proc LoadSoundMemToBufNumSiteiWithStrLen*(FileName: cstring;
     FileNameLength: csize_t; BufferNum: cint): cint
 ##  LoadSoundMem を使用して下さい
 
@@ -301,42 +301,42 @@ proc SetNextPlay3DVelocitySoundMem*(Velocity: VECTOR; SoundHandle: cint): cint
 ##  サウンドハンドルの次の再生のみに使用する３Ｄサウンド用の移動速度を設定する
 ##  特殊関数
 
-proc GetMP3TagInfo*(FileName: ptr TCHAR; TitleBuffer: ptr TCHAR;
-                   TitleBufferBytes: csize_t; ArtistBuffer: ptr TCHAR;
-                   ArtistBufferBytes: csize_t; AlbumBuffer: ptr TCHAR;
-                   AlbumBufferBytes: csize_t; YearBuffer: ptr TCHAR;
-                   YearBufferBytes: csize_t; CommentBuffer: ptr TCHAR;
-                   CommentBufferBytes: csize_t; TrackBuffer: ptr TCHAR;
-                   TrackBufferBytes: csize_t; GenreBuffer: ptr TCHAR;
+proc GetMP3TagInfo*(FileName: cstring; TitleBuffer: cstring;
+                   TitleBufferBytes: csize_t; ArtistBuffer: cstring;
+                   ArtistBufferBytes: csize_t; AlbumBuffer: cstring;
+                   AlbumBufferBytes: csize_t; YearBuffer: cstring;
+                   YearBufferBytes: csize_t; CommentBuffer: cstring;
+                   CommentBufferBytes: csize_t; TrackBuffer: cstring;
+                   TrackBufferBytes: csize_t; GenreBuffer: cstring;
                    GenreBufferBytes: csize_t; PictureGrHandle: ptr cint): cint
 ##  MP3ファイルのタグ情報を取得する
 
-proc GetMP3TagInfoWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
-                             TitleBuffer: ptr TCHAR; TitleBufferBytes: csize_t;
-                             ArtistBuffer: ptr TCHAR; ArtistBufferBytes: csize_t;
-                             AlbumBuffer: ptr TCHAR; AlbumBufferBytes: csize_t;
-                             YearBuffer: ptr TCHAR; YearBufferBytes: csize_t;
-                             CommentBuffer: ptr TCHAR; CommentBufferBytes: csize_t;
-                             TrackBuffer: ptr TCHAR; TrackBufferBytes: csize_t;
-                             GenreBuffer: ptr TCHAR; GenreBufferBytes: csize_t;
+proc GetMP3TagInfoWithStrLen*(FileName: cstring; FileNameLength: csize_t;
+                             TitleBuffer: cstring; TitleBufferBytes: csize_t;
+                             ArtistBuffer: cstring; ArtistBufferBytes: csize_t;
+                             AlbumBuffer: cstring; AlbumBufferBytes: csize_t;
+                             YearBuffer: cstring; YearBufferBytes: csize_t;
+                             CommentBuffer: cstring; CommentBufferBytes: csize_t;
+                             TrackBuffer: cstring; TrackBufferBytes: csize_t;
+                             GenreBuffer: cstring; GenreBufferBytes: csize_t;
                              PictureGrHandle: ptr cint): cint
 ##  MP3ファイルのタグ情報を取得する
 
-proc GetOggCommentNum*(FileName: ptr TCHAR): cint
+proc GetOggCommentNum*(FileName: cstring): cint
 ##  Oggファイルのコメント情報の数を取得する
 
-proc GetOggCommentNumWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc GetOggCommentNumWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  Oggファイルのコメント情報の数を取得する
 
-proc GetOggComment*(FileName: ptr TCHAR; CommentIndex: cint;
-                   CommentNameBuffer: ptr TCHAR; CommentNameBufferBytes: csize_t;
-                   CommentBuffer: ptr TCHAR; CommentBufferBytes: csize_t): cint
+proc GetOggComment*(FileName: cstring; CommentIndex: cint;
+                   CommentNameBuffer: cstring; CommentNameBufferBytes: csize_t;
+                   CommentBuffer: cstring; CommentBufferBytes: csize_t): cint
 ##  Oggファイルのコメント情報を取得する
 
-proc GetOggCommentWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
-                             CommentIndex: cint; CommentNameBuffer: ptr TCHAR;
+proc GetOggCommentWithStrLen*(FileName: cstring; FileNameLength: csize_t;
+                             CommentIndex: cint; CommentNameBuffer: cstring;
                              CommentNameBufferBytes: csize_t;
-                             CommentBuffer: ptr TCHAR; CommentBufferBytes: csize_t): cint
+                             CommentBuffer: cstring; CommentBufferBytes: csize_t): cint
 ##  Oggファイルのコメント情報を取得する
 ##  設定関係関数
 
@@ -433,23 +433,23 @@ proc StopBeep*(): cint
 ##  ビープ音を止める
 ##  ラッパー関数
 
-proc PlaySoundFile*(FileName: ptr TCHAR; PlayType: cint): cint
+proc PlaySoundFile*(FileName: cstring; PlayType: cint): cint
 ##  サウンドファイルを再生する
 
-proc PlaySoundFileWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc PlaySoundFileWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                              PlayType: cint): cint
 ##  サウンドファイルを再生する
 
-proc PlaySound*(FileName: ptr TCHAR; PlayType: cint): cint
+proc PlaySound*(FileName: cstring; PlayType: cint): cint
 ##  PlaySoundFile の旧名称
 
-proc PlaySoundWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t; PlayType: cint): cint
+proc PlaySoundWithStrLen*(FileName: cstring; FileNameLength: csize_t; PlayType: cint): cint
 ##  PlaySoundFile の旧名称
 
-proc PlaySoundDX*(FileName: ptr TCHAR; PlayType: cint): cint
+proc PlaySoundDX*(FileName: cstring; PlayType: cint): cint
 ##  PlaySoundFile の旧名称
 
-proc PlaySoundDXWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc PlaySoundDXWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                            PlayType: cint): cint
 ##  PlaySoundFile の旧名称
 
@@ -475,10 +475,10 @@ proc SetVolumeSound*(VolumePal: cint): cint
 proc InitSoftSound*(): cint
 ##  ソフトウエアで扱う波形データハンドルをすべて削除する
 
-proc LoadSoftSound*(FileName: ptr TCHAR): cint
+proc LoadSoftSound*(FileName: cstring): cint
 ##  ソフトウエアで扱う波形データハンドルをサウンドファイルから作成する
 
-proc LoadSoftSoundWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc LoadSoftSoundWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  ソフトウエアで扱う波形データハンドルをサウンドファイルから作成する
 
 proc LoadSoftSoundFromMemImage*(FileImage: pointer; FileImageSize: csize_t): cint
@@ -518,10 +518,10 @@ proc MakeSoftSoundCustom*(ChannelNum: cint; BitsPerSample: cint; SamplesPerSec: 
 proc DeleteSoftSound*(SoftSoundHandle: cint): cint
 ##  ソフトウエアで扱う波形データハンドルを削除する
 
-proc SaveSoftSound*(SoftSoundHandle: cint; FileName: ptr TCHAR): cint
+proc SaveSoftSound*(SoftSoundHandle: cint; FileName: cstring): cint
 ##  ソフトウエアで扱う波形データハンドルをWAVEファイル(PCM)形式で保存する
 
-proc SaveSoftSoundWithStrLen*(SoftSoundHandle: cint; FileName: ptr TCHAR;
+proc SaveSoftSoundWithStrLen*(SoftSoundHandle: cint; FileName: cstring;
                              FileNameLength: csize_t): cint
 ##  ソフトウエアで扱う波形データハンドルをWAVEファイル(PCM)形式で保存する
 
@@ -647,10 +647,10 @@ proc CheckSoftSoundPlayerNoneData*(SSoundPlayerHandle: cint): cint
 proc DeleteMusicMem*(MusicHandle: cint): cint
 ##  ＭＩＤＩハンドルを削除する
 
-proc LoadMusicMem*(FileName: ptr TCHAR): cint
+proc LoadMusicMem*(FileName: cstring): cint
 ##  ＭＩＤＩファイルを読み込みＭＩＤＩハンドルを作成する
 
-proc LoadMusicMemWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc LoadMusicMemWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  ＭＩＤＩファイルを読み込みＭＩＤＩハンドルを作成する
 
 proc LoadMusicMemByMemImage*(FileImage: pointer; FileImageSize: csize_t): cint
@@ -677,10 +677,10 @@ proc InitMusicMem*(): cint
 proc ProcessMusicMem*(): cint
 ##  ＭＩＤＩハンドルの周期的処理( 内部で呼ばれます )
 
-proc PlayMusic*(FileName: ptr TCHAR; PlayType: cint): cint
+proc PlayMusic*(FileName: cstring; PlayType: cint): cint
 ##  ＭＩＤＩファイルを演奏する
 
-proc PlayMusicWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t; PlayType: cint): cint
+proc PlayMusicWithStrLen*(FileName: cstring; FileNameLength: csize_t; PlayType: cint): cint
 ##  ＭＩＤＩファイルを演奏する
 
 proc PlayMusicByMemImage*(FileImage: pointer; FileImageSize: csize_t; PlayType: cint): cint
@@ -708,55 +708,55 @@ proc SetUseDXArchiveFlag*(Flag: cint): cint
 proc SetDXArchivePriority*(Priority: cint = 0): cint
 ##  同名のＤＸアーカイブファイルとフォルダが存在した場合、どちらを優先させるかを設定する( 1:フォルダを優先　 0:ＤＸアーカイブファイルを優先( デフォルト ) )
 
-proc SetDXArchiveExtension*(Extension: ptr TCHAR = nil): cint
+proc SetDXArchiveExtension*(Extension: cstring = nil): cint
 ##  検索するＤＸアーカイブファイルの拡張子を設定する( Extension:拡張子名文字列 )
 
-proc SetDXArchiveExtensionWithStrLen*(Extension: ptr TCHAR = nil;
+proc SetDXArchiveExtensionWithStrLen*(Extension: cstring = nil;
                                      ExtensionLength: csize_t = 0): cint
 ##  検索するＤＸアーカイブファイルの拡張子を設定する( Extension:拡張子名文字列 )
 
-proc SetDXArchiveKeyString*(KeyString: ptr TCHAR = nil): cint
+proc SetDXArchiveKeyString*(KeyString: cstring = nil): cint
 ##  ＤＸアーカイブファイルの鍵文字列を設定する( KeyString:鍵文字列 )
 
-proc SetDXArchiveKeyStringWithStrLen*(KeyString: ptr TCHAR = nil;
+proc SetDXArchiveKeyStringWithStrLen*(KeyString: cstring = nil;
                                      KeyStringLength: csize_t = 0): cint
 ##  ＤＸアーカイブファイルの鍵文字列を設定する( KeyString:鍵文字列 )
 
-proc DXArchivePreLoad*(FilePath: ptr TCHAR; ASync: cint = FALSE): cint
+proc DXArchivePreLoad*(FilePath: cstring; ASync: cint = FALSE): cint
 ##  指定のＤＸＡファイルを丸ごとメモリに読み込む( 戻り値  -1:エラー  0:成功 )
 
-proc DXArchivePreLoadWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t;
+proc DXArchivePreLoadWithStrLen*(FilePath: cstring; FilePathLength: csize_t;
                                 ASync: cint = FALSE): cint
 ##  指定のＤＸＡファイルを丸ごとメモリに読み込む( 戻り値  -1:エラー  0:成功 )
 
-proc DXArchiveCheckIdle*(FilePath: ptr TCHAR): cint
+proc DXArchiveCheckIdle*(FilePath: cstring): cint
 ##  指定のＤＸＡファイルの事前読み込みが完了したかどうかを取得する( 戻り値  TRUE:完了した FALSE:まだ )
 
-proc DXArchiveCheckIdleWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t): cint
+proc DXArchiveCheckIdleWithStrLen*(FilePath: cstring; FilePathLength: csize_t): cint
 ##  指定のＤＸＡファイルの事前読み込みが完了したかどうかを取得する( 戻り値  TRUE:完了した FALSE:まだ )
 
-proc DXArchiveRelease*(FilePath: ptr TCHAR): cint
+proc DXArchiveRelease*(FilePath: cstring): cint
 ##  指定のＤＸＡファイルをメモリから解放する
 
-proc DXArchiveReleaseWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t): cint
+proc DXArchiveReleaseWithStrLen*(FilePath: cstring; FilePathLength: csize_t): cint
 ##  指定のＤＸＡファイルをメモリから解放する
 
-proc DXArchiveCheckFile*(FilePath: ptr TCHAR; TargetFilePath: ptr TCHAR): cint
+proc DXArchiveCheckFile*(FilePath: cstring; TargetFilePath: cstring): cint
 ##  ＤＸＡファイルの中に指定のファイルが存在するかどうかを調べる、TargetFilePath はＤＸＡファイルをカレントフォルダとした場合のパス( 戻り値:  -1=エラー  0:無い  1:ある )
 
-proc DXArchiveCheckFileWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t;
-                                  TargetFilePath: ptr TCHAR;
+proc DXArchiveCheckFileWithStrLen*(FilePath: cstring; FilePathLength: csize_t;
+                                  TargetFilePath: cstring;
                                   TargetFilePathLength: csize_t): cint
 ##  ＤＸＡファイルの中に指定のファイルが存在するかどうかを調べる、TargetFilePath はＤＸＡファイルをカレントフォルダとした場合のパス( 戻り値:  -1=エラー  0:無い  1:ある )
 
 proc DXArchiveSetMemImage*(ArchiveImage: pointer; ArchiveImageSize: cint;
-                          EmulateFilePath: ptr TCHAR;
+                          EmulateFilePath: cstring;
                           ArchiveImageCopyFlag: cint = FALSE;
                           ArchiveImageReadOnly: cint = TRUE): cint
 ##  メモリ上に展開されたＤＸＡファイルを指定のファイルパスにあることにする( EmulateFilePath は見立てる dxa ファイルのパス、例えばＤＸＡファイルイメージを Image.dxa というファイル名で c:\Temp にあることにしたい場合は EmulateFilePath に "c:\\Temp\\Image.dxa" を渡す、SetDXArchiveExtension で拡張子を変更している場合は EmulateFilePath に渡すファイルパスの拡張子もそれに合わせる必要あり )
 
 proc DXArchiveSetMemImageWithStrLen*(ArchiveImage: pointer; ArchiveImageSize: cint;
-                                    EmulateFilePath: ptr TCHAR;
+                                    EmulateFilePath: cstring;
                                     EmulateFilePathLength: csize_t;
                                     ArchiveImageCopyFlag: cint = FALSE;
                                     ArchiveImageReadOnly: cint = TRUE): cint

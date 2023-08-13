@@ -25,8 +25,8 @@ proc GetJoypadGUID*(PadIndex: cint; GuidInstanceBuffer: ptr GUID;
                    GuidProductBuffer: ptr GUID = nil): cint
 ##  ジョイパッドのＧＵIＤを得る
 
-proc GetJoypadName*(InputType: cint; InstanceNameBuffer: ptr TCHAR;
-                   ProductNameBuffer: ptr TCHAR): cint
+proc GetJoypadName*(InputType: cint; InstanceNameBuffer: cstring;
+                   ProductNameBuffer: cstring): cint
 ##  ジョイパッドのデバイス登録名と製品登録名を取得する( InstanceNameBuffer, ProductNameBuffer 共に 260 以上のバッファサイズが必要 )
 
 proc ConvertKeyCodeToVirtualKey*(KeyCode: cint): cint
@@ -48,71 +48,71 @@ proc LoadDivGraphFToResource*(ResourceID: cint; AllNum: cint; XNum: cint; YNum: 
                              XSize: cfloat; YSize: cfloat; HandleArray: ptr cint): cint
 ##  画像リソースを分割してグラフィックハンドルを作成する( float型 )
 
-proc LoadGraphToResource*(ResourceName: ptr TCHAR; ResourceType: ptr TCHAR): cint
+proc LoadGraphToResource*(ResourceName: cstring; ResourceType: cstring): cint
 ##  画像リソースからグラフィックハンドルを作成する
 
-proc LoadGraphToResourceWithStrLen*(ResourceName: ptr TCHAR;
+proc LoadGraphToResourceWithStrLen*(ResourceName: cstring;
                                    ResourceNameLength: csize_t;
-                                   ResourceType: ptr TCHAR;
+                                   ResourceType: cstring;
                                    ResourceTypeLength: csize_t): cint
 ##  画像リソースからグラフィックハンドルを作成する
 
-proc LoadDivGraphToResource*(ResourceName: ptr TCHAR; ResourceType: ptr TCHAR;
+proc LoadDivGraphToResource*(ResourceName: cstring; ResourceType: cstring;
                             AllNum: cint; XNum: cint; YNum: cint; XSize: cint;
                             YSize: cint; HandleArray: ptr cint): cint
 ##  画像リソースを分割してグラフィックハンドルを作成する
 
-proc LoadDivGraphToResourceWithStrLen*(ResourceName: ptr TCHAR;
+proc LoadDivGraphToResourceWithStrLen*(ResourceName: cstring;
                                       ResourceNameLength: csize_t;
-                                      ResourceType: ptr TCHAR;
+                                      ResourceType: cstring;
                                       ResourceTypeLength: csize_t; AllNum: cint;
                                       XNum: cint; YNum: cint; XSize: cint;
                                       YSize: cint; HandleArray: ptr cint): cint
 ##  画像リソースを分割してグラフィックハンドルを作成する
 
-proc LoadDivGraphFToResource*(ResourceName: ptr TCHAR; ResourceType: ptr TCHAR;
+proc LoadDivGraphFToResource*(ResourceName: cstring; ResourceType: cstring;
                              AllNum: cint; XNum: cint; YNum: cint; XSize: cfloat;
                              YSize: cfloat; HandleArray: ptr cint): cint
 ##  画像リソースを分割してグラフィックハンドルを作成する( float型 )
 
-proc LoadDivGraphFToResourceWithStrLen*(ResourceName: ptr TCHAR;
+proc LoadDivGraphFToResourceWithStrLen*(ResourceName: cstring;
                                        ResourceNameLength: csize_t;
-                                       ResourceType: ptr TCHAR;
+                                       ResourceType: cstring;
                                        ResourceTypeLength: csize_t; AllNum: cint;
                                        XNum: cint; YNum: cint; XSize: cfloat;
                                        YSize: cfloat; HandleArray: ptr cint): cint
 ##  画像リソースを分割してグラフィックハンドルを作成する( float型 )
 
-proc LoadGraphToResource2*(ResourceName: ptr TCHAR; ResourceType: ptr TCHAR): cint
+proc LoadGraphToResource2*(ResourceName: cstring; ResourceType: cstring): cint
 ##  画像リソースからグラフィックハンドルを作成する
 
-proc LoadGraphToResourceWithStrLen2*(ResourceName: ptr TCHAR;
+proc LoadGraphToResourceWithStrLen2*(ResourceName: cstring;
                                     ResourceNameLength: csize_t;
-                                    ResourceType: ptr TCHAR;
+                                    ResourceType: cstring;
                                     ResourceTypeLength: csize_t): cint
 ##  画像リソースからグラフィックハンドルを作成する
 
-proc LoadDivGraphToResource2*(ResourceName: ptr TCHAR; ResourceType: ptr TCHAR;
+proc LoadDivGraphToResource2*(ResourceName: cstring; ResourceType: cstring;
                              AllNum: cint; XNum: cint; YNum: cint; XSize: cint;
                              YSize: cint; HandleArray: ptr cint): cint
 ##  画像リソースを分割してグラフィックハンドルを作成する
 
-proc LoadDivGraphToResourceWithStrLen2*(ResourceName: ptr TCHAR;
+proc LoadDivGraphToResourceWithStrLen2*(ResourceName: cstring;
                                        ResourceNameLength: csize_t;
-                                       ResourceType: ptr TCHAR;
+                                       ResourceType: cstring;
                                        ResourceTypeLength: csize_t; AllNum: cint;
                                        XNum: cint; YNum: cint; XSize: cint;
                                        YSize: cint; HandleArray: ptr cint): cint
 ##  画像リソースを分割してグラフィックハンドルを作成する
 
-proc LoadDivGraphFToResource2*(ResourceName: ptr TCHAR; ResourceType: ptr TCHAR;
+proc LoadDivGraphFToResource2*(ResourceName: cstring; ResourceType: cstring;
                               AllNum: cint; XNum: cint; YNum: cint; XSize: cfloat;
                               YSize: cfloat; HandleArray: ptr cint): cint
 ##  画像リソースを分割してグラフィックハンドルを作成する( float型 )
 
-proc LoadDivGraphFToResourceWithStrLen2*(ResourceName: ptr TCHAR;
+proc LoadDivGraphFToResourceWithStrLen2*(ResourceName: cstring;
                                         ResourceNameLength: csize_t;
-                                        ResourceType: ptr TCHAR;
+                                        ResourceType: cstring;
                                         ResourceTypeLength: csize_t; AllNum: cint;
                                         XNum: cint; YNum: cint; XSize: cfloat;
                                         YSize: cfloat; HandleArray: ptr cint): cint

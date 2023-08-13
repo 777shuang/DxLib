@@ -4,13 +4,13 @@ import ../DxDll
 ##  DxSound.cpp関数プロトタイプ宣言
 ##  サウンドデータ管理系関数
 
-proc LoadSoundMemByResource*(ResourceName: ptr TCHAR; ResourceType: ptr TCHAR;
+proc LoadSoundMemByResource*(ResourceName: cstring; ResourceType: cstring;
                             BufferNum: cint = 1): cint
 ##  サウンドリソースからサウンドハンドルを作成する
 
-proc LoadSoundMemByResourceWithStrLen*(ResourceName: ptr TCHAR;
+proc LoadSoundMemByResourceWithStrLen*(ResourceName: cstring;
                                       ResourceNameLength: csize_t;
-                                      ResourceType: ptr TCHAR;
+                                      ResourceType: cstring;
                                       ResourceTypeLength: csize_t;
                                       BufferNum: cint = 1): cint
 ##  サウンドリソースからサウンドハンドルを作成する
@@ -42,22 +42,22 @@ proc GetDSoundObj*(): pointer
 ##  ＤＸライブラリが使用している DirectSound オブジェクトを取得する
 ##  ＭＩＤＩ制御関数
 
-proc LoadMusicMemByResource*(ResourceName: ptr TCHAR; ResourceType: ptr TCHAR): cint
+proc LoadMusicMemByResource*(ResourceName: cstring; ResourceType: cstring): cint
 ##  リソース上のＭＩＤＩファイルからＭＩＤＩハンドルを作成する
 
-proc LoadMusicMemByResourceWithStrLen*(ResourceName: ptr TCHAR;
+proc LoadMusicMemByResourceWithStrLen*(ResourceName: cstring;
                                       ResourceNameLength: csize_t;
-                                      ResourceType: ptr TCHAR;
+                                      ResourceType: cstring;
                                       ResourceTypeLength: csize_t): cint
 ##  リソース上のＭＩＤＩファイルからＭＩＤＩハンドルを作成する
 
-proc PlayMusicByResource*(ResourceName: ptr TCHAR; ResourceType: ptr TCHAR;
+proc PlayMusicByResource*(ResourceName: cstring; ResourceType: cstring;
                          PlayType: cint): cint
 ##  リソースからＭＩＤＩファイルを読み込んで演奏する
 
-proc PlayMusicByResourceWithStrLen*(ResourceName: ptr TCHAR;
+proc PlayMusicByResourceWithStrLen*(ResourceName: cstring;
                                    ResourceNameLength: csize_t;
-                                   ResourceType: ptr TCHAR;
+                                   ResourceType: cstring;
                                    ResourceTypeLength: csize_t; PlayType: cint): cint
 ##  リソースからＭＩＤＩファイルを読み込んで演奏する
 

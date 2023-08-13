@@ -4,14 +4,14 @@ import ../DxDll
 ##  DxBaseImage.cpp 関数プロトタイプ宣言
 ##  基本イメージデータのロード＋ＤＩＢ関係
 
-proc CreateGraphImageOrDIBGraph*(FileName: ptr TCHAR; DataImage: pointer;
+proc CreateGraphImageOrDIBGraph*(FileName: cstring; DataImage: pointer;
                                 DataImageSize: cint; DataImageType: cint; ##  LOADIMAGE_TYPE_FILE 等
                                 BmpFlag: cint; ReverseFlag: cint;
                                 BaseImage: ptr BASEIMAGE;
                                 BmpInfo: ptr ptr BITMAPINFO; GraphData: ptr pointer): cint
 ##  画像ファイル若しくはメモリ上に展開された画像ファイルイメージを読み込み、基本イメージデータ若しくはＢＭＰデータを構築する
 
-proc CreateGraphImageOrDIBGraphWithStrLen*(FileName: ptr TCHAR;
+proc CreateGraphImageOrDIBGraphWithStrLen*(FileName: cstring;
     FileNameLength: csize_t; DataImage: pointer; DataImageSize: cint; DataImageType: cint; ##  LOADIMAGE_TYPE_FILE 等
     BmpFlag: cint; ReverseFlag: cint; BaseImage: ptr BASEIMAGE;
     BmpInfo: ptr ptr BITMAPINFO; GraphData: ptr pointer): cint
@@ -24,10 +24,10 @@ proc CreateBmpInfo*(BmpInfo: ptr BITMAPINFO; Width: cint; Height: cint; Pitch: c
                    SrcGrData: pointer; DestGrData: ptr pointer): cint
 ##  24bitカラー形式のビットマップデータからＢＭＰデータを構築する
 
-proc GetImageSize_File*(FileName: ptr TCHAR; SizeX: ptr cint; SizeY: ptr cint): cint
+proc GetImageSize_File*(FileName: cstring; SizeX: ptr cint; SizeY: ptr cint): cint
 ##  画像ファイルの横ピクセル数と縦ピクセル数を取得する
 
-proc GetImageSize_FileWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc GetImageSize_FileWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                  SizeX: ptr cint; SizeY: ptr cint): cint
 ##  画像ファイルの横ピクセル数と縦ピクセル数を取得する
 
@@ -38,7 +38,7 @@ proc GetImageSize_Mem*(FileImage: pointer; FileImageSize: cint; SizeX: ptr cint;
 proc GetGraphImageFullColorCode*(GraphImage: ptr BASEIMAGE; x: cint; y: cint): cuint
 ##  基本イメージデータの指定座標のフルカラーコードを取得する
 
-proc CreateGraphImage_plus_Alpha*(FileName: ptr TCHAR; RgbImage: pointer;
+proc CreateGraphImage_plus_Alpha*(FileName: cstring; RgbImage: pointer;
                                  RgbImageSize: cint; RgbImageType: cint;
                                  AlphaImage: pointer; AlphaImageSize: cint;
                                  AlphaImageType: cint;
@@ -46,7 +46,7 @@ proc CreateGraphImage_plus_Alpha*(FileName: ptr TCHAR; RgbImage: pointer;
                                  AlphaGraphImage: ptr BASEIMAGE; ReverseFlag: cint): cint
 ##  画像ファイル若しくはメモリ上に展開された画像ファイルイメージを読み込み、基本イメージデータを構築する
 
-proc CreateGraphImage_plus_AlphaWithStrLen*(FileName: ptr TCHAR;
+proc CreateGraphImage_plus_AlphaWithStrLen*(FileName: cstring;
     FileNameLength: csize_t; RgbImage: pointer; RgbImageSize: cint;
     RgbImageType: cint; AlphaImage: pointer; AlphaImageSize: cint;
     AlphaImageType: cint; RgbGraphImage: ptr BASEIMAGE;
@@ -93,25 +93,25 @@ proc GetUseConvertNormalFormatLoad*(): cint
 ##  画像ファイル読み込み時に DX_BASEIMAGE_FORMAT_NORMAL 以外の形式のイメージを DX_BASEIMAGE_FORMAT_NORMAL 形式のイメージに変換するかどうかを取得する( TRUE:変換処理を行う  FALSE:変換処理を行なわない( デフォルト ) )
 ##  基本イメージデータ構造体関係
 
-proc CreateBaseImage*(FileName: ptr TCHAR; FileImage: pointer; FileImageSize: cint; DataType: cint; ## =LOADIMAGE_TYPE_FILE
+proc CreateBaseImage*(FileName: cstring; FileImage: pointer; FileImageSize: cint; DataType: cint; ## =LOADIMAGE_TYPE_FILE
                      BaseImage: ptr BASEIMAGE; ReverseFlag: cint): cint
 ##  画像ファイル若しくはメモリ上に展開された画像ファイルイメージから基本イメージデータを構築する
 
-proc CreateBaseImageWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc CreateBaseImageWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                FileImage: pointer; FileImageSize: cint; DataType: cint; ## =LOADIMAGE_TYPE_FILE
                                BaseImage: ptr BASEIMAGE; ReverseFlag: cint): cint
 ##  画像ファイル若しくはメモリ上に展開された画像ファイルイメージから基本イメージデータを構築する
 
-proc CreateGraphImage*(FileName: ptr TCHAR; DataImage: pointer; DataImageSize: cint;
+proc CreateGraphImage*(FileName: cstring; DataImage: pointer; DataImageSize: cint;
                       DataImageType: cint; GraphImage: ptr BASEIMAGE;
                       ReverseFlag: cint): cint
 ##  CreateBaseImage の旧名称
 
-proc CreateBaseImageToFile*(FileName: ptr TCHAR; BaseImage: ptr BASEIMAGE;
+proc CreateBaseImageToFile*(FileName: cstring; BaseImage: ptr BASEIMAGE;
                            ReverseFlag: cint = FALSE): cint
 ##  画像ファイルから基本イメージデータを構築する
 
-proc CreateBaseImageToFileWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc CreateBaseImageToFileWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                      BaseImage: ptr BASEIMAGE;
                                      ReverseFlag: cint = FALSE): cint
 ##  画像ファイルから基本イメージデータを構築する
@@ -287,41 +287,41 @@ proc CheckPixelAlphaBaseImage*(BaseImage: ptr BASEIMAGE): cint
 proc GetBaseImageUseMaxPaletteNo*(BaseImage: ptr BASEIMAGE): cint
 ##  基本イメージデータで使用されているパレット番号の最大値を取得する( パレット画像では無い場合は -1 が返る )
 
-proc ReadJpegExif*(JpegFilePath: ptr TCHAR; ExifBuffer_Array: ptr BYTE;
+proc ReadJpegExif*(JpegFilePath: cstring; ExifBuffer_Array: ptr BYTE;
                   ExifBufferSize: csize_t): cint
 ##  JPEGファイルの Exif情報を取得する、ExifBuffer を NULL に渡すと、戻り値の情報のサイズのみ取得できます( 戻り値  -1:エラー  -1以外：Exif情報のサイズ )
 
-proc ReadJpegExifWithStrLen*(JpegFilePath: ptr TCHAR; JpegFilePathLength: csize_t;
+proc ReadJpegExifWithStrLen*(JpegFilePath: cstring; JpegFilePathLength: csize_t;
                             ExifBuffer_Array: ptr BYTE; ExifBufferSize: csize_t): cint
 ##  JPEGファイルの Exif情報を取得する、ExifBuffer を NULL に渡すと、戻り値の情報のサイズのみ取得できます( 戻り値  -1:エラー  -1以外：Exif情報のサイズ )
 
-proc SaveBaseImageToBmp*(FilePath: ptr TCHAR; BaseImage: ptr BASEIMAGE): cint
+proc SaveBaseImageToBmp*(FilePath: cstring; BaseImage: ptr BASEIMAGE): cint
 ##  基本イメージデータをＢＭＰ画像として保存する
 
-proc SaveBaseImageToBmpWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t;
+proc SaveBaseImageToBmpWithStrLen*(FilePath: cstring; FilePathLength: csize_t;
                                   BaseImage: ptr BASEIMAGE): cint
 ##  基本イメージデータをＢＭＰ画像として保存する
 
-proc SaveBaseImageToDds*(FilePath: ptr TCHAR; BaseImage: ptr BASEIMAGE): cint
+proc SaveBaseImageToDds*(FilePath: cstring; BaseImage: ptr BASEIMAGE): cint
 ##  基本イメージデータをＤＤＳ画像として保存する
 
-proc SaveBaseImageToDdsWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t;
+proc SaveBaseImageToDdsWithStrLen*(FilePath: cstring; FilePathLength: csize_t;
                                   BaseImage: ptr BASEIMAGE): cint
 ##  基本イメージデータをＤＤＳ画像として保存する
 
-proc SaveBaseImageToPng*(FilePath: ptr TCHAR; BaseImage: ptr BASEIMAGE;
+proc SaveBaseImageToPng*(FilePath: cstring; BaseImage: ptr BASEIMAGE;
                         CompressionLevel: cint): cint
 ##  基本イメージデータをＰＮＧ画像として保存する
 
-proc SaveBaseImageToPngWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t;
+proc SaveBaseImageToPngWithStrLen*(FilePath: cstring; FilePathLength: csize_t;
                                   BaseImage: ptr BASEIMAGE; CompressionLevel: cint): cint
 ##  基本イメージデータをＰＮＧ画像として保存する
 
-proc SaveBaseImageToJpeg*(FilePath: ptr TCHAR; BaseImage: ptr BASEIMAGE; Quality: cint;
+proc SaveBaseImageToJpeg*(FilePath: cstring; BaseImage: ptr BASEIMAGE; Quality: cint;
                          Sample2x1: cint): cint
 ##  基本イメージデータをＪＰＥＧ画像として保存する
 
-proc SaveBaseImageToJpegWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t;
+proc SaveBaseImageToJpegWithStrLen*(FilePath: cstring; FilePathLength: csize_t;
                                    BaseImage: ptr BASEIMAGE; Quality: cint;
                                    Sample2x1: cint): cint
 ##  基本イメージデータをＪＰＥＧ画像として保存する

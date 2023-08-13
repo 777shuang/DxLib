@@ -4,14 +4,14 @@ import ../DxDll
 ##  DxModel.cpp 関数 プロトタイプ宣言
 ##  モデルの読み込み・複製関係
 
-proc MV1LoadModel*(FileName: ptr TCHAR): cint
+proc MV1LoadModel*(FileName: cstring): cint
 ##  モデルの読み込み( -1:エラー  0以上:モデルハンドル )
 
-proc MV1LoadModelWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc MV1LoadModelWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  モデルの読み込み( -1:エラー  0以上:モデルハンドル )
 
 proc MV1LoadModelFromMem*(FileImage: pointer; FileSize: cint; FileReadFunc: proc (
-    FilePath: ptr TCHAR; FileImageAddr: ptr pointer; FileSize: ptr cint;
+    FilePath: cstring; FileImageAddr: ptr pointer; FileSize: ptr cint;
     FileReadFuncData: pointer): cint; FileReleaseFunc: proc (MemoryAddr: pointer;
     FileReadFuncData: pointer): cint; FileReadFuncData: pointer = nil): cint
 ##  メモリ上のモデルファイルイメージと独自の読み込みルーチンを使用してモデルを読み込む
@@ -67,10 +67,10 @@ proc MV1SetLoadModel_PMD_PMX_AnimationFPSMode*(FPSMode: cint): cint
   ##  DX_LOADMODEL_PMD_PMX_ANIMATION_FPSMODE_30 等
 ##  PMD, PMX ファイルを読み込んだ際のアニメーションの FPS モードを設定する
 
-proc MV1AddLoadModelDisablePhysicsNameWord*(NameWord: ptr TCHAR): cint
+proc MV1AddLoadModelDisablePhysicsNameWord*(NameWord: cstring): cint
 ##  読み込むモデルの物理演算を特定の剛体のみ無効にするための名前のワードを追加する、追加できるワード文字列の最大長は 63 文字、追加できるワードの数は最大 256 個
 
-proc MV1AddLoadModelDisablePhysicsNameWordWithStrLen*(NameWord: ptr TCHAR;
+proc MV1AddLoadModelDisablePhysicsNameWordWithStrLen*(NameWord: cstring;
     NameWordLength: csize_t): cint
 ##  読み込むモデルの物理演算を特定の剛体のみ無効にするための名前のワードを追加する、追加できるワード文字列の最大長は 63 文字、追加できるワードの数は最大 256 個
 
@@ -81,10 +81,10 @@ proc MV1SetLoadModelDisablePhysicsNameWordMode*(DisableNameWordMode: cint): cint
   ##  DX_LOADMODEL_PHYSICS_DISABLENAMEWORD_ALWAYS 等
 ##  MV1AddLoadModelDisablePhysicsNameWord で追加した剛体の無効ワードの適用ルールを変更する
 
-proc MV1SetLoadModelAnimFilePath*(FileName: ptr TCHAR): cint
+proc MV1SetLoadModelAnimFilePath*(FileName: cstring): cint
 ##  読み込むモデルに適用するアニメーションファイルのパスを設定する、NULLを渡すと設定リセット( 現在は PMD,PMX のみに効果あり )
 
-proc MV1SetLoadModelAnimFilePathWithStrLen*(FileName: ptr TCHAR;
+proc MV1SetLoadModelAnimFilePathWithStrLen*(FileName: cstring;
     FileNameLength: csize_t): cint
 ##  読み込むモデルに適用するアニメーションファイルのパスを設定する、NULLを渡すと設定リセット( 現在は PMD,PMX のみに効果あり )
 
@@ -101,14 +101,14 @@ proc MV1SetLoadModelIgnoreIK*(IgnoreFlag: cint): cint
 ##  読み込むモデルのIK情報を無視するかどうかを設定する( TRUE:無視する  FALSE:無視しない(デフォルト) )
 ##  モデル保存関係
 
-proc MV1SaveModelToMV1File*(MHandle: cint; FileName: ptr TCHAR;
+proc MV1SaveModelToMV1File*(MHandle: cint; FileName: cstring;
                            SaveType: cint = MV1_SAVETYPE_NORMAL;
                            AnimMHandle: cint = -1; AnimNameCheck: cint = TRUE;
                            Normal8BitFlag: cint = 1; Position16BitFlag: cint = 1;
                            Weight8BitFlag: cint = 0; Anim16BitFlag: cint = 1): cint
 ##  指定のパスにモデルを保存する( 戻り値  0:成功  -1:メモリ不足  -2:使われていないアニメーションがあった )
 
-proc MV1SaveModelToMV1FileWithStrLen*(MHandle: cint; FileName: ptr TCHAR;
+proc MV1SaveModelToMV1FileWithStrLen*(MHandle: cint; FileName: cstring;
                                      FileNameLength: csize_t;
                                      SaveType: cint = MV1_SAVETYPE_NORMAL;
                                      AnimMHandle: cint = -1;
@@ -119,12 +119,12 @@ proc MV1SaveModelToMV1FileWithStrLen*(MHandle: cint; FileName: ptr TCHAR;
                                      Anim16BitFlag: cint = 1): cint
 ##  指定のパスにモデルを保存する( 戻り値  0:成功  -1:メモリ不足  -2:使われていないアニメーションがあった )
 
-proc MV1SaveModelToXFile*(MHandle: cint; FileName: ptr TCHAR;
+proc MV1SaveModelToXFile*(MHandle: cint; FileName: cstring;
                          SaveType: cint = MV1_SAVETYPE_NORMAL;
                          AnimMHandle: cint = -1; AnimNameCheck: cint = TRUE): cint
 ##  指定のパスにモデルをＸファイル形式で保存する( 戻り値  0:成功  -1:メモリ不足  -2:使われていないアニメーションがあった )
 
-proc MV1SaveModelToXFileWithStrLen*(MHandle: cint; FileName: ptr TCHAR;
+proc MV1SaveModelToXFileWithStrLen*(MHandle: cint; FileName: cstring;
                                    FileNameLength: csize_t;
                                    SaveType: cint = MV1_SAVETYPE_NORMAL;
                                    AnimMHandle: cint = -1;
@@ -376,20 +376,20 @@ proc MV1GetAttachAnimFrameLocalMatrix*(MHandle: cint; AttachIndex: cint;
 proc MV1GetAnimNum*(MHandle: cint): cint
 ##  アニメーションの数を取得する
 
-proc MV1GetAnimName*(MHandle: cint; AnimIndex: cint): ptr TCHAR
+proc MV1GetAnimName*(MHandle: cint; AnimIndex: cint): cstring
 ##  指定番号のアニメーション名を取得する( NULL:エラー )
 
-proc MV1SetAnimName*(MHandle: cint; AnimIndex: cint; AnimName: ptr TCHAR): cint
+proc MV1SetAnimName*(MHandle: cint; AnimIndex: cint; AnimName: cstring): cint
 ##  指定番号のアニメーション名を変更する
 
-proc MV1SetAnimNameWithStrLen*(MHandle: cint; AnimIndex: cint; AnimName: ptr TCHAR;
+proc MV1SetAnimNameWithStrLen*(MHandle: cint; AnimIndex: cint; AnimName: cstring;
                               AnimNameLength: csize_t): cint
 ##  指定番号のアニメーション名を変更する
 
-proc MV1GetAnimIndex*(MHandle: cint; AnimName: ptr TCHAR): cint
+proc MV1GetAnimIndex*(MHandle: cint; AnimName: cstring): cint
 ##  指定名のアニメーション番号を取得する( -1:エラー )
 
-proc MV1GetAnimIndexWithStrLen*(MHandle: cint; AnimName: ptr TCHAR;
+proc MV1GetAnimIndexWithStrLen*(MHandle: cint; AnimName: cstring;
                                AnimNameLength: csize_t): cint
 ##  指定名のアニメーション番号を取得する( -1:エラー )
 
@@ -399,7 +399,7 @@ proc MV1GetAnimTotalTime*(MHandle: cint; AnimIndex: cint): cfloat
 proc MV1GetAnimTargetFrameNum*(MHandle: cint; AnimIndex: cint): cint
 ##  指定のアニメーションがターゲットとするフレームの数を取得する
 
-proc MV1GetAnimTargetFrameName*(MHandle: cint; AnimIndex: cint; AnimFrameIndex: cint): ptr TCHAR
+proc MV1GetAnimTargetFrameName*(MHandle: cint; AnimIndex: cint; AnimFrameIndex: cint): cstring
 ##  指定のアニメーションがターゲットとするフレームの名前を取得する
 
 proc MV1GetAnimTargetFrame*(MHandle: cint; AnimIndex: cint; AnimFrameIndex: cint): cint
@@ -474,7 +474,7 @@ proc MV1GetAnimKeyDataToLinearFromTime*(MHandle: cint; AnimKeySetIndex: cint;
 proc MV1GetMaterialNum*(MHandle: cint): cint
 ##  モデルで使用しているマテリアルの数を取得する
 
-proc MV1GetMaterialName*(MHandle: cint; MaterialIndex: cint): ptr TCHAR
+proc MV1GetMaterialName*(MHandle: cint; MaterialIndex: cint): cstring
 ##  指定のマテリアルの名前を取得する
 
 proc MV1SetMaterialTypeAll*(MHandle: cint; Type: cint): cint
@@ -677,27 +677,27 @@ proc MV1GetMaterialDrawAddColor*(MHandle: cint; MaterialIndex: cint; Red: ptr ci
 proc MV1GetTextureNum*(MHandle: cint): cint
 ##  テクスチャの数を取得
 
-proc MV1GetTextureName*(MHandle: cint; TexIndex: cint): ptr TCHAR
+proc MV1GetTextureName*(MHandle: cint; TexIndex: cint): cstring
 ##  テクスチャの名前を取得
 
-proc MV1SetTextureColorFilePath*(MHandle: cint; TexIndex: cint; FilePath: ptr TCHAR): cint
+proc MV1SetTextureColorFilePath*(MHandle: cint; TexIndex: cint; FilePath: cstring): cint
 ##  カラーテクスチャのファイルパスを変更する
 
 proc MV1SetTextureColorFilePathWithStrLen*(MHandle: cint; TexIndex: cint;
-    FilePath: ptr TCHAR; FilePathLength: csize_t): cint
+    FilePath: cstring; FilePathLength: csize_t): cint
 ##  カラーテクスチャのファイルパスを変更する
 
-proc MV1GetTextureColorFilePath*(MHandle: cint; TexIndex: cint): ptr TCHAR
+proc MV1GetTextureColorFilePath*(MHandle: cint; TexIndex: cint): cstring
 ##  カラーテクスチャのファイルパスを取得
 
-proc MV1SetTextureAlphaFilePath*(MHandle: cint; TexIndex: cint; FilePath: ptr TCHAR): cint
+proc MV1SetTextureAlphaFilePath*(MHandle: cint; TexIndex: cint; FilePath: cstring): cint
 ##  アルファテクスチャのファイルパスを変更する
 
 proc MV1SetTextureAlphaFilePathWithStrLen*(MHandle: cint; TexIndex: cint;
-    FilePath: ptr TCHAR; FilePathLength: csize_t): cint
+    FilePath: cstring; FilePathLength: csize_t): cint
 ##  アルファテクスチャのファイルパスを変更する
 
-proc MV1GetTextureAlphaFilePath*(MHandle: cint; TexIndex: cint): ptr TCHAR
+proc MV1GetTextureAlphaFilePath*(MHandle: cint; TexIndex: cint): cstring
 ##  アルファテクスチャのファイルパスを取得
 
 proc MV1SetTextureGraphHandle*(MHandle: cint; TexIndex: cint; GrHandle: cint;
@@ -745,36 +745,36 @@ proc MV1SetTextureSampleFilterMode*(MHandle: cint; TexIndex: cint; FilterMode: c
 proc MV1GetTextureSampleFilterMode*(MHandle: cint; TexIndex: cint): cint
 ##  テクスチャのフィルタリングモードを取得する( 戻り値  DX_DRAWMODE_BILINEAR等 )
 
-proc MV1LoadTexture*(FilePath: ptr TCHAR): cint
+proc MV1LoadTexture*(FilePath: cstring): cint
 ##  ３Ｄモデルに貼り付けるのに向いた画像の読み込み方式で画像を読み込む( 戻り値  -1:エラー  0以上:グラフィックハンドル )
 
-proc MV1LoadTextureWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t): cint
+proc MV1LoadTextureWithStrLen*(FilePath: cstring; FilePathLength: csize_t): cint
 ##  ３Ｄモデルに貼り付けるのに向いた画像の読み込み方式で画像を読み込む( 戻り値  -1:エラー  0以上:グラフィックハンドル )
 ##  フレーム関係
 
 proc MV1GetFrameNum*(MHandle: cint): cint
 ##  フレームの数を取得する
 
-proc MV1SearchFrame*(MHandle: cint; FrameName: ptr TCHAR): cint
+proc MV1SearchFrame*(MHandle: cint; FrameName: cstring): cint
 ##  フレームの名前からモデル中のフレームのフレームインデックスを取得する( 無かった場合は戻り値が-1 )
 
-proc MV1SearchFrameWithStrLen*(MHandle: cint; FrameName: ptr TCHAR;
+proc MV1SearchFrameWithStrLen*(MHandle: cint; FrameName: cstring;
                               FrameNameLength: csize_t): cint
 ##  フレームの名前からモデル中のフレームのフレームインデックスを取得する( 無かった場合は戻り値が-1 )
 
 proc MV1SearchFrameChild*(MHandle: cint; FrameIndex: cint = -1;
-                         ChildName: ptr TCHAR = nil): cint
+                         ChildName: cstring = nil): cint
 ##  フレームの名前から指定のフレームの子フレームのフレームインデックスを取得する( 名前指定版 )( FrameIndex を -1 にすると親を持たないフレームを ChildIndex で指定する )( 無かった場合は戻り値が-1 )
 
 proc MV1SearchFrameChildWithStrLen*(MHandle: cint; FrameIndex: cint = -1;
-                                   ChildName: ptr TCHAR = nil;
+                                   ChildName: cstring = nil;
                                    ChildNameLength: csize_t = 0): cint
 ##  フレームの名前から指定のフレームの子フレームのフレームインデックスを取得する( 名前指定版 )( FrameIndex を -1 にすると親を持たないフレームを ChildIndex で指定する )( 無かった場合は戻り値が-1 )
 
-proc MV1GetFrameName*(MHandle: cint; FrameIndex: cint): ptr TCHAR
+proc MV1GetFrameName*(MHandle: cint; FrameIndex: cint): cstring
 ##  指定のフレームの名前を取得する( エラーの場合は戻り値が NULL )
 
-proc MV1GetFrameName2*(MHandle: cint; FrameIndex: cint; StrBuffer: ptr TCHAR): cint
+proc MV1GetFrameName2*(MHandle: cint; FrameIndex: cint; StrBuffer: cstring): cint
 ##  指定のフレームの名前を取得する( 戻り値   -1:エラー  -1以外:文字列のサイズ )
 
 proc MV1GetFrameParent*(MHandle: cint; FrameIndex: cint): cint
@@ -1025,14 +1025,14 @@ proc MV1GetMeshShapeFlag*(MHandle: cint; MeshIndex: cint): cint
 proc MV1GetShapeNum*(MHandle: cint): cint
 ##  モデルに含まれるシェイプの数を取得する
 
-proc MV1SearchShape*(MHandle: cint; ShapeName: ptr TCHAR): cint
+proc MV1SearchShape*(MHandle: cint; ShapeName: cstring): cint
 ##  シェイプの名前からモデル中のシェイプのシェイプインデックスを取得する( 無かった場合は戻り値が-1 )
 
-proc MV1SearchShapeWithStrLen*(MHandle: cint; ShapeName: ptr TCHAR;
+proc MV1SearchShapeWithStrLen*(MHandle: cint; ShapeName: cstring;
                               ShapeNameLength: csize_t): cint
 ##  シェイプの名前からモデル中のシェイプのシェイプインデックスを取得する( 無かった場合は戻り値が-1 )
 
-proc MV1GetShapeName*(MHandle: cint; ShapeIndex: cint): ptr TCHAR
+proc MV1GetShapeName*(MHandle: cint; ShapeIndex: cint): cstring
 ##  指定シェイプの名前を取得する
 
 proc MV1GetShapeTargetMeshNum*(MHandle: cint; ShapeIndex: cint): cint

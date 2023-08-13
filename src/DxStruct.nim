@@ -15,7 +15,7 @@ type
 
 type
   IMEINPUTDATA* {.bycopy.} = object
-    InputString*: ptr TCHAR
+    InputString*: cstring
     ##  入力中の文字列
     CursorPosition*: cint
     ##  カーソルの入力文字列中の位置(バイト単位)
@@ -27,7 +27,7 @@ type
     ##  選択中の分節( -1 の場合はどの文節にも属していない( 末尾にカーソルがある ) )
     CandidateNum*: cint
     ##  変換候補の数( 0の場合は変換中ではない )
-    CandidateList*: ptr ptr TCHAR
+    CandidateList*: ptr cstring
     ##  変換候補文字列リスト( 例：ｎ番目の候補を描画する場合  DrawString( 0, 0, data.CandidateList[ n ], GetColor(255,255,255) ); )
     SelectCandidate*: cint
     ##  選択中の変換候補
@@ -682,7 +682,7 @@ type
 
 type
   STREAMDATASHREDTYPE2* {.bycopy.} = object
-    Open*: proc (Path: ptr TCHAR; UseCacheFlag: cint; BlockReadFlag: cint;
+    Open*: proc (Path: cstring; UseCacheFlag: cint; BlockReadFlag: cint;
                UseASyncReadFlag: cint): DWORD_PTR
     Close*: proc (Handle: DWORD_PTR): cint
     Tell*: proc (Handle: DWORD_PTR): LONGLONG
@@ -691,10 +691,10 @@ type
                Handle: DWORD_PTR): csize_t
     Eof*: proc (Handle: DWORD_PTR): cint
     IdleCheck*: proc (Handle: DWORD_PTR): cint
-    ChDir*: proc (Path: ptr TCHAR): cint
-    GetDir*: proc (Buffer: ptr TCHAR): cint
-    GetDirS*: proc (Buffer: ptr TCHAR; BufferSize: csize_t): cint
-    FindFirst*: proc (FilePath: ptr TCHAR; Buffer: ptr FILEINFO): DWORD_PTR
+    ChDir*: proc (Path: cstring): cint
+    GetDir*: proc (Buffer: cstring): cint
+    GetDirS*: proc (Buffer: cstring; BufferSize: csize_t): cint
+    FindFirst*: proc (FilePath: cstring; Buffer: ptr FILEINFO): DWORD_PTR
     ##  戻り値: -1=エラー  -1以外=FindHandle
     FindNext*: proc (FindHandle: DWORD_PTR; Buffer: ptr FILEINFO): cint
     ##  戻り値: -1=エラー  0=成功

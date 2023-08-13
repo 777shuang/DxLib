@@ -81,6 +81,7 @@ proc convertC(line: string): string =
 
 proc convertNim(line: string): string =
   var buf = line
+  buf = buf.replace("ptr TCHAR", "cstring")
   buf = buf.replace("0xffffffffffffffff'u", "0xffffffffffffffff'i64")
   # 負の数として表現される16進数を正しく変換する
   buf = buf.replace(

@@ -4,47 +4,47 @@ import ../DxDll
 ##  DxFont.cpp 関数プロトタイプ宣言
 ##  フォント、文字列描画関係関数
 
-proc EnumFontName*(NameBuffer: ptr TCHAR; NameBufferNum: cint;
+proc EnumFontName*(NameBuffer: cstring; NameBufferNum: cint;
                   JapanOnlyFlag: cint = TRUE): cint
 ##  使用可能なフォントの名前を列挙する( NameBuffer に 64バイト区切りで名前が格納されます )
 
-proc EnumFontNameEx*(NameBuffer: ptr TCHAR; NameBufferNum: cint; CharSet: cint = -1): cint
+proc EnumFontNameEx*(NameBuffer: cstring; NameBufferNum: cint; CharSet: cint = -1): cint
 ##  使用可能なフォントの名前を列挙する( NameBuffer に 64バイト区切りで名前が格納されます )( 文字セット指定版 )
 
-proc EnumFontNameEx2*(NameBuffer: ptr TCHAR; NameBufferNum: cint;
-                     EnumFontName: ptr TCHAR; CharSet: cint = -1): cint
+proc EnumFontNameEx2*(NameBuffer: cstring; NameBufferNum: cint;
+                     EnumFontName: cstring; CharSet: cint = -1): cint
 ##  指定のフォント名のフォントを列挙する
 
-proc EnumFontNameEx2WithStrLen*(NameBuffer: ptr TCHAR; NameBufferNum: cint;
-                               EnumFontName: ptr TCHAR;
+proc EnumFontNameEx2WithStrLen*(NameBuffer: cstring; NameBufferNum: cint;
+                               EnumFontName: cstring;
                                EnumFontNameLength: csize_t; CharSet: cint = -1): cint
 ##  指定のフォント名のフォントを列挙する
 
-proc CheckFontName*(FontName: ptr TCHAR; CharSet: cint = -1): cint
+proc CheckFontName*(FontName: cstring; CharSet: cint = -1): cint
 ##  指定のフォント名のフォントが存在するかどうかをチェックする( 戻り値  TRUE:存在する  FALSE:存在しない )
 
-proc CheckFontNameWithStrLen*(FontName: ptr TCHAR; FontNameLength: csize_t;
+proc CheckFontNameWithStrLen*(FontName: cstring; FontNameLength: csize_t;
                              CharSet: cint = -1): cint
 ##  指定のフォント名のフォントが存在するかどうかをチェックする( 戻り値  TRUE:存在する  FALSE:存在しない )
 
 proc InitFontToHandle*(): cint
 ##  全てのフォントハンドルを削除する
 
-proc CreateFontToHandle*(FontName: ptr TCHAR; Size: cint; Thick: cint;
+proc CreateFontToHandle*(FontName: cstring; Size: cint; Thick: cint;
                         FontType: cint = -1; CharSet: cint = -1; EdgeSize: cint = -1;
                         Italic: cint = FALSE; Handle: cint = -1): cint
 ##  フォントハンドルを作成する
 
-proc CreateFontToHandleWithStrLen*(FontName: ptr TCHAR; FontNameLength: csize_t;
+proc CreateFontToHandleWithStrLen*(FontName: cstring; FontNameLength: csize_t;
                                   Size: cint; Thick: cint; FontType: cint = -1;
                                   CharSet: cint = -1; EdgeSize: cint = -1;
                                   Italic: cint = FALSE; Handle: cint = -1): cint
 ##  フォントハンドルを作成する
 
-proc LoadFontDataToHandle*(FileName: ptr TCHAR; EdgeSize: cint = 0): cint
+proc LoadFontDataToHandle*(FileName: cstring; EdgeSize: cint = 0): cint
 ##  フォントデータファイルからフォントハンドルを作成する
 
-proc LoadFontDataToHandleWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadFontDataToHandleWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                     EdgeSize: cint = 0): cint
 ##  フォントデータファイルからフォントハンドルを作成する
 
@@ -68,19 +68,19 @@ proc DeleteFontToHandle*(FontHandle: cint): cint
 proc SetFontLostFlag*(FontHandle: cint; LostFlag: ptr cint): cint
 ##  フォントハンドルを削除した際に TRUE を代入する変数のアドレスを設定する
 
-proc AddFontImageToHandle*(FontHandle: cint; Char: ptr TCHAR; GrHandle: cint;
+proc AddFontImageToHandle*(FontHandle: cint; Char: cstring; GrHandle: cint;
                           DrawX: cint; DrawY: cint; AddX: cint): cint
 ##  指定の文字の代わりに描画するグラフィックハンドルを登録する
 
-proc AddFontImageToHandleWithStrLen*(FontHandle: cint; Char: ptr TCHAR;
+proc AddFontImageToHandleWithStrLen*(FontHandle: cint; Char: cstring;
                                     CharLength: csize_t; GrHandle: cint;
                                     DrawX: cint; DrawY: cint; AddX: cint): cint
 ##  指定の文字の代わりに描画するグラフィックハンドルを登録する
 
-proc SubFontImageToHandle*(FontHandle: cint; Char: ptr TCHAR): cint
+proc SubFontImageToHandle*(FontHandle: cint; Char: cstring): cint
 ##  指定の文字の代わりに描画するグラフィックハンドルの登録を解除する
 
-proc SubFontImageToHandleWithStrLen*(FontHandle: cint; Char: ptr TCHAR;
+proc SubFontImageToHandleWithStrLen*(FontHandle: cint; Char: cstring;
                                     CharLength: csize_t): cint
 ##  指定の文字の代わりに描画するグラフィックハンドルの登録を解除する
 
@@ -91,10 +91,10 @@ proc AddSubstitutionFontToHandle*(FontHandle: cint; SubstitutionFontHandle: cint
 proc SubSubstitutionFontToHandle*(FontHandle: cint; SubstitutionFontHandle: cint): cint
 ##  代替フォントハンドルの登録を解除する
 
-proc ChangeFont*(FontName: ptr TCHAR; CharSet: cint = -1): cint
+proc ChangeFont*(FontName: cstring; CharSet: cint = -1): cint
 ##  デフォルトフォントハンドルで使用するフォントを変更
 
-proc ChangeFontWithStrLen*(FontName: ptr TCHAR; FontNameLength: csize_t;
+proc ChangeFontWithStrLen*(FontName: cstring; FontNameLength: csize_t;
                           CharSet: cint = -1): cint
 ##  デフォルトフォントハンドルで使用するフォントを変更
 
@@ -104,7 +104,7 @@ proc ChangeFontFromHandle*(FontHandle: cint): cint
 proc ChangeFontType*(FontType: cint): cint
 ##  デフォルトフォントハンドルのフォントタイプの変更
 
-proc GetFontName*(): ptr TCHAR
+proc GetFontName*(): cstring
 ##  デフォルトフォントハンドルのフォント名を取得する
 
 proc SetFontSize*(FontSize: cint): cint
@@ -135,12 +135,12 @@ proc SetFontCharCodeFormat*(CharCodeFormat: cint): cint
   ##  DX_CHARCODEFORMAT_SHIFTJIS 等
 ##  デフォルトフォントハンドルを使用する関数の引数に渡す文字列の文字コード形式を設定する( UNICODE版では無効 )
 
-proc SetDefaultFontState*(FontName: ptr TCHAR; Size: cint; Thick: cint;
+proc SetDefaultFontState*(FontName: cstring; Size: cint; Thick: cint;
                          FontType: cint = -1; CharSet: cint = -1; EdgeSize: cint = -1;
                          Italic: cint = FALSE): cint
 ##  デフォルトフォントハンドルの設定を変更する
 
-proc SetDefaultFontStateWithStrLen*(FontName: ptr TCHAR; FontNameLength: csize_t;
+proc SetDefaultFontStateWithStrLen*(FontName: cstring; FontNameLength: csize_t;
                                    Size: cint; Thick: cint; FontType: cint = -1;
                                    CharSet: cint = -1; EdgeSize: cint = -1;
                                    Italic: cint = FALSE): cint
@@ -158,99 +158,99 @@ proc GetFontMaxWidth*(): cint
 proc GetFontAscent*(): cint
 ##  デフォルトフォントハンドルの描画位置からベースラインまでの高さを取得する
 
-proc GetDrawStringWidth*(String: ptr TCHAR; StrLen: cint; VerticalFlag: cint = FALSE): cint
+proc GetDrawStringWidth*(String: cstring; StrLen: cint; VerticalFlag: cint = FALSE): cint
 ##  デフォルトフォントハンドルを使用した文字列の描画幅を取得する
 
-proc GetDrawNStringWidth*(String: ptr TCHAR; StringLength: csize_t;
+proc GetDrawNStringWidth*(String: cstring; StringLength: csize_t;
                          VerticalFlag: cint = FALSE): cint
 ##  デフォルトフォントハンドルを使用した文字列の描画幅を取得する
 
-proc GetDrawFormatStringWidth*(FormatString: ptr TCHAR): cint {.varargs.}
+proc GetDrawFormatStringWidth*(FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用した書式付き文字列の描画幅を取得する
 
-proc GetDrawExtendStringWidth*(ExRateX: cdouble; String: ptr TCHAR; StrLen: cint;
+proc GetDrawExtendStringWidth*(ExRateX: cdouble; String: cstring; StrLen: cint;
                               VerticalFlag: cint = FALSE): cint
 ##  デフォルトフォントハンドルを使用した文字列の描画幅を取得する( 拡大率付き )
 
-proc GetDrawExtendNStringWidth*(ExRateX: cdouble; String: ptr TCHAR;
+proc GetDrawExtendNStringWidth*(ExRateX: cdouble; String: cstring;
                                StringLength: csize_t; VerticalFlag: cint = FALSE): cint
 ##  デフォルトフォントハンドルを使用した文字列の描画幅を取得する( 拡大率付き )
 
-proc GetDrawExtendFormatStringWidth*(ExRateX: cdouble; FormatString: ptr TCHAR): cint {.
+proc GetDrawExtendFormatStringWidth*(ExRateX: cdouble; FormatString: cstring): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用した書式付き文字列の描画幅を取得する( 拡大率付き )
 
 proc GetDrawStringSize*(SizeX: ptr cint; SizeY: ptr cint; LineCount: ptr cint;
-                       String: ptr TCHAR; StrLen: cint; VerticalFlag: cint = FALSE): cint
+                       String: cstring; StrLen: cint; VerticalFlag: cint = FALSE): cint
 ##  デフォルトフォントハンドルを使用した文字列の描画幅・高さ・行数を取得する
 
 proc GetDrawNStringSize*(SizeX: ptr cint; SizeY: ptr cint; LineCount: ptr cint;
-                        String: ptr TCHAR; StringLength: csize_t;
+                        String: cstring; StringLength: csize_t;
                         VerticalFlag: cint = FALSE): cint
 ##  デフォルトフォントハンドルを使用した文字列の描画幅・高さ・行数を取得する
 
 proc GetDrawFormatStringSize*(SizeX: ptr cint; SizeY: ptr cint; LineCount: ptr cint;
-                             FormatString: ptr TCHAR): cint {.varargs.}
+                             FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用した書式付き文字列の描画幅・高さ・行数を取得する
 
 proc GetDrawExtendStringSize*(SizeX: ptr cint; SizeY: ptr cint; LineCount: ptr cint;
-                             ExRateX: cdouble; ExRateY: cdouble; String: ptr TCHAR;
+                             ExRateX: cdouble; ExRateY: cdouble; String: cstring;
                              StrLen: cint; VerticalFlag: cint = FALSE): cint
 ##  デフォルトフォントハンドルを使用した文字列の描画幅・高さ・行数を取得する( 拡大率付き )
 
 proc GetDrawExtendNStringSize*(SizeX: ptr cint; SizeY: ptr cint; LineCount: ptr cint;
-                              ExRateX: cdouble; ExRateY: cdouble; String: ptr TCHAR;
+                              ExRateX: cdouble; ExRateY: cdouble; String: cstring;
                               StringLength: csize_t; VerticalFlag: cint = FALSE): cint
 ##  デフォルトフォントハンドルを使用した文字列の描画幅・高さ・行数を取得する( 拡大率付き )
 
 proc GetDrawExtendFormatStringSize*(SizeX: ptr cint; SizeY: ptr cint;
                                    LineCount: ptr cint; ExRateX: cdouble;
-                                   ExRateY: cdouble; FormatString: ptr TCHAR): cint {.
+                                   ExRateY: cdouble; FormatString: cstring): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用した書式付き文字列の描画幅・高さ・行数を取得する( 拡大率付き )
 
 proc GetDrawStringCharInfo*(InfoBuffer: ptr DRAWCHARINFO; InfoBufferSize: csize_t;
-                           String: ptr TCHAR; StrLen: cint;
+                           String: cstring; StrLen: cint;
                            VerticalFlag: cint = FALSE): cint
 ##  デフォルトフォントハンドルを使用した文字列の１文字毎の情報を取得する
 
 proc GetDrawNStringCharInfo*(InfoBuffer: ptr DRAWCHARINFO; InfoBufferSize: csize_t;
-                            String: ptr TCHAR; StringLength: csize_t;
+                            String: cstring; StringLength: csize_t;
                             VerticalFlag: cint = FALSE): cint
 ##  デフォルトフォントハンドルを使用した文字列の１文字毎の情報を取得する
 
 proc GetDrawFormatStringCharInfo*(InfoBuffer: ptr DRAWCHARINFO;
-                                 InfoBufferSize: csize_t; FormatString: ptr TCHAR): cint {.
+                                 InfoBufferSize: csize_t; FormatString: cstring): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用した書式付き文字列の１文字毎の情報を取得する
 
 proc GetDrawExtendStringCharInfo*(InfoBuffer: ptr DRAWCHARINFO;
                                  InfoBufferSize: csize_t; ExRateX: cdouble;
-                                 ExRateY: cdouble; String: ptr TCHAR; StrLen: cint;
+                                 ExRateY: cdouble; String: cstring; StrLen: cint;
                                  VerticalFlag: cint = FALSE): cint
 ##  デフォルトフォントハンドルを使用した文字列の１文字毎の情報を取得する
 
 proc GetDrawExtendNStringCharInfo*(InfoBuffer: ptr DRAWCHARINFO;
                                   InfoBufferSize: csize_t; ExRateX: cdouble;
-                                  ExRateY: cdouble; String: ptr TCHAR;
+                                  ExRateY: cdouble; String: cstring;
                                   StringLength: csize_t;
                                   VerticalFlag: cint = FALSE): cint
 ##  デフォルトフォントハンドルを使用した文字列の１文字毎の情報を取得する
 
 proc GetDrawExtendFormatStringCharInfo*(InfoBuffer: ptr DRAWCHARINFO;
                                        InfoBufferSize: csize_t; ExRateX: cdouble;
-                                       ExRateY: cdouble; FormatString: ptr TCHAR): cint {.
+                                       ExRateY: cdouble; FormatString: cstring): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用した書式付き文字列の１文字毎の情報を取得する
 
-proc GetDrawStringKerningPairInfo*(PairChar: ptr TCHAR; KernAmount: ptr cint): cint
+proc GetDrawStringKerningPairInfo*(PairChar: cstring; KernAmount: ptr cint): cint
 ##  デフォルトフォントハンドルを使用した二つの文字のペアのカーニング情報を取得する( PairChar:カーニング情報を調べるペアとなる2文字の文字列( 2文字以上あっても先頭の2文字だけ使用されます )  KernAmount:2文字目の文字を基本の位置からずらすドット数を代入するint型変数のアドレス )
 
-proc GetDrawStringKerningPairInfoWithStrLen*(PairChar: ptr TCHAR;
+proc GetDrawStringKerningPairInfoWithStrLen*(PairChar: cstring;
     PairCharLength: csize_t; KernAmount: ptr cint): cint
 ##  デフォルトフォントハンドルを使用した二つの文字のペアのカーニング情報を取得する( PairChar:カーニング情報を調べるペアとなる2文字の文字列( 2文字以上あっても先頭の2文字だけ使用されます )  KernAmount:2文字目の文字を基本の位置からずらすドット数を代入するint型変数のアドレス )
 
-proc GetFontNameToHandle*(FontHandle: cint): ptr TCHAR
+proc GetFontNameToHandle*(FontHandle: cint): cstring
 ##  フォントハンドルのフォント名を取得する
 
 proc GetFontMaxCacheCharNumToHandle*(FontHandle: cint): cint
@@ -274,116 +274,116 @@ proc GetFontSpaceToHandle*(FontHandle: cint): cint
 proc GetFontLineSpaceToHandle*(FontHandle: cint): cint
 ##  フォントハンドルの行間を取得する
 
-proc GetFontCharInfo*(FontHandle: cint; Char: ptr TCHAR; DrawX: ptr cint;
+proc GetFontCharInfo*(FontHandle: cint; Char: cstring; DrawX: ptr cint;
                      DrawY: ptr cint; NextCharX: ptr cint; SizeX: ptr cint;
                      SizeY: ptr cint): cint
 ##  フォントハンドルの指定の文字の描画情報を取得する
 
-proc GetFontCharInfoWithStrLen*(FontHandle: cint; Char: ptr TCHAR;
+proc GetFontCharInfoWithStrLen*(FontHandle: cint; Char: cstring;
                                CharLength: csize_t; DrawX: ptr cint; DrawY: ptr cint;
                                NextCharX: ptr cint; SizeX: ptr cint; SizeY: ptr cint): cint
 ##  フォントハンドルの指定の文字の描画情報を取得する
 
-proc GetDrawStringWidthToHandle*(String: ptr TCHAR; StrLen: cint; FontHandle: cint;
+proc GetDrawStringWidthToHandle*(String: cstring; StrLen: cint; FontHandle: cint;
                                 VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用した文字列の描画幅を取得する
 
-proc GetDrawNStringWidthToHandle*(String: ptr TCHAR; StringLength: csize_t;
+proc GetDrawNStringWidthToHandle*(String: cstring; StringLength: csize_t;
                                  FontHandle: cint; VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用した文字列の描画幅を取得する
 
-proc GetDrawFormatStringWidthToHandle*(FontHandle: cint; FormatString: ptr TCHAR): cint {.
+proc GetDrawFormatStringWidthToHandle*(FontHandle: cint; FormatString: cstring): cint {.
     varargs.}
 ##  フォントハンドルを使用した書式付き文字列の描画幅を取得する
 
-proc GetDrawExtendStringWidthToHandle*(ExRateX: cdouble; String: ptr TCHAR;
+proc GetDrawExtendStringWidthToHandle*(ExRateX: cdouble; String: cstring;
                                       StrLen: cint; FontHandle: cint;
                                       VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用した文字列の描画幅を取得する
 
-proc GetDrawExtendNStringWidthToHandle*(ExRateX: cdouble; String: ptr TCHAR;
+proc GetDrawExtendNStringWidthToHandle*(ExRateX: cdouble; String: cstring;
                                        StringLength: csize_t; FontHandle: cint;
                                        VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用した文字列の描画幅を取得する
 
 proc GetDrawExtendFormatStringWidthToHandle*(ExRateX: cdouble; FontHandle: cint;
-    FormatString: ptr TCHAR): cint {.varargs.}
+    FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用した書式付き文字列の描画幅を取得する
 
 proc GetDrawStringSizeToHandle*(SizeX: ptr cint; SizeY: ptr cint; LineCount: ptr cint;
-                               String: ptr TCHAR; StrLen: cint; FontHandle: cint;
+                               String: cstring; StrLen: cint; FontHandle: cint;
                                VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用した文字列の描画幅・高さ・行数を取得する
 
 proc GetDrawNStringSizeToHandle*(SizeX: ptr cint; SizeY: ptr cint; LineCount: ptr cint;
-                                String: ptr TCHAR; StringLength: csize_t;
+                                String: cstring; StringLength: csize_t;
                                 FontHandle: cint; VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用した文字列の描画幅・高さ・行数を取得する
 
 proc GetDrawFormatStringSizeToHandle*(SizeX: ptr cint; SizeY: ptr cint;
                                      LineCount: ptr cint; FontHandle: cint;
-                                     FormatString: ptr TCHAR): cint {.varargs.}
+                                     FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用した書式付き文字列の描画幅・高さ・行数を取得する
 
 proc GetDrawExtendStringSizeToHandle*(SizeX: ptr cint; SizeY: ptr cint;
                                      LineCount: ptr cint; ExRateX: cdouble;
-                                     ExRateY: cdouble; String: ptr TCHAR;
+                                     ExRateY: cdouble; String: cstring;
                                      StrLen: cint; FontHandle: cint;
                                      VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用した文字列の描画幅・高さ・行数を取得する
 
 proc GetDrawExtendNStringSizeToHandle*(SizeX: ptr cint; SizeY: ptr cint;
                                       LineCount: ptr cint; ExRateX: cdouble;
-                                      ExRateY: cdouble; String: ptr TCHAR;
+                                      ExRateY: cdouble; String: cstring;
                                       StringLength: csize_t; FontHandle: cint;
                                       VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用した文字列の描画幅・高さ・行数を取得する
 
 proc GetDrawExtendFormatStringSizeToHandle*(SizeX: ptr cint; SizeY: ptr cint;
     LineCount: ptr cint; ExRateX: cdouble; ExRateY: cdouble; FontHandle: cint;
-    FormatString: ptr TCHAR): cint {.varargs.}
+    FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用した書式付き文字列の描画幅・高さ・行数を取得する
 
 proc GetDrawStringCharInfoToHandle*(InfoBuffer: ptr DRAWCHARINFO;
-                                   InfoBufferSize: csize_t; String: ptr TCHAR;
+                                   InfoBufferSize: csize_t; String: cstring;
                                    StrLen: cint; FontHandle: cint;
                                    VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用した文字列の１文字毎の情報を取得する
 
 proc GetDrawNStringCharInfoToHandle*(InfoBuffer: ptr DRAWCHARINFO;
-                                    InfoBufferSize: csize_t; String: ptr TCHAR;
+                                    InfoBufferSize: csize_t; String: cstring;
                                     StringLength: csize_t; FontHandle: cint;
                                     VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用した文字列の１文字毎の情報を取得する
 
 proc GetDrawFormatStringCharInfoToHandle*(InfoBuffer: ptr DRAWCHARINFO;
-    InfoBufferSize: csize_t; FontHandle: cint; FormatString: ptr TCHAR): cint {.varargs.}
+    InfoBufferSize: csize_t; FontHandle: cint; FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用した書式付き文字列の１文字毎の情報を取得する
 
 proc GetDrawExtendStringCharInfoToHandle*(InfoBuffer: ptr DRAWCHARINFO;
-    InfoBufferSize: csize_t; ExRateX: cdouble; ExRateY: cdouble; String: ptr TCHAR;
+    InfoBufferSize: csize_t; ExRateX: cdouble; ExRateY: cdouble; String: cstring;
     StrLen: cint; FontHandle: cint; VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用した文字列の１文字毎の情報を取得する
 
 proc GetDrawExtendNStringCharInfoToHandle*(InfoBuffer: ptr DRAWCHARINFO;
-    InfoBufferSize: csize_t; ExRateX: cdouble; ExRateY: cdouble; String: ptr TCHAR;
+    InfoBufferSize: csize_t; ExRateX: cdouble; ExRateY: cdouble; String: cstring;
     StringLength: csize_t; FontHandle: cint; VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用した文字列の１文字毎の情報を取得する
 
 proc GetDrawExtendFormatStringCharInfoToHandle*(InfoBuffer: ptr DRAWCHARINFO;
     InfoBufferSize: csize_t; ExRateX: cdouble; ExRateY: cdouble; FontHandle: cint;
-    FormatString: ptr TCHAR): cint {.varargs.}
+    FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用した書式付き文字列の１文字毎の情報を取得する
 
-proc GetDrawStringKerningPairInfoToHandle*(PairChar: ptr TCHAR;
+proc GetDrawStringKerningPairInfoToHandle*(PairChar: cstring;
     KernAmount: ptr cint; FontHandle: cint): cint
 ##  フォントハンドルを使用した二つの文字のペアのカーニング情報を取得する( PairChar:カーニング情報を調べるペアとなる2文字の文字列( 2文字以上あっても先頭の2文字だけ使用されます )  KernAmount:2文字目の文字を基本の位置からずらすドット数を代入するint型変数のアドレス )
 
-proc GetDrawStringKerningPairInfoToHandleWithStrLen*(PairChar: ptr TCHAR;
+proc GetDrawStringKerningPairInfoToHandleWithStrLen*(PairChar: cstring;
     PairCharLength: csize_t; KernAmount: ptr cint; FontHandle: cint): cint
 ##  フォントハンドルを使用した二つの文字のペアのカーニング情報を取得する( PairChar:カーニング情報を調べるペアとなる2文字の文字列( 2文字以上あっても先頭の2文字だけ使用されます )  KernAmount:2文字目の文字を基本の位置からずらすドット数を代入するint型変数のアドレス )
 
-proc GetFontStateToHandle*(FontName: ptr TCHAR; Size: ptr cint; Thick: ptr cint;
+proc GetFontStateToHandle*(FontName: cstring; Size: ptr cint; Thick: ptr cint;
                           FontHandle: cint; FontType: ptr cint = nil;
                           CharSet: ptr cint = nil; EdgeSize: ptr cint = nil;
                           Italic: ptr cint = nil): cint
@@ -444,30 +444,30 @@ proc GetFontOnlyDrawType*(): cint
 ##  フォントの描画で縁のみ、又は本体のみ描画を行うかどうかを取得する( 戻り値  0:通常描画 1:本体のみ描画 2:縁のみ描画 )
 ##  FontCacheStringDraw の代わりに DrawString を使ってください
 
-proc FontCacheStringDrawToHandle*(x: cint; y: cint; StrData: ptr TCHAR; Color: cuint;
+proc FontCacheStringDrawToHandle*(x: cint; y: cint; StrData: cstring; Color: cuint;
                                  EdgeColor: cuint; DestImage: ptr BASEIMAGE; ClipRect: ptr RECT; ##  NULL 可
                                  FontHandle: cint; VerticalFlag: cint = FALSE;
                                  DrawSizeP: ptr SIZE = nil): cint
-proc FontCacheStringDrawToHandleWithStrLen*(x: cint; y: cint; StrData: ptr TCHAR;
+proc FontCacheStringDrawToHandleWithStrLen*(x: cint; y: cint; StrData: cstring;
     StrDataLength: csize_t; Color: cuint; EdgeColor: cuint; DestImage: ptr BASEIMAGE; ClipRect: ptr RECT; ##  NULL 可
     FontHandle: cint; VerticalFlag: cint = FALSE; DrawSizeP: ptr SIZE = nil): cint
-proc FontBaseImageBlt*(x: cint; y: cint; StrData: ptr TCHAR; DestImage: ptr BASEIMAGE;
+proc FontBaseImageBlt*(x: cint; y: cint; StrData: cstring; DestImage: ptr BASEIMAGE;
                       DestEdgeImage: ptr BASEIMAGE; VerticalFlag: cint = FALSE): cint
 ##  基本イメージに文字列を描画する( デフォルトフォントハンドルを使用する )
 
-proc FontBaseImageBltWithStrLen*(x: cint; y: cint; StrData: ptr TCHAR;
+proc FontBaseImageBltWithStrLen*(x: cint; y: cint; StrData: cstring;
                                 StrDataLength: csize_t; DestImage: ptr BASEIMAGE;
                                 DestEdgeImage: ptr BASEIMAGE;
                                 VerticalFlag: cint = FALSE): cint
 ##  基本イメージに文字列を描画する( デフォルトフォントハンドルを使用する )
 
-proc FontBaseImageBltToHandle*(x: cint; y: cint; StrData: ptr TCHAR;
+proc FontBaseImageBltToHandle*(x: cint; y: cint; StrData: cstring;
                               DestImage: ptr BASEIMAGE;
                               DestEdgeImage: ptr BASEIMAGE; FontHandle: cint;
                               VerticalFlag: cint = FALSE): cint
 ##  基本イメージに文字列を描画する
 
-proc FontBaseImageBltToHandleWithStrLen*(x: cint; y: cint; StrData: ptr TCHAR;
+proc FontBaseImageBltToHandleWithStrLen*(x: cint; y: cint; StrData: cstring;
                                         StrDataLength: csize_t;
                                         DestImage: ptr BASEIMAGE;
                                         DestEdgeImage: ptr BASEIMAGE;
@@ -480,212 +480,212 @@ proc MultiByteCharCheck*(Buf: cstring; CharSet: cint): cint
 ##  ２バイト文字か調べる( TRUE:２バイト文字  FALSE:１バイト文字 )
 ##  文字列描画関数
 
-proc DrawString*(x: cint; y: cint; String: ptr TCHAR; Color: cuint; EdgeColor: cuint = 0): cint
+proc DrawString*(x: cint; y: cint; String: cstring; Color: cuint; EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列を描画する
 
-proc DrawNString*(x: cint; y: cint; String: ptr TCHAR; StringLength: csize_t;
+proc DrawNString*(x: cint; y: cint; String: cstring; StringLength: csize_t;
                  Color: cuint; EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列を描画する
 
-proc DrawVString*(x: cint; y: cint; String: ptr TCHAR; Color: cuint; EdgeColor: cuint = 0): cint
+proc DrawVString*(x: cint; y: cint; String: cstring; Color: cuint; EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列を描画する( 縦書き )
 
-proc DrawNVString*(x: cint; y: cint; String: ptr TCHAR; StringLength: csize_t;
+proc DrawNVString*(x: cint; y: cint; String: cstring; StringLength: csize_t;
                   Color: cuint; EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列を描画する( 縦書き )
 
-proc DrawFormatString*(x: cint; y: cint; Color: cuint; FormatString: ptr TCHAR): cint {.
+proc DrawFormatString*(x: cint; y: cint; Color: cuint; FormatString: cstring): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を描画する
 
-proc DrawFormatVString*(x: cint; y: cint; Color: cuint; FormatString: ptr TCHAR): cint {.
+proc DrawFormatVString*(x: cint; y: cint; Color: cuint; FormatString: cstring): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を描画する( 縦書き )
 
 proc DrawFormatString2*(x: cint; y: cint; Color: cuint; EdgeColor: cuint;
-                       FormatString: ptr TCHAR): cint {.varargs.}
+                       FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を描画する( 縁の色引数付き )
 
 proc DrawFormatVString2*(x: cint; y: cint; Color: cuint; EdgeColor: cuint;
-                        FormatString: ptr TCHAR): cint {.varargs.}
+                        FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を描画する( 縁の色引数付き )( 縦書き )
 
 proc DrawExtendString*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                      String: ptr TCHAR; Color: cuint; EdgeColor: cuint = 0): cint
+                      String: cstring; Color: cuint; EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列の拡大描画
 
 proc DrawExtendNString*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                       String: ptr TCHAR; StringLength: csize_t; Color: cuint;
+                       String: cstring; StringLength: csize_t; Color: cuint;
                        EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列の拡大描画
 
 proc DrawExtendVString*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                       String: ptr TCHAR; Color: cuint; EdgeColor: cuint = 0): cint
+                       String: cstring; Color: cuint; EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列の拡大描画( 縦書き )
 
 proc DrawExtendNVString*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                        String: ptr TCHAR; StringLength: csize_t; Color: cuint;
+                        String: cstring; StringLength: csize_t; Color: cuint;
                         EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列の拡大描画( 縦書き )
 
 proc DrawExtendFormatString*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                            Color: cuint; FormatString: ptr TCHAR): cint {.varargs.}
+                            Color: cuint; FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を拡大描画する
 
 proc DrawExtendFormatVString*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                             Color: cuint; FormatString: ptr TCHAR): cint {.varargs.}
+                             Color: cuint; FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を拡大描画する( 縦書き )
 
 proc DrawExtendFormatString2*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                             Color: cuint; EdgeColor: cuint; FormatString: ptr TCHAR): cint {.
+                             Color: cuint; EdgeColor: cuint; FormatString: cstring): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を拡大描画する( 縁の色引数付き )
 
 proc DrawExtendFormatVString2*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
                               Color: cuint; EdgeColor: cuint;
-                              FormatString: ptr TCHAR): cint {.varargs.}
+                              FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を拡大描画する( 縁の色引数付き )( 縦書き )
 
 proc DrawRotaString*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
                     RotCenterX: cdouble; RotCenterY: cdouble; RotAngle: cdouble;
                     Color: cuint; EdgeColor: cuint = 0; VerticalFlag: cint = FALSE;
-                    String: ptr TCHAR = nil): cint
+                    String: cstring = nil): cint
 ##  デフォルトフォントハンドルを使用して文字列を回転描画する
 
 proc DrawRotaNString*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
                      RotCenterX: cdouble; RotCenterY: cdouble; RotAngle: cdouble;
                      Color: cuint; EdgeColor: cuint = 0; VerticalFlag: cint = FALSE;
-                     String: ptr TCHAR = nil; StringLength: csize_t = 0): cint
+                     String: cstring = nil; StringLength: csize_t = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列を回転描画する
 
 proc DrawRotaFormatString*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
                           RotCenterX: cdouble; RotCenterY: cdouble;
                           RotAngle: cdouble; Color: cuint; EdgeColor: cuint = 0;
-                          VerticalFlag: cint = FALSE; FormatString: ptr TCHAR = nil): cint {.
+                          VerticalFlag: cint = FALSE; FormatString: cstring = nil): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を回転描画する
 
 proc DrawModiString*(x1: cint; y1: cint; x2: cint; y2: cint; x3: cint; y3: cint; x4: cint;
                     y4: cint; Color: cuint; EdgeColor: cuint = 0;
-                    VerticalFlag: cint = FALSE; String: ptr TCHAR = nil): cint
+                    VerticalFlag: cint = FALSE; String: cstring = nil): cint
 ##  デフォルトフォントハンドルを使用して文字列を変形描画する
 
 proc DrawModiNString*(x1: cint; y1: cint; x2: cint; y2: cint; x3: cint; y3: cint; x4: cint;
                      y4: cint; Color: cuint; EdgeColor: cuint = 0;
-                     VerticalFlag: cint = FALSE; String: ptr TCHAR = nil;
+                     VerticalFlag: cint = FALSE; String: cstring = nil;
                      StringLength: csize_t = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列を変形描画する
 
 proc DrawModiFormatString*(x1: cint; y1: cint; x2: cint; y2: cint; x3: cint; y3: cint;
                           x4: cint; y4: cint; Color: cuint; EdgeColor: cuint = 0;
-                          VerticalFlag: cint = FALSE; FormatString: ptr TCHAR = nil): cint {.
+                          VerticalFlag: cint = FALSE; FormatString: cstring = nil): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を変形描画する
 
-proc DrawStringF*(x: cfloat; y: cfloat; String: ptr TCHAR; Color: cuint;
+proc DrawStringF*(x: cfloat; y: cfloat; String: cstring; Color: cuint;
                  EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列を描画する( 座標指定が float 版 )
 
-proc DrawNStringF*(x: cfloat; y: cfloat; String: ptr TCHAR; StringLength: csize_t;
+proc DrawNStringF*(x: cfloat; y: cfloat; String: cstring; StringLength: csize_t;
                   Color: cuint; EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列を描画する( 座標指定が float 版 )
 
-proc DrawVStringF*(x: cfloat; y: cfloat; String: ptr TCHAR; Color: cuint;
+proc DrawVStringF*(x: cfloat; y: cfloat; String: cstring; Color: cuint;
                   EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列を描画する( 縦書き )( 座標指定が float 版 )
 
-proc DrawNVStringF*(x: cfloat; y: cfloat; String: ptr TCHAR; StringLength: csize_t;
+proc DrawNVStringF*(x: cfloat; y: cfloat; String: cstring; StringLength: csize_t;
                    Color: cuint; EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列を描画する( 縦書き )( 座標指定が float 版 )
 
-proc DrawFormatStringF*(x: cfloat; y: cfloat; Color: cuint; FormatString: ptr TCHAR): cint {.
+proc DrawFormatStringF*(x: cfloat; y: cfloat; Color: cuint; FormatString: cstring): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を描画する( 座標指定が float 版 )
 
-proc DrawFormatVStringF*(x: cfloat; y: cfloat; Color: cuint; FormatString: ptr TCHAR): cint {.
+proc DrawFormatVStringF*(x: cfloat; y: cfloat; Color: cuint; FormatString: cstring): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を描画する( 縦書き )( 座標指定が float 版 )
 
 proc DrawFormatString2F*(x: cfloat; y: cfloat; Color: cuint; EdgeColor: cuint;
-                        FormatString: ptr TCHAR): cint {.varargs.}
+                        FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を描画する( 縁の色引数付き )( 座標指定が float 版 )
 
 proc DrawFormatVString2F*(x: cfloat; y: cfloat; Color: cuint; EdgeColor: cuint;
-                         FormatString: ptr TCHAR): cint {.varargs.}
+                         FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を描画する( 縁の色引数付き )( 縦書き )( 座標指定が float 版 )
 
 proc DrawExtendStringF*(x: cfloat; y: cfloat; ExRateX: cdouble; ExRateY: cdouble;
-                       String: ptr TCHAR; Color: cuint; EdgeColor: cuint = 0): cint
+                       String: cstring; Color: cuint; EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列の拡大描画( 座標指定が float 版 )
 
 proc DrawExtendNStringF*(x: cfloat; y: cfloat; ExRateX: cdouble; ExRateY: cdouble;
-                        String: ptr TCHAR; StringLength: csize_t; Color: cuint;
+                        String: cstring; StringLength: csize_t; Color: cuint;
                         EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列の拡大描画( 座標指定が float 版 )
 
 proc DrawExtendVStringF*(x: cfloat; y: cfloat; ExRateX: cdouble; ExRateY: cdouble;
-                        String: ptr TCHAR; Color: cuint; EdgeColor: cuint = 0): cint
+                        String: cstring; Color: cuint; EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列の拡大描画( 縦書き )( 座標指定が float 版 )
 
 proc DrawExtendNVStringF*(x: cfloat; y: cfloat; ExRateX: cdouble; ExRateY: cdouble;
-                         String: ptr TCHAR; StringLength: csize_t; Color: cuint;
+                         String: cstring; StringLength: csize_t; Color: cuint;
                          EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列の拡大描画( 縦書き )( 座標指定が float 版 )
 
 proc DrawExtendFormatStringF*(x: cfloat; y: cfloat; ExRateX: cdouble; ExRateY: cdouble;
-                             Color: cuint; FormatString: ptr TCHAR): cint {.varargs.}
+                             Color: cuint; FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を拡大描画する( 座標指定が float 版 )
 
 proc DrawExtendFormatVStringF*(x: cfloat; y: cfloat; ExRateX: cdouble;
                               ExRateY: cdouble; Color: cuint;
-                              FormatString: ptr TCHAR): cint {.varargs.}
+                              FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を拡大描画する( 縦書き )( 座標指定が float 版 )
 
 proc DrawExtendFormatString2F*(x: cfloat; y: cfloat; ExRateX: cdouble;
                               ExRateY: cdouble; Color: cuint; EdgeColor: cuint;
-                              FormatString: ptr TCHAR): cint {.varargs.}
+                              FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を拡大描画する( 縁の色引数付き )( 座標指定が float 版 )
 
 proc DrawExtendFormatVString2F*(x: cfloat; y: cfloat; ExRateX: cdouble;
                                ExRateY: cdouble; Color: cuint; EdgeColor: cuint;
-                               FormatString: ptr TCHAR): cint {.varargs.}
+                               FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を拡大描画する( 縁の色引数付き )( 縦書き )( 座標指定が float 版 )
 
 proc DrawRotaStringF*(x: cfloat; y: cfloat; ExRateX: cdouble; ExRateY: cdouble;
                      RotCenterX: cdouble; RotCenterY: cdouble; RotAngle: cdouble;
                      Color: cuint; EdgeColor: cuint = 0; VerticalFlag: cint = FALSE;
-                     String: ptr TCHAR = nil): cint
+                     String: cstring = nil): cint
 ##  デフォルトフォントハンドルを使用して文字列を回転描画する( 座標指定が float 版 )
 
 proc DrawRotaNStringF*(x: cfloat; y: cfloat; ExRateX: cdouble; ExRateY: cdouble;
                       RotCenterX: cdouble; RotCenterY: cdouble; RotAngle: cdouble;
                       Color: cuint; EdgeColor: cuint = 0; VerticalFlag: cint = FALSE;
-                      String: ptr TCHAR = nil; StringLength: csize_t = 0): cint
+                      String: cstring = nil; StringLength: csize_t = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列を回転描画する( 座標指定が float 版 )
 
 proc DrawRotaFormatStringF*(x: cfloat; y: cfloat; ExRateX: cdouble; ExRateY: cdouble;
                            RotCenterX: cdouble; RotCenterY: cdouble;
                            RotAngle: cdouble; Color: cuint; EdgeColor: cuint = 0;
-                           VerticalFlag: cint = FALSE; FormatString: ptr TCHAR = nil): cint {.
+                           VerticalFlag: cint = FALSE; FormatString: cstring = nil): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を回転描画する( 座標指定が float 版 )
 
 proc DrawModiStringF*(x1: cfloat; y1: cfloat; x2: cfloat; y2: cfloat; x3: cfloat;
                      y3: cfloat; x4: cfloat; y4: cfloat; Color: cuint;
                      EdgeColor: cuint = 0; VerticalFlag: cint = FALSE;
-                     String: ptr TCHAR = nil): cint
+                     String: cstring = nil): cint
 ##  デフォルトフォントハンドルを使用して文字列を変形描画する( 座標指定が float 版 )
 
 proc DrawModiNStringF*(x1: cfloat; y1: cfloat; x2: cfloat; y2: cfloat; x3: cfloat;
                       y3: cfloat; x4: cfloat; y4: cfloat; Color: cuint;
                       EdgeColor: cuint = 0; VerticalFlag: cint = FALSE;
-                      String: ptr TCHAR = nil; StringLength: csize_t = 0): cint
+                      String: cstring = nil; StringLength: csize_t = 0): cint
 ##  デフォルトフォントハンドルを使用して文字列を変形描画する( 座標指定が float 版 )
 
 proc DrawModiFormatStringF*(x1: cfloat; y1: cfloat; x2: cfloat; y2: cfloat; x3: cfloat;
                            y3: cfloat; x4: cfloat; y4: cfloat; Color: cuint;
                            EdgeColor: cuint = 0; VerticalFlag: cint = FALSE;
-                           FormatString: ptr TCHAR = nil): cint {.varargs.}
+                           FormatString: cstring = nil): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用して書式指定文字列を変形描画する( 座標指定が float 版 )
 
 proc DrawNumberToI*(x: cint; y: cint; Num: cint; RisesNum: cint; Color: cuint;
@@ -696,322 +696,322 @@ proc DrawNumberToF*(x: cint; y: cint; Num: cdouble; Length: cint; Color: cuint;
                    EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して浮動小数点型の数値を描画する
 
-proc DrawNumberPlusToI*(x: cint; y: cint; NoteString: ptr TCHAR; Num: cint;
+proc DrawNumberPlusToI*(x: cint; y: cint; NoteString: cstring; Num: cint;
                        RisesNum: cint; Color: cuint; EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して整数型の数値とその説明の文字列を一度に描画する
 
-proc DrawNumberPlusToF*(x: cint; y: cint; NoteString: ptr TCHAR; Num: cdouble;
+proc DrawNumberPlusToF*(x: cint; y: cint; NoteString: cstring; Num: cdouble;
                        Length: cint; Color: cuint; EdgeColor: cuint = 0): cint
 ##  デフォルトフォントハンドルを使用して浮動小数点型の数値とその説明の文字列を一度に描画する
 
-proc DrawStringToZBuffer*(x: cint; y: cint; String: ptr TCHAR; WriteZMode: cint): cint
+proc DrawStringToZBuffer*(x: cint; y: cint; String: cstring; WriteZMode: cint): cint
   ##  DX_ZWRITE_MASK 等
 ##  デフォルトフォントハンドルを使用してＺバッファに対して文字列を描画する
 
-proc DrawNStringToZBuffer*(x: cint; y: cint; String: ptr TCHAR; StringLength: csize_t; WriteZMode: cint): cint
+proc DrawNStringToZBuffer*(x: cint; y: cint; String: cstring; StringLength: csize_t; WriteZMode: cint): cint
   ##  DX_ZWRITE_MASK 等
 ##  デフォルトフォントハンドルを使用してＺバッファに対して文字列を描画する
 
-proc DrawVStringToZBuffer*(x: cint; y: cint; String: ptr TCHAR; WriteZMode: cint): cint
+proc DrawVStringToZBuffer*(x: cint; y: cint; String: cstring; WriteZMode: cint): cint
   ##  DX_ZWRITE_MASK 等
 ##  デフォルトフォントハンドルを使用してＺバッファに対して文字列を描画する( 縦書き )
 
-proc DrawNVStringToZBuffer*(x: cint; y: cint; String: ptr TCHAR; StringLength: csize_t; WriteZMode: cint): cint
+proc DrawNVStringToZBuffer*(x: cint; y: cint; String: cstring; StringLength: csize_t; WriteZMode: cint): cint
   ##  DX_ZWRITE_MASK 等
 ##  デフォルトフォントハンドルを使用してＺバッファに対して文字列を描画する( 縦書き )
 
 proc DrawFormatStringToZBuffer*(x: cint; y: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                               FormatString: ptr TCHAR): cint {.varargs.}
+                               FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用してＺバッファに対して書式指定文字列を描画する
 
 proc DrawFormatVStringToZBuffer*(x: cint; y: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                                FormatString: ptr TCHAR): cint {.varargs.}
+                                FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用してＺバッファに対して書式指定文字列を描画する( 縦書き )
 
 proc DrawExtendStringToZBuffer*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                               String: ptr TCHAR; WriteZMode: cint): cint
+                               String: cstring; WriteZMode: cint): cint
   ##  DX_ZWRITE_MASK 等
 ##  デフォルトフォントハンドルを使用してＺバッファに対して文字列を拡大描画する
 
 proc DrawExtendNStringToZBuffer*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                                String: ptr TCHAR; StringLength: csize_t; WriteZMode: cint): cint
+                                String: cstring; StringLength: csize_t; WriteZMode: cint): cint
   ##  DX_ZWRITE_MASK 等
 ##  デフォルトフォントハンドルを使用してＺバッファに対して文字列を拡大描画する
 
 proc DrawExtendVStringToZBuffer*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                                String: ptr TCHAR; WriteZMode: cint): cint
+                                String: cstring; WriteZMode: cint): cint
   ##  DX_ZWRITE_MASK 等
 ##  デフォルトフォントハンドルを使用してＺバッファに対して文字列を拡大描画する( 縦書き )
 
 proc DrawExtendNVStringToZBuffer*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                                 String: ptr TCHAR; StringLength: csize_t; WriteZMode: cint): cint
+                                 String: cstring; StringLength: csize_t; WriteZMode: cint): cint
   ##  DX_ZWRITE_MASK 等
 ##  デフォルトフォントハンドルを使用してＺバッファに対して文字列を拡大描画する( 縦書き )
 
 proc DrawExtendFormatStringToZBuffer*(x: cint; y: cint; ExRateX: cdouble;
                                      ExRateY: cdouble; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                                     FormatString: ptr TCHAR): cint {.varargs.}
+                                     FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用してＺバッファに対して書式指定文字列を拡大描画する
 
 proc DrawExtendFormatVStringToZBuffer*(x: cint; y: cint; ExRateX: cdouble;
                                       ExRateY: cdouble; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                                      FormatString: ptr TCHAR): cint {.varargs.}
+                                      FormatString: cstring): cint {.varargs.}
 ##  デフォルトフォントハンドルを使用してＺバッファに対して書式指定文字列を拡大描画する( 縦書き )
 
 proc DrawRotaStringToZBuffer*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
                              RotCenterX: cdouble; RotCenterY: cdouble;
                              RotAngle: cdouble; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                             VerticalFlag: cint; String: ptr TCHAR): cint
+                             VerticalFlag: cint; String: cstring): cint
 ##  デフォルトフォントハンドルを使用してＺバッファに対して文字列を回転描画する
 
 proc DrawRotaNStringToZBuffer*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
                               RotCenterX: cdouble; RotCenterY: cdouble;
                               RotAngle: cdouble; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                              VerticalFlag: cint; String: ptr TCHAR;
+                              VerticalFlag: cint; String: cstring;
                               StringLength: csize_t): cint
 ##  デフォルトフォントハンドルを使用してＺバッファに対して文字列を回転描画する
 
 proc DrawRotaFormatStringToZBuffer*(x: cint; y: cint; ExRateX: cdouble;
                                    ExRateY: cdouble; RotCenterX: cdouble;
                                    RotCenterY: cdouble; RotAngle: cdouble; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                                   VerticalFlag: cint; FormatString: ptr TCHAR): cint {.
+                                   VerticalFlag: cint; FormatString: cstring): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用してＺバッファに対して書式指定文字列を回転描画する
 
 proc DrawModiStringToZBuffer*(x1: cint; y1: cint; x2: cint; y2: cint; x3: cint; y3: cint;
                              x4: cint; y4: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                             VerticalFlag: cint; String: ptr TCHAR): cint
+                             VerticalFlag: cint; String: cstring): cint
 ##  デフォルトフォントハンドルを使用してＺバッファに対して文字列を変形描画する
 
 proc DrawModiNStringToZBuffer*(x1: cint; y1: cint; x2: cint; y2: cint; x3: cint; y3: cint;
                               x4: cint; y4: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                              VerticalFlag: cint; String: ptr TCHAR;
+                              VerticalFlag: cint; String: cstring;
                               StringLength: csize_t): cint
 ##  デフォルトフォントハンドルを使用してＺバッファに対して文字列を変形描画する
 
 proc DrawModiFormatStringToZBuffer*(x1: cint; y1: cint; x2: cint; y2: cint; x3: cint;
                                    y3: cint; x4: cint; y4: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                                   VerticalFlag: cint; FormatString: ptr TCHAR): cint {.
+                                   VerticalFlag: cint; FormatString: cstring): cint {.
     varargs.}
 ##  デフォルトフォントハンドルを使用してＺバッファに対して書式指定文字列を変形描画する
 
-proc DrawStringToHandle*(x: cint; y: cint; String: ptr TCHAR; Color: cuint;
+proc DrawStringToHandle*(x: cint; y: cint; String: cstring; Color: cuint;
                         FontHandle: cint; EdgeColor: cuint = 0;
                         VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用して文字列を描画する
 
-proc DrawNStringToHandle*(x: cint; y: cint; String: ptr TCHAR; StringLength: csize_t;
+proc DrawNStringToHandle*(x: cint; y: cint; String: cstring; StringLength: csize_t;
                          Color: cuint; FontHandle: cint; EdgeColor: cuint = 0;
                          VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用して文字列を描画する
 
-proc DrawVStringToHandle*(x: cint; y: cint; String: ptr TCHAR; Color: cuint;
+proc DrawVStringToHandle*(x: cint; y: cint; String: cstring; Color: cuint;
                          FontHandle: cint; EdgeColor: cuint = 0): cint
 ##  フォントハンドルを使用して文字列を描画する( 縦書き )
 
-proc DrawNVStringToHandle*(x: cint; y: cint; String: ptr TCHAR; StringLength: csize_t;
+proc DrawNVStringToHandle*(x: cint; y: cint; String: cstring; StringLength: csize_t;
                           Color: cuint; FontHandle: cint; EdgeColor: cuint = 0): cint
 ##  フォントハンドルを使用して文字列を描画する( 縦書き )
 
 proc DrawFormatStringToHandle*(x: cint; y: cint; Color: cuint; FontHandle: cint;
-                              FormatString: ptr TCHAR): cint {.varargs.}
+                              FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用して書式指定文字列を描画する
 
 proc DrawFormatVStringToHandle*(x: cint; y: cint; Color: cuint; FontHandle: cint;
-                               FormatString: ptr TCHAR): cint {.varargs.}
+                               FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用して書式指定文字列を描画する( 縦書き )
 
 proc DrawFormatString2ToHandle*(x: cint; y: cint; Color: cuint; EdgeColor: cuint;
-                               FontHandle: cint; FormatString: ptr TCHAR): cint {.
+                               FontHandle: cint; FormatString: cstring): cint {.
     varargs.}
 ##  フォントハンドルを使用して書式指定文字列を描画する( 縁の色引数付き )
 
 proc DrawFormatVString2ToHandle*(x: cint; y: cint; Color: cuint; EdgeColor: cuint;
-                                FontHandle: cint; FormatString: ptr TCHAR): cint {.
+                                FontHandle: cint; FormatString: cstring): cint {.
     varargs.}
 ##  フォントハンドルを使用して書式指定文字列を描画する( 縁の色引数付き )( 縦書き )
 
 proc DrawExtendStringToHandle*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                              String: ptr TCHAR; Color: cuint; FontHandle: cint;
+                              String: cstring; Color: cuint; FontHandle: cint;
                               EdgeColor: cuint = 0; VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用して文字列を拡大描画する
 
 proc DrawExtendNStringToHandle*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                               String: ptr TCHAR; StringLength: csize_t;
+                               String: cstring; StringLength: csize_t;
                                Color: cuint; FontHandle: cint; EdgeColor: cuint = 0;
                                VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用して文字列を拡大描画する
 
 proc DrawExtendVStringToHandle*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                               String: ptr TCHAR; Color: cuint; FontHandle: cint;
+                               String: cstring; Color: cuint; FontHandle: cint;
                                EdgeColor: cuint = 0): cint
 ##  フォントハンドルを使用して文字列を拡大描画する( 縦書き )
 
 proc DrawExtendNVStringToHandle*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
-                                String: ptr TCHAR; StringLength: csize_t;
+                                String: cstring; StringLength: csize_t;
                                 Color: cuint; FontHandle: cint; EdgeColor: cuint = 0): cint
 ##  フォントハンドルを使用して文字列を拡大描画する( 縦書き )
 
 proc DrawExtendFormatStringToHandle*(x: cint; y: cint; ExRateX: cdouble;
                                     ExRateY: cdouble; Color: cuint;
-                                    FontHandle: cint; FormatString: ptr TCHAR): cint {.
+                                    FontHandle: cint; FormatString: cstring): cint {.
     varargs.}
 ##  フォントハンドルを使用して書式指定文字列を拡大描画する
 
 proc DrawExtendFormatVStringToHandle*(x: cint; y: cint; ExRateX: cdouble;
                                      ExRateY: cdouble; Color: cuint;
-                                     FontHandle: cint; FormatString: ptr TCHAR): cint {.
+                                     FontHandle: cint; FormatString: cstring): cint {.
     varargs.}
 ##  フォントハンドルを使用して書式指定文字列を拡大描画する( 縦書き )
 
 proc DrawExtendFormatString2ToHandle*(x: cint; y: cint; ExRateX: cdouble;
                                      ExRateY: cdouble; Color: cuint;
                                      EdgeColor: cuint; FontHandle: cint;
-                                     FormatString: ptr TCHAR): cint {.varargs.}
+                                     FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用して書式指定文字列を拡大描画する( 縁の色引数付き )
 
 proc DrawExtendFormatVString2ToHandle*(x: cint; y: cint; ExRateX: cdouble;
                                       ExRateY: cdouble; Color: cuint;
                                       EdgeColor: cuint; FontHandle: cint;
-                                      FormatString: ptr TCHAR): cint {.varargs.}
+                                      FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用して書式指定文字列を拡大描画する( 縁の色引数付き )( 縦書き )
 
 proc DrawRotaStringToHandle*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
                             RotCenterX: cdouble; RotCenterY: cdouble;
                             RotAngle: cdouble; Color: cuint; FontHandle: cint;
-                            EdgeColor: cuint; VerticalFlag: cint; String: ptr TCHAR): cint
+                            EdgeColor: cuint; VerticalFlag: cint; String: cstring): cint
 ##  フォントハンドルを使用して文字列を回転描画する
 
 proc DrawRotaNStringToHandle*(x: cint; y: cint; ExRateX: cdouble; ExRateY: cdouble;
                              RotCenterX: cdouble; RotCenterY: cdouble;
                              RotAngle: cdouble; Color: cuint; FontHandle: cint;
                              EdgeColor: cuint; VerticalFlag: cint;
-                             String: ptr TCHAR; StringLength: csize_t): cint
+                             String: cstring; StringLength: csize_t): cint
 ##  フォントハンドルを使用して文字列を回転描画する
 
 proc DrawRotaFormatStringToHandle*(x: cint; y: cint; ExRateX: cdouble;
                                   ExRateY: cdouble; RotCenterX: cdouble;
                                   RotCenterY: cdouble; RotAngle: cdouble;
                                   Color: cuint; FontHandle: cint; EdgeColor: cuint;
-                                  VerticalFlag: cint; FormatString: ptr TCHAR): cint {.
+                                  VerticalFlag: cint; FormatString: cstring): cint {.
     varargs.}
 ##  フォントハンドルを使用して書式指定文字列を回転描画する
 
 proc DrawModiStringToHandle*(x1: cint; y1: cint; x2: cint; y2: cint; x3: cint; y3: cint;
                             x4: cint; y4: cint; Color: cuint; FontHandle: cint;
-                            EdgeColor: cuint; VerticalFlag: cint; String: ptr TCHAR): cint
+                            EdgeColor: cuint; VerticalFlag: cint; String: cstring): cint
 ##  フォントハンドルを使用して文字列を変形描画する
 
 proc DrawModiNStringToHandle*(x1: cint; y1: cint; x2: cint; y2: cint; x3: cint; y3: cint;
                              x4: cint; y4: cint; Color: cuint; FontHandle: cint;
                              EdgeColor: cuint; VerticalFlag: cint;
-                             String: ptr TCHAR; StringLength: csize_t): cint
+                             String: cstring; StringLength: csize_t): cint
 ##  フォントハンドルを使用して文字列を変形描画する
 
 proc DrawModiFormatStringToHandle*(x1: cint; y1: cint; x2: cint; y2: cint; x3: cint;
                                   y3: cint; x4: cint; y4: cint; Color: cuint;
                                   FontHandle: cint; EdgeColor: cuint;
-                                  VerticalFlag: cint; FormatString: ptr TCHAR): cint {.
+                                  VerticalFlag: cint; FormatString: cstring): cint {.
     varargs.}
 ##  フォントハンドルを使用して書式指定文字列を変形描画する
 
-proc DrawStringFToHandle*(x: cfloat; y: cfloat; String: ptr TCHAR; Color: cuint;
+proc DrawStringFToHandle*(x: cfloat; y: cfloat; String: cstring; Color: cuint;
                          FontHandle: cint; EdgeColor: cuint = 0;
                          VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用して文字列を描画する( 座標指定が float 版 )
 
-proc DrawNStringFToHandle*(x: cfloat; y: cfloat; String: ptr TCHAR;
+proc DrawNStringFToHandle*(x: cfloat; y: cfloat; String: cstring;
                           StringLength: csize_t; Color: cuint; FontHandle: cint;
                           EdgeColor: cuint = 0; VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用して文字列を描画する( 座標指定が float 版 )
 
-proc DrawVStringFToHandle*(x: cfloat; y: cfloat; String: ptr TCHAR; Color: cuint;
+proc DrawVStringFToHandle*(x: cfloat; y: cfloat; String: cstring; Color: cuint;
                           FontHandle: cint; EdgeColor: cuint = 0): cint
 ##  フォントハンドルを使用して文字列を描画する( 縦書き )( 座標指定が float 版 )
 
-proc DrawNVStringFToHandle*(x: cfloat; y: cfloat; String: ptr TCHAR;
+proc DrawNVStringFToHandle*(x: cfloat; y: cfloat; String: cstring;
                            StringLength: csize_t; Color: cuint; FontHandle: cint;
                            EdgeColor: cuint = 0): cint
 ##  フォントハンドルを使用して文字列を描画する( 縦書き )( 座標指定が float 版 )
 
 proc DrawFormatStringFToHandle*(x: cfloat; y: cfloat; Color: cuint; FontHandle: cint;
-                               FormatString: ptr TCHAR): cint {.varargs.}
+                               FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用して書式指定文字列を描画する( 座標指定が float 版 )
 
 proc DrawFormatVStringFToHandle*(x: cfloat; y: cfloat; Color: cuint; FontHandle: cint;
-                                FormatString: ptr TCHAR): cint {.varargs.}
+                                FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用して書式指定文字列を描画する( 縦書き )( 座標指定が float 版 )
 
 proc DrawFormatString2FToHandle*(x: cfloat; y: cfloat; Color: cuint; EdgeColor: cuint;
-                                FontHandle: cint; FormatString: ptr TCHAR): cint {.
+                                FontHandle: cint; FormatString: cstring): cint {.
     varargs.}
 ##  フォントハンドルを使用して書式指定文字列を描画する( 縁の色引数付き )( 座標指定が float 版 )
 
 proc DrawFormatVString2FToHandle*(x: cfloat; y: cfloat; Color: cuint; EdgeColor: cuint;
-                                 FontHandle: cint; FormatString: ptr TCHAR): cint {.
+                                 FontHandle: cint; FormatString: cstring): cint {.
     varargs.}
 ##  フォントハンドルを使用して書式指定文字列を描画する( 縁の色引数付き )( 縦書き )( 座標指定が float 版 )
 
 proc DrawExtendStringFToHandle*(x: cfloat; y: cfloat; ExRateX: cdouble;
-                               ExRateY: cdouble; String: ptr TCHAR; Color: cuint;
+                               ExRateY: cdouble; String: cstring; Color: cuint;
                                FontHandle: cint; EdgeColor: cuint = 0;
                                VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用して文字列を拡大描画する( 座標指定が float 版 )
 
 proc DrawExtendNStringFToHandle*(x: cfloat; y: cfloat; ExRateX: cdouble;
-                                ExRateY: cdouble; String: ptr TCHAR;
+                                ExRateY: cdouble; String: cstring;
                                 StringLength: csize_t; Color: cuint;
                                 FontHandle: cint; EdgeColor: cuint = 0;
                                 VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用して文字列を拡大描画する( 座標指定が float 版 )
 
 proc DrawExtendVStringFToHandle*(x: cfloat; y: cfloat; ExRateX: cdouble;
-                                ExRateY: cdouble; String: ptr TCHAR; Color: cuint;
+                                ExRateY: cdouble; String: cstring; Color: cuint;
                                 FontHandle: cint; EdgeColor: cuint = 0): cint
 ##  フォントハンドルを使用して文字列を拡大描画する( 縦書き )( 座標指定が float 版 )
 
 proc DrawExtendNVStringFToHandle*(x: cfloat; y: cfloat; ExRateX: cdouble;
-                                 ExRateY: cdouble; String: ptr TCHAR;
+                                 ExRateY: cdouble; String: cstring;
                                  StringLength: csize_t; Color: cuint;
                                  FontHandle: cint; EdgeColor: cuint = 0): cint
 ##  フォントハンドルを使用して文字列を拡大描画する( 縦書き )( 座標指定が float 版 )
 
 proc DrawExtendFormatStringFToHandle*(x: cfloat; y: cfloat; ExRateX: cdouble;
                                      ExRateY: cdouble; Color: cuint;
-                                     FontHandle: cint; FormatString: ptr TCHAR): cint {.
+                                     FontHandle: cint; FormatString: cstring): cint {.
     varargs.}
 ##  フォントハンドルを使用して書式指定文字列を拡大描画する( 座標指定が float 版 )
 
 proc DrawExtendFormatVStringFToHandle*(x: cfloat; y: cfloat; ExRateX: cdouble;
                                       ExRateY: cdouble; Color: cuint;
-                                      FontHandle: cint; FormatString: ptr TCHAR): cint {.
+                                      FontHandle: cint; FormatString: cstring): cint {.
     varargs.}
 ##  フォントハンドルを使用して書式指定文字列を拡大描画する( 縦書き )( 座標指定が float 版 )
 
 proc DrawExtendFormatString2FToHandle*(x: cfloat; y: cfloat; ExRateX: cdouble;
                                       ExRateY: cdouble; Color: cuint;
                                       EdgeColor: cuint; FontHandle: cint;
-                                      FormatString: ptr TCHAR): cint {.varargs.}
+                                      FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用して書式指定文字列を拡大描画する( 縁の色引数付き )( 座標指定が float 版 )
 
 proc DrawExtendFormatVString2FToHandle*(x: cfloat; y: cfloat; ExRateX: cdouble;
                                        ExRateY: cdouble; Color: cuint;
                                        EdgeColor: cuint; FontHandle: cint;
-                                       FormatString: ptr TCHAR): cint {.varargs.}
+                                       FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用して書式指定文字列を拡大描画する( 縁の色引数付き )( 縦書き )( 座標指定が float 版 )
 
 proc DrawRotaStringFToHandle*(x: cfloat; y: cfloat; ExRateX: cdouble; ExRateY: cdouble;
                              RotCenterX: cdouble; RotCenterY: cdouble;
                              RotAngle: cdouble; Color: cuint; FontHandle: cint;
                              EdgeColor: cuint = 0; VerticalFlag: cint = FALSE;
-                             String: ptr TCHAR = nil): cint
+                             String: cstring = nil): cint
 ##  フォントハンドルを使用して文字列を回転描画する( 座標指定が float 版 )
 
 proc DrawRotaNStringFToHandle*(x: cfloat; y: cfloat; ExRateX: cdouble;
                               ExRateY: cdouble; RotCenterX: cdouble;
                               RotCenterY: cdouble; RotAngle: cdouble; Color: cuint;
                               FontHandle: cint; EdgeColor: cuint = 0;
-                              VerticalFlag: cint = FALSE; String: ptr TCHAR = nil;
+                              VerticalFlag: cint = FALSE; String: cstring = nil;
                               StringLength: csize_t = 0): cint
 ##  フォントハンドルを使用して文字列を回転描画する( 座標指定が float 版 )
 
@@ -1020,26 +1020,26 @@ proc DrawRotaFormatStringFToHandle*(x: cfloat; y: cfloat; ExRateX: cdouble;
                                    RotCenterY: cdouble; RotAngle: cdouble;
                                    Color: cuint; FontHandle: cint;
                                    EdgeColor: cuint = 0; VerticalFlag: cint = FALSE;
-                                   FormatString: ptr TCHAR = nil): cint {.varargs.}
+                                   FormatString: cstring = nil): cint {.varargs.}
 ##  フォントハンドルを使用して書式指定文字列を回転描画する( 座標指定が float 版 )
 
 proc DrawModiStringFToHandle*(x1: cfloat; y1: cfloat; x2: cfloat; y2: cfloat; x3: cfloat;
                              y3: cfloat; x4: cfloat; y4: cfloat; Color: cuint;
                              FontHandle: cint; EdgeColor: cuint; VerticalFlag: cint;
-                             String: ptr TCHAR): cint
+                             String: cstring): cint
 ##  フォントハンドルを使用して文字列を変形描画する( 座標指定が float 版 )
 
 proc DrawModiNStringFToHandle*(x1: cfloat; y1: cfloat; x2: cfloat; y2: cfloat;
                               x3: cfloat; y3: cfloat; x4: cfloat; y4: cfloat;
                               Color: cuint; FontHandle: cint; EdgeColor: cuint;
-                              VerticalFlag: cint; String: ptr TCHAR;
+                              VerticalFlag: cint; String: cstring;
                               StringLength: csize_t): cint
 ##  フォントハンドルを使用して文字列を変形描画する( 座標指定が float 版 )
 
 proc DrawModiFormatStringFToHandle*(x1: cfloat; y1: cfloat; x2: cfloat; y2: cfloat;
                                    x3: cfloat; y3: cfloat; x4: cfloat; y4: cfloat;
                                    Color: cuint; FontHandle: cint; EdgeColor: cuint;
-                                   VerticalFlag: cint; FormatString: ptr TCHAR): cint {.
+                                   VerticalFlag: cint; FormatString: cstring): cint {.
     varargs.}
 ##  フォントハンドルを使用して書式指定文字列を変形描画する( 座標指定が float 版 )
 
@@ -1051,111 +1051,111 @@ proc DrawNumberToFToHandle*(x: cint; y: cint; Num: cdouble; Length: cint; Color:
                            FontHandle: cint; EdgeColor: cuint = 0): cint
 ##  フォントハンドルを使用して浮動小数点型の数値を描画する
 
-proc DrawNumberPlusToIToHandle*(x: cint; y: cint; NoteString: ptr TCHAR; Num: cint;
+proc DrawNumberPlusToIToHandle*(x: cint; y: cint; NoteString: cstring; Num: cint;
                                RisesNum: cint; Color: cuint; FontHandle: cint;
                                EdgeColor: cuint = 0): cint
 ##  フォントハンドルを使用して整数型の数値とその説明の文字列を一度に描画する
 
-proc DrawNumberPlusToFToHandle*(x: cint; y: cint; NoteString: ptr TCHAR; Num: cdouble;
+proc DrawNumberPlusToFToHandle*(x: cint; y: cint; NoteString: cstring; Num: cdouble;
                                Length: cint; Color: cuint; FontHandle: cint;
                                EdgeColor: cuint = 0): cint
 ##  フォントハンドルを使用して浮動小数点型の数値とその説明の文字列を一度に描画する
 
-proc DrawStringToHandleToZBuffer*(x: cint; y: cint; String: ptr TCHAR; FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
+proc DrawStringToHandleToZBuffer*(x: cint; y: cint; String: cstring; FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
                                  VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用してＺバッファに対して文字列を描画する
 
-proc DrawNStringToHandleToZBuffer*(x: cint; y: cint; String: ptr TCHAR;
+proc DrawNStringToHandleToZBuffer*(x: cint; y: cint; String: cstring;
                                   StringLength: csize_t; FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
                                   VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用してＺバッファに対して文字列を描画する
 
-proc DrawVStringToHandleToZBuffer*(x: cint; y: cint; String: ptr TCHAR;
+proc DrawVStringToHandleToZBuffer*(x: cint; y: cint; String: cstring;
                                   FontHandle: cint; WriteZMode: cint): cint
   ##  DX_ZWRITE_MASK 等
 ##  フォントハンドルを使用してＺバッファに対して文字列を描画する( 縦書き )
 
-proc DrawNVStringToHandleToZBuffer*(x: cint; y: cint; String: ptr TCHAR;
+proc DrawNVStringToHandleToZBuffer*(x: cint; y: cint; String: cstring;
                                    StringLength: csize_t; FontHandle: cint; WriteZMode: cint): cint
   ##  DX_ZWRITE_MASK 等
 ##  フォントハンドルを使用してＺバッファに対して文字列を描画する( 縦書き )
 
 proc DrawFormatStringToHandleToZBuffer*(x: cint; y: cint; FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                                       FormatString: ptr TCHAR): cint {.varargs.}
+                                       FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用してＺバッファに対して書式指定文字列を描画する
 
 proc DrawFormatVStringToHandleToZBuffer*(x: cint; y: cint; FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                                        FormatString: ptr TCHAR): cint {.varargs.}
+                                        FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用してＺバッファに対して書式指定文字列を描画する( 縦書き )
 
 proc DrawExtendStringToHandleToZBuffer*(x: cint; y: cint; ExRateX: cdouble;
-                                       ExRateY: cdouble; String: ptr TCHAR;
+                                       ExRateY: cdouble; String: cstring;
                                        FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
                                        VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用してＺバッファに対して文字列を拡大描画する
 
 proc DrawExtendNStringToHandleToZBuffer*(x: cint; y: cint; ExRateX: cdouble;
-                                        ExRateY: cdouble; String: ptr TCHAR;
+                                        ExRateY: cdouble; String: cstring;
                                         StringLength: csize_t; FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
                                         VerticalFlag: cint = FALSE): cint
 ##  フォントハンドルを使用してＺバッファに対して文字列を拡大描画する
 
 proc DrawExtendVStringToHandleToZBuffer*(x: cint; y: cint; ExRateX: cdouble;
-                                        ExRateY: cdouble; String: ptr TCHAR;
+                                        ExRateY: cdouble; String: cstring;
                                         FontHandle: cint; WriteZMode: cint): cint
   ##  DX_ZWRITE_MASK 等
 ##  フォントハンドルを使用してＺバッファに対して文字列を拡大描画する( 縦書き )
 
 proc DrawExtendNVStringToHandleToZBuffer*(x: cint; y: cint; ExRateX: cdouble;
-    ExRateY: cdouble; String: ptr TCHAR; StringLength: csize_t; FontHandle: cint; WriteZMode: cint): cint
+    ExRateY: cdouble; String: cstring; StringLength: csize_t; FontHandle: cint; WriteZMode: cint): cint
   ##  DX_ZWRITE_MASK 等
 ##  フォントハンドルを使用してＺバッファに対して文字列を拡大描画する( 縦書き )
 
 proc DrawExtendFormatStringToHandleToZBuffer*(x: cint; y: cint; ExRateX: cdouble;
     ExRateY: cdouble; FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-    FormatString: ptr TCHAR): cint {.varargs.}
+    FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用してＺバッファに対して書式指定文字列を拡大描画する
 
 proc DrawExtendFormatVStringToHandleToZBuffer*(x: cint; y: cint; ExRateX: cdouble;
     ExRateY: cdouble; FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-    FormatString: ptr TCHAR): cint {.varargs.}
+    FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用してＺバッファに対して書式指定文字列を拡大描画する( 縦書き )
 
 proc DrawRotaStringToHandleToZBuffer*(x: cint; y: cint; ExRateX: cdouble;
                                      ExRateY: cdouble; RotCenterX: cdouble;
                                      RotCenterY: cdouble; RotAngle: cdouble;
                                      FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                                     VerticalFlag: cint; String: ptr TCHAR): cint
+                                     VerticalFlag: cint; String: cstring): cint
 ##  フォントハンドルを使用してＺバッファに対して文字列を回転描画する
 
 proc DrawRotaNStringToHandleToZBuffer*(x: cint; y: cint; ExRateX: cdouble;
                                       ExRateY: cdouble; RotCenterX: cdouble;
                                       RotCenterY: cdouble; RotAngle: cdouble;
                                       FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                                      VerticalFlag: cint; String: ptr TCHAR;
+                                      VerticalFlag: cint; String: cstring;
                                       StringLength: csize_t): cint
 ##  フォントハンドルを使用してＺバッファに対して文字列を回転描画する
 
 proc DrawRotaFormatStringToHandleToZBuffer*(x: cint; y: cint; ExRateX: cdouble;
     ExRateY: cdouble; RotCenterX: cdouble; RotCenterY: cdouble; RotAngle: cdouble;
     FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-    VerticalFlag: cint; FormatString: ptr TCHAR): cint {.varargs.}
+    VerticalFlag: cint; FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用してＺバッファに対して書式指定文字列を回転描画する
 
 proc DrawModiStringToHandleToZBuffer*(x1: cint; y1: cint; x2: cint; y2: cint; x3: cint;
                                      y3: cint; x4: cint; y4: cint; FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                                     VerticalFlag: cint; String: ptr TCHAR): cint
+                                     VerticalFlag: cint; String: cstring): cint
 ##  フォントハンドルを使用してＺバッファに対して文字列を変形描画する
 
 proc DrawModiNStringToHandleToZBuffer*(x1: cint; y1: cint; x2: cint; y2: cint; x3: cint;
                                       y3: cint; x4: cint; y4: cint; FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-                                      VerticalFlag: cint; String: ptr TCHAR;
+                                      VerticalFlag: cint; String: cstring;
                                       StringLength: csize_t): cint
 ##  フォントハンドルを使用してＺバッファに対して文字列を変形描画する
 
 proc DrawModiFormatStringToHandleToZBuffer*(x1: cint; y1: cint; x2: cint; y2: cint;
     x3: cint; y3: cint; x4: cint; y4: cint; FontHandle: cint; WriteZMode: cint; ##  DX_ZWRITE_MASK 等
-    VerticalFlag: cint; FormatString: ptr TCHAR): cint {.varargs.}
+    VerticalFlag: cint; FormatString: cstring): cint {.varargs.}
 ##  フォントハンドルを使用してＺバッファに対して書式指定文字列を変形描画する
 
 {.pop.}

@@ -3,10 +3,10 @@ import ../DxDll
 
 ##  DxFont.cpp 関数プロトタイプ宣言
 
-proc AddFontFile*(FontFilePath: ptr TCHAR): HANDLE
+proc AddFontFile*(FontFilePath: cstring): HANDLE
 ##  指定のフォントファイルをシステムに追加する( 戻り値  NULL:失敗  NULL以外:フォントハンドル( WindowsOS のものなので、ＤＸライブラリのフォントハンドルとは別物です ) )
 
-proc AddFontFileWithStrLen*(FontFilePath: ptr TCHAR; FontFilePathLength: csize_t): HANDLE
+proc AddFontFileWithStrLen*(FontFilePath: cstring; FontFilePathLength: csize_t): HANDLE
 ##  指定のフォントファイルをシステムに追加する( 戻り値  NULL:失敗  NULL以外:フォントハンドル( WindowsOS のものなので、ＤＸライブラリのフォントハンドルとは別物です ) )
 
 proc AddFontFileFromMem*(FontFileImage: pointer; FontFileImageSize: cint): HANDLE
@@ -15,26 +15,26 @@ proc AddFontFileFromMem*(FontFileImage: pointer; FontFileImageSize: cint): HANDL
 proc RemoveFontFile*(FontHandle: HANDLE): cint
 ##  指定のフォントハンドルをシステムから削除する( 引数は AddFontFile や AddFontFileFromMem の戻り値 )
 
-proc CreateFontDataFile*(SaveFilePath: ptr TCHAR; FontName: ptr TCHAR; Size: cint; BitDepth: cint; ##  DX_FONTIMAGE_BIT_1等
+proc CreateFontDataFile*(SaveFilePath: cstring; FontName: cstring; Size: cint; BitDepth: cint; ##  DX_FONTIMAGE_BIT_1等
                         Thick: cint; Italic: cint = FALSE; CharSet: cint = -1;
-                        SaveCharaList: ptr TCHAR = nil): cint
+                        SaveCharaList: cstring = nil): cint
 ##  フォントデータファイルを作成する
 
-proc CreateFontDataFileWithStrLen*(SaveFilePath: ptr TCHAR;
+proc CreateFontDataFileWithStrLen*(SaveFilePath: cstring;
                                   SaveFilePathLength: csize_t;
-                                  FontName: ptr TCHAR; FontNameLength: csize_t;
+                                  FontName: cstring; FontNameLength: csize_t;
                                   Size: cint; BitDepth: cint; ##  DX_FONTIMAGE_BIT_1等
                                   Thick: cint; Italic: cint = FALSE;
                                   CharSet: cint = -1;
-                                  SaveCharaList: ptr TCHAR = nil;
+                                  SaveCharaList: cstring = nil;
                                   SaveCharaListLength: csize_t = 0): cint
 ##  フォントデータファイルを作成する
 ##  基本イメージデータのロード＋ＤＩＢ関係
 
-proc CreateDIBGraph*(FileName: ptr TCHAR; ReverseFlag: cint; SrcColor: ptr COLORDATA): HBITMAP
+proc CreateDIBGraph*(FileName: cstring; ReverseFlag: cint; SrcColor: ptr COLORDATA): HBITMAP
 ##  画像ファイルからＤＩＢデータを作成する
 
-proc CreateDIBGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc CreateDIBGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                               ReverseFlag: cint; SrcColor: ptr COLORDATA): HBITMAP
 ##  画像ファイルからＤＩＢデータを作成する
 
@@ -42,34 +42,34 @@ proc CreateDIBGraphToMem*(BmpInfo: ptr BITMAPINFO; GraphData: pointer;
                          ReverseFlag: cint; SrcColor: ptr COLORDATA): HBITMAP
 ##  ＢＭＰデータからＤＩＢデータクを作成する
 
-proc CreateDIBGraph_plus_Alpha*(FileName: ptr TCHAR; RGBBmp: ptr HBITMAP;
+proc CreateDIBGraph_plus_Alpha*(FileName: cstring; RGBBmp: ptr HBITMAP;
                                AlphaBmp: ptr HBITMAP; ReverseFlag: cint = FALSE;
                                SrcColor: ptr COLORDATA = nil): cint
 ##  画像ファイルからＤＩＢデータとマスク用ＤＩＢデータを作成する
 
-proc CreateDIBGraph_plus_AlphaWithStrLen*(FileName: ptr TCHAR;
+proc CreateDIBGraph_plus_AlphaWithStrLen*(FileName: cstring;
     FileNameLength: csize_t; RGBBmp: ptr HBITMAP; AlphaBmp: ptr HBITMAP;
     ReverseFlag: cint = FALSE; SrcColor: ptr COLORDATA = nil): cint
 ##  画像ファイルからＤＩＢデータとマスク用ＤＩＢデータを作成する
 
-proc CreateDIBGraphVer2*(FileName: ptr TCHAR; MemImage: pointer; MemImageSize: cint;
+proc CreateDIBGraphVer2*(FileName: cstring; MemImage: pointer; MemImageSize: cint;
                         ImageType: cint; ReverseFlag: cint; SrcColor: ptr COLORDATA): HBITMAP
 ##  画像ファイル若しくはメモリ上に展開された画像ファイルイメージからＤＩＢデータを作成する
 
-proc CreateDIBGraphVer2WithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc CreateDIBGraphVer2WithStrLen*(FileName: cstring; FileNameLength: csize_t;
                                   MemImage: pointer; MemImageSize: cint;
                                   ImageType: cint; ReverseFlag: cint;
                                   SrcColor: ptr COLORDATA): HBITMAP
 ##  画像ファイル若しくはメモリ上に展開された画像ファイルイメージからＤＩＢデータを作成する
 
-proc CreateDIBGraphVer2_plus_Alpha*(FileName: ptr TCHAR; MemImage: pointer;
+proc CreateDIBGraphVer2_plus_Alpha*(FileName: cstring; MemImage: pointer;
                                    MemImageSize: cint; AlphaImage: pointer;
                                    AlphaImageSize: cint; ImageType: cint;
                                    RGBBmp: ptr HBITMAP; AlphaBmp: ptr HBITMAP;
                                    ReverseFlag: cint; SrcColor: ptr COLORDATA): cint
 ##  画像ファイル若しくはメモリ上に展開された画像ファイルイメージからＤＩＢデータとマスク用ＤＩＢデータを作成する
 
-proc CreateDIBGraphVer2_plus_AlphaWithStrLen*(FileName: ptr TCHAR;
+proc CreateDIBGraphVer2_plus_AlphaWithStrLen*(FileName: cstring;
     FileNameLength: csize_t; MemImage: pointer; MemImageSize: cint;
     AlphaImage: pointer; AlphaImageSize: cint; ImageType: cint; RGBBmp: ptr HBITMAP;
     AlphaBmp: ptr HBITMAP; ReverseFlag: cint; SrcColor: ptr COLORDATA): cint

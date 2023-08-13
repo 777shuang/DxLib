@@ -4,18 +4,18 @@ import ../DxDll
 ##  DxWindow.cpp関数プロトタイプ宣言
 ##  便利関数
 
-proc GetResourceInfo*(ResourceName: ptr TCHAR; ResourceType: ptr TCHAR;
+proc GetResourceInfo*(ResourceName: cstring; ResourceType: cstring;
                      DataPointerP: ptr pointer; DataSizeP: ptr csize_t): cint
 ##  指定の名前、タイプのリソースのアドレスとサイズを取得する( 戻り値  -1:失敗  0:成功 )
 
-proc GetResourceInfoWithStrLen*(ResourceName: ptr TCHAR;
+proc GetResourceInfoWithStrLen*(ResourceName: cstring;
                                ResourceNameLength: csize_t;
-                               ResourceType: ptr TCHAR;
+                               ResourceType: cstring;
                                ResourceTypeLength: csize_t;
                                DataPointerP: ptr pointer; DataSizeP: ptr csize_t): cint
 ##  指定の名前、タイプのリソースのアドレスとサイズを取得する( 戻り値  -1:失敗  0:成功 )
 
-proc GetResourceIDString*(ResourceID: cint): ptr TCHAR
+proc GetResourceIDString*(ResourceID: cint): cstring
 ##  リソースＩＤ値からリソース名を取得する
 ##  ウインドウ関係情報取得関数
 
@@ -68,10 +68,10 @@ proc GetAlwaysRunFlag*(): cint
 proc GetSystemInfo*(DxLibVer: ptr cint; DirectXVer: ptr cint; WindowsVer: ptr cint): cint {.importc: "_GetSystemInfo".}
 ##  ＤＸライブラリと DirectX のバージョンと Windows のバージョン番号を取得する
 
-proc GetPcInfo*(OSString: ptr TCHAR; DirectXString: ptr TCHAR; CPUString: ptr TCHAR; CPUSpeed: ptr cint; ##  単位MHz
+proc GetPcInfo*(OSString: cstring; DirectXString: cstring; CPUString: cstring; CPUSpeed: ptr cint; ##  単位MHz
                FreeMemorySize: ptr cdouble; ##  単位MByte
-               TotalMemorySize: ptr cdouble; VideoDriverFileName: ptr TCHAR;
-               VideoDriverString: ptr TCHAR; FreeVideoMemorySize: ptr cdouble; ##  単位MByte
+               TotalMemorySize: ptr cdouble; VideoDriverFileName: cstring;
+               VideoDriverString: cstring; FreeVideoMemorySize: ptr cdouble; ##  単位MByte
                TotalVideoMemorySize: ptr cdouble): cint
 ##  ＰＣの情報を取得する
 
@@ -138,10 +138,10 @@ proc SetUseCharSet*(CharSet: cint): cint
   ##  = DX_CHARSET_SHFTJIS 等
 ##  ＤＸライブラリの文字列処理で前提とする文字列セットを設定する
 
-proc LoadPauseGraph*(FileName: ptr TCHAR): cint
+proc LoadPauseGraph*(FileName: cstring): cint
 ##  アクティブウインドウが他のソフトに移っている際に表示する画像をファイルから読み込む( FileName に NULL を渡すことで解除)
 
-proc LoadPauseGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc LoadPauseGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  アクティブウインドウが他のソフトに移っている際に表示する画像をファイルから読み込む( FileName に NULL を渡すことで解除)
 
 proc LoadPauseGraphFromMem*(MemImage: pointer; MemImageSize: cint): cint
@@ -152,25 +152,25 @@ proc SetActiveStateChangeCallBackFunction*(
     UserData: pointer): cint
 ##  メインウインドウのアクティブ状態に変化があったときに呼ばれるコールバック関数を設定する( CallBackFunction:呼ばれるコールバック関数、NULL を渡すと設定解除  UserData:CallBackFunction の第２引数に渡される値 )
 
-proc SetWindowText*(WindowText: ptr TCHAR): cint
+proc SetWindowText*(WindowText: cstring): cint
 ##  メインウインドウのウインドウテキストを変更する
 
-proc SetWindowTextDX*(WindowText: ptr TCHAR): cint
+proc SetWindowTextDX*(WindowText: cstring): cint
 ##  メインウインドウのウインドウテキストを変更する
 
-proc SetWindowTextWithStrLen*(WindowText: ptr TCHAR; WindowTextLength: csize_t): cint
+proc SetWindowTextWithStrLen*(WindowText: cstring; WindowTextLength: csize_t): cint
 ##  メインウインドウのウインドウテキストを変更する
 
-proc SetMainWindowText*(WindowText: ptr TCHAR): cint
+proc SetMainWindowText*(WindowText: cstring): cint
 ##  SetWindowText の別名関数
 
-proc SetMainWindowTextWithStrLen*(WindowText: ptr TCHAR; WindowTextLength: csize_t): cint
+proc SetMainWindowTextWithStrLen*(WindowText: cstring; WindowTextLength: csize_t): cint
 ##  SetWindowText の別名関数
 
-proc SetMainWindowClassName*(ClassName: ptr TCHAR): cint
+proc SetMainWindowClassName*(ClassName: cstring): cint
 ##  メインウインドウのクラス名を設定する( DxLib_Init の前でのみ使用可能 )
 
-proc SetMainWindowClassNameWithStrLen*(ClassName: ptr TCHAR;
+proc SetMainWindowClassNameWithStrLen*(ClassName: cstring;
                                       ClassNameLength: csize_t): cint
 ##  メインウインドウのクラス名を設定する( DxLib_Init の前でのみ使用可能 )
 
@@ -185,7 +185,7 @@ proc SetUseASyncChangeWindowModeFunction*(Flag: cint;
 ##  最大化ボタンやALT+ENTERキーによる非同期なウインドウモードの変更の機能の設定を行う( Flag:非同期ウインドウモード変更を有効にするかどうかのフラグ( TRUE:有効にする  FALSE:無効にする( デフォルト ) )   CallBackFunction:非同期ウインドウモード変更が行われた場合に呼ばれるコールバック関数のアドレス   Data:CallBackFunction の引数に渡される void 型のポインタ )
 
 proc SetShutdownCallbackFunction*(CallbackFunction: proc (a1: pointer);
-                                 Data: pointer; Message: ptr TCHAR): cint
+                                 Data: pointer; Message: cstring): cint
 ##  シャットダウンによるソフトの強制終了の際に呼ばれるコールバック関数を登録する( Message はコールバック関数の終了を待つ間表示されるメッセージ )
 
 proc SetWindowStyleMode*(Mode: cint): cint
@@ -213,10 +213,10 @@ proc SetWindowMinSize*(MinWidth: cint; MinHeight: cint): cint
 proc SetWindowPosition*(x: cint; y: cint): cint
 ##  メインウインドウの位置を設定する( 枠も含めた左上座標 )
 
-proc SetSysCommandOffFlag*(Flag: cint; HookDllPath: ptr TCHAR = nil): cint
+proc SetSysCommandOffFlag*(Flag: cint; HookDllPath: cstring = nil): cint
 ##  タスクスイッチを有効にするかどうかを設定する
 
-proc SetSysCommandOffFlagWithStrLen*(Flag: cint; HookDllPath: ptr TCHAR = nil;
+proc SetSysCommandOffFlagWithStrLen*(Flag: cint; HookDllPath: cstring = nil;
                                     HookDllPathLength: csize_t = 0): cint
 ##  タスクスイッチを有効にするかどうかを設定する
 
@@ -314,7 +314,7 @@ proc SetDragFileValidFlag*(Flag: cint): cint
 proc DragFileInfoClear*(): cint
 ##  メインウインドウへドラッグ＆ドロップされたファイルの情報をリセットする
 
-proc GetDragFilePath*(FilePathBuffer: ptr TCHAR; FilePathBufferBytes: cint = -1): cint
+proc GetDragFilePath*(FilePathBuffer: cstring; FilePathBufferBytes: cint = -1): cint
 ##  メインウインドウへドラッグ＆ドロップされたファイル名を取得する( FilePathBuffer:ファイル名を格納するバッファの先頭アドレス　　戻り値　-1:取得できなかった  0:取得できた )
 
 proc GetDragFileNum*(): cint
@@ -329,20 +329,20 @@ proc CreateRgnFromBaseImage*(BaseImage: ptr BASEIMAGE; TransColorR: cint;
                             TransColorG: cint; TransColorB: cint): HRGN
 ##  任意の基本イメージデータと透過色からRGNハンドルを作成する( BaseImage:基本イメージデータのアドレス  TransColorR,TransColorG,TransColorB:透過色( それぞれ０～２５５ )
 
-proc SetWindowRgnGraph*(FileName: ptr TCHAR): cint
+proc SetWindowRgnGraph*(FileName: cstring): cint
 ##  任意の画像ファイルからＲＧＮをセットする
 
-proc SetWindowRgnGraphWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc SetWindowRgnGraphWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  任意の画像ファイルからＲＧＮをセットする
 
 proc UpdateTransColorWindowRgn*(): cint
 ##  描画先の画面の透過色の部分を透過させるＲＧＮをセットする( 使用される透過色は関数 SetTransColor で設定した色 )
 ##  ツールバー関係
 
-proc SetupToolBar*(BitmapName: ptr TCHAR; DivNum: cint; ResourceID: cint = -1): cint
+proc SetupToolBar*(BitmapName: cstring; DivNum: cint; ResourceID: cint = -1): cint
 ##  ツールバーの準備、BitmapName に NULL, ResourceID に -1 を渡すとツールバーを解除( BitmapName:ツールバーのボタンに使用する画像ファイルパス、ResourceID に -1 以外を渡す場合は NULL にする  DivNum:ボタン画像中のボタンの数  ResourceID:ツールバーのボタンに使用するビットマップリソースのＩＤ、BitmapName に NULL を渡すとこの引数が使用される )
 
-proc SetupToolBarWithStrLen*(BitmapName: ptr TCHAR; BitmapNameLength: csize_t;
+proc SetupToolBarWithStrLen*(BitmapName: cstring; BitmapNameLength: csize_t;
                             DivNum: cint; ResourceID: cint = -1): cint
 ##  ツールバーの準備、BitmapName に NULL, ResourceID に -1 を渡すとツールバーを解除( BitmapName:ツールバーのボタンに使用する画像ファイルパス、ResourceID に -1 以外を渡す場合は NULL にする  DivNum:ボタン画像中のボタンの数  ResourceID:ツールバーのボタンに使用するビットマップリソースのＩＤ、BitmapName に NULL を渡すとこの引数が使用される )
 
@@ -371,20 +371,20 @@ proc SetUseMenuFlag*(Flag: cint): cint
 proc SetUseKeyAccelFlag*(Flag: cint): cint
 ##  キーボードアクセラレーターを使用するかどうかを設定する( TRUE:使用する  FALSE:使用しない )
 
-proc AddKeyAccel*(ItemName: ptr TCHAR; ItemID: cint; KeyCode: cint; CtrlFlag: cint;
+proc AddKeyAccel*(ItemName: cstring; ItemID: cint; KeyCode: cint; CtrlFlag: cint;
                  AltFlag: cint; ShiftFlag: cint): cint
 ##  ショートカットキーを追加する( ItemName:ショートカットキーを割り当てるメニューのアイテム名( AddMenuItem で NewItemName に渡した名前 )、ItemID を使用する場合は NULL を渡す  ItemID:メニュー項目の識別番号( AddMenuItem の引数 NewItemID で指定したもの )、ItemName を使用する場合は -1 を渡す  KeyCode:ショートカットキーのキー( KEY_INPUT_L 等 )  CtrlFlag:同時にCTRLキーを押す必要があるようにするかどうか( TRUE:押す必要がある  FALSE:押さなくても良い )  AltFlag:同時にALTキーを押す必要があるようにするかどうか( TRUE:押す必要がある  FALSE:押さなくても良い )  ShiftFlag:同時にSHIFTキーを押す必要があるようにするかどうか( TRUE:押す必要がある  FALSE:押さなくても良い )
 
-proc AddKeyAccelWithStrLen*(ItemName: ptr TCHAR; ItemNameLength: csize_t;
+proc AddKeyAccelWithStrLen*(ItemName: cstring; ItemNameLength: csize_t;
                            ItemID: cint; KeyCode: cint; CtrlFlag: cint; AltFlag: cint;
                            ShiftFlag: cint): cint
 ##  ショートカットキーを追加する( ItemName:ショートカットキーを割り当てるメニューのアイテム名( AddMenuItem で NewItemName に渡した名前 )、ItemID を使用する場合は NULL を渡す  ItemID:メニュー項目の識別番号( AddMenuItem の引数 NewItemID で指定したもの )、ItemName を使用する場合は -1 を渡す  KeyCode:ショートカットキーのキー( KEY_INPUT_L 等 )  CtrlFlag:同時にCTRLキーを押す必要があるようにするかどうか( TRUE:押す必要がある  FALSE:押さなくても良い )  AltFlag:同時にALTキーを押す必要があるようにするかどうか( TRUE:押す必要がある  FALSE:押さなくても良い )  ShiftFlag:同時にSHIFTキーを押す必要があるようにするかどうか( TRUE:押す必要がある  FALSE:押さなくても良い )
 
-proc AddKeyAccel_Name*(ItemName: ptr TCHAR; KeyCode: cint; CtrlFlag: cint;
+proc AddKeyAccel_Name*(ItemName: cstring; KeyCode: cint; CtrlFlag: cint;
                       AltFlag: cint; ShiftFlag: cint): cint
 ##  ショートカットキーを追加する( 各引数の解説は AddKeyAccel と同じ、ItemID が無くなっただけ )
 
-proc AddKeyAccel_NameWithStrLen*(ItemName: ptr TCHAR; ItemNameLength: csize_t;
+proc AddKeyAccel_NameWithStrLen*(ItemName: cstring; ItemNameLength: csize_t;
                                 KeyCode: cint; CtrlFlag: cint; AltFlag: cint;
                                 ShiftFlag: cint): cint
 ##  ショートカットキーを追加する( 各引数の解説は AddKeyAccel と同じ、ItemID が無くなっただけ )
@@ -397,108 +397,108 @@ proc ClearKeyAccel*(): cint
 ##  ショートカットキーの情報をリセットする
 
 proc AddMenuItem*(AddType: cint; ##  MENUITEM_ADD_CHILD等
-                 ItemName: ptr TCHAR; ItemID: cint; SeparatorFlag: cint;
-                 NewItemName: ptr TCHAR = nil; NewItemID: cint = -1): cint
+                 ItemName: cstring; ItemID: cint; SeparatorFlag: cint;
+                 NewItemName: cstring = nil; NewItemID: cint = -1): cint
 ##  メニューに項目を追加する( AddType:項目タイプ( MENUITEM_ADD_CHILD 等( 解説は #define の定義を参照してください ) )    ItemName:AddType が MENUITEM_ADD_CHILDの場合は親となる項目の名前、MENUITEM_ADD_INSERTの場合は挿入位置となる項目の名前、NULL を指定すると ItemID が使用される   ItemID:ItemName の代わりに識別番号で指定するもの、AddType毎の違いは ItemName の解説の通り、-1を指定すると ItemName が使用される　　SeparatorFlag:区切り線を追加するかどうか( TRUE:区切り線を追加、この場合 NewItemName と NewItemID は無視される  FALSE:追加するのは区切り線ではない )　　NewItemName:新しい項目の名前  NewItemID:新しい項目の識別番号、-1を指定すると内部で適当な番号が割り当てられる )
 
 proc AddMenuItemWithStrLen*(AddType: cint; ##  MENUITEM_ADD_CHILD等
-                           ItemName: ptr TCHAR; ItemNameLength: csize_t;
+                           ItemName: cstring; ItemNameLength: csize_t;
                            ItemID: cint; SeparatorFlag: cint;
-                           NewItemName: ptr TCHAR = nil;
+                           NewItemName: cstring = nil;
                            NewItemNameLength: csize_t = 0; NewItemID: cint = -1): cint
 ##  メニューに項目を追加する( AddType:項目タイプ( MENUITEM_ADD_CHILD 等( 解説は #define の定義を参照してください ) )    ItemName:AddType が MENUITEM_ADD_CHILDの場合は親となる項目の名前、MENUITEM_ADD_INSERTの場合は挿入位置となる項目の名前、NULL を指定すると ItemID が使用される   ItemID:ItemName の代わりに識別番号で指定するもの、AddType毎の違いは ItemName の解説の通り、-1を指定すると ItemName が使用される　　SeparatorFlag:区切り線を追加するかどうか( TRUE:区切り線を追加、この場合 NewItemName と NewItemID は無視される  FALSE:追加するのは区切り線ではない )　　NewItemName:新しい項目の名前  NewItemID:新しい項目の識別番号、-1を指定すると内部で適当な番号が割り当てられる )
 
-proc DeleteMenuItem*(ItemName: ptr TCHAR; ItemID: cint): cint
+proc DeleteMenuItem*(ItemName: cstring; ItemID: cint): cint
 ##  メニューから選択項目を削除する( ItemName:削除する項目の名前( AddMenuItem で NewItemName に渡した名前 )、NULL を指定すると ItemID が使用される  ItemID:削除する項目の識別番号( AddMenuItem で NewItemID に渡した番号 )、-1 を指定すると ItemName が使用される )
 
-proc DeleteMenuItemWithStrLen*(ItemName: ptr TCHAR; ItemNameLength: csize_t;
+proc DeleteMenuItemWithStrLen*(ItemName: cstring; ItemNameLength: csize_t;
                               ItemID: cint): cint
 ##  メニューから選択項目を削除する( ItemName:削除する項目の名前( AddMenuItem で NewItemName に渡した名前 )、NULL を指定すると ItemID が使用される  ItemID:削除する項目の識別番号( AddMenuItem で NewItemID に渡した番号 )、-1 を指定すると ItemName が使用される )
 
-proc CheckMenuItemSelect*(ItemName: ptr TCHAR; ItemID: cint): cint
+proc CheckMenuItemSelect*(ItemName: cstring; ItemID: cint): cint
 ##  メニューが選択されたかどうかを取得する( 戻り値　 0:選択されていない  1:選択された   ItemName と ItemID については関数 DeleteMenuItem の注釈を参照してください )
 
-proc CheckMenuItemSelectWithStrLen*(ItemName: ptr TCHAR; ItemNameLength: csize_t;
+proc CheckMenuItemSelectWithStrLen*(ItemName: cstring; ItemNameLength: csize_t;
                                    ItemID: cint): cint
 ##  メニューが選択されたかどうかを取得する( 戻り値　 0:選択されていない  1:選択された   ItemName と ItemID については関数 DeleteMenuItem の注釈を参照してください )
 
-proc SetMenuItemEnable*(ItemName: ptr TCHAR; ItemID: cint; EnableFlag: cint): cint
+proc SetMenuItemEnable*(ItemName: cstring; ItemID: cint; EnableFlag: cint): cint
 ##  メニューの項目を選択出来るかどうかを設定する( EnableFlag:項目が選択できるかどうか( TRUE:選択できる   FALSE:選択できない )   ItemName と ItemID については関数 DeleteMenuItem の注釈を参照してください )
 
-proc SetMenuItemEnableWithStrLen*(ItemName: ptr TCHAR; ItemNameLength: csize_t;
+proc SetMenuItemEnableWithStrLen*(ItemName: cstring; ItemNameLength: csize_t;
                                  ItemID: cint; EnableFlag: cint): cint
 ##  メニューの項目を選択出来るかどうかを設定する( EnableFlag:項目が選択できるかどうか( TRUE:選択できる   FALSE:選択できない )   ItemName と ItemID については関数 DeleteMenuItem の注釈を参照してください )
 
-proc SetMenuItemMark*(ItemName: ptr TCHAR; ItemID: cint; Mark: cint): cint
+proc SetMenuItemMark*(ItemName: cstring; ItemID: cint; Mark: cint): cint
 ##  メニューの項目にチェックマークやラジオボタンを表示するかどうかを設定する( Mark:設定するマーク( MENUITEM_MARK_NONE 等( 解説は #define の定義を参照してください )    ItemName と ItemID については関数 DeleteMenuItem の注釈を参照してください ) )
 
-proc SetMenuItemMarkWithStrLen*(ItemName: ptr TCHAR; ItemNameLength: csize_t;
+proc SetMenuItemMarkWithStrLen*(ItemName: cstring; ItemNameLength: csize_t;
                                ItemID: cint; Mark: cint): cint
 ##  メニューの項目にチェックマークやラジオボタンを表示するかどうかを設定する( Mark:設定するマーク( MENUITEM_MARK_NONE 等( 解説は #define の定義を参照してください )    ItemName と ItemID については関数 DeleteMenuItem の注釈を参照してください ) )
 
 proc CheckMenuItemSelectAll*(): cint
 ##  メニューの項目がどれか選択されたかどうかを取得する( 戻り値  TRUE:どれか選択された  FALSE:選択されていない )
 
-proc AddMenuItem_Name*(ParentItemName: ptr TCHAR; NewItemName: ptr TCHAR): cint
+proc AddMenuItem_Name*(ParentItemName: cstring; NewItemName: cstring): cint
 ##  メニューに選択項目を追加する( ParentItemName:親となる項目の名前、親が持つリストの末端に新しい項目を追加します  NewItemName:新しい項目の名前 )
 
-proc AddMenuItem_NameWithStrLen*(ParentItemName: ptr TCHAR;
+proc AddMenuItem_NameWithStrLen*(ParentItemName: cstring;
                                 ParentItemNameLength: csize_t;
-                                NewItemName: ptr TCHAR; NewItemNameLength: csize_t): cint
+                                NewItemName: cstring; NewItemNameLength: csize_t): cint
 ##  メニューに選択項目を追加する( ParentItemName:親となる項目の名前、親が持つリストの末端に新しい項目を追加します  NewItemName:新しい項目の名前 )
 
-proc AddMenuLine_Name*(ParentItemName: ptr TCHAR): cint
+proc AddMenuLine_Name*(ParentItemName: cstring): cint
 ##  メニューのリストに区切り線を追加する( ParentItemName:区切り線を付ける項目リストの親の名前、リストの末端に区切り線を追加します )
 
-proc AddMenuLine_NameWithStrLen*(ParentItemName: ptr TCHAR;
+proc AddMenuLine_NameWithStrLen*(ParentItemName: cstring;
                                 ParentItemNameLength: csize_t): cint
 ##  メニューのリストに区切り線を追加する( ParentItemName:区切り線を付ける項目リストの親の名前、リストの末端に区切り線を追加します )
 
-proc InsertMenuItem_Name*(ItemName: ptr TCHAR; NewItemName: ptr TCHAR): cint
+proc InsertMenuItem_Name*(ItemName: cstring; NewItemName: cstring): cint
 ##  指定の項目と、指定の項目の一つ上の項目との間に新しい項目を追加する
 
-proc InsertMenuItem_NameWithStrLen*(ItemName: ptr TCHAR; ItemNameLength: csize_t;
-                                   NewItemName: ptr TCHAR;
+proc InsertMenuItem_NameWithStrLen*(ItemName: cstring; ItemNameLength: csize_t;
+                                   NewItemName: cstring;
                                    NewItemNameLength: csize_t): cint
 ##  指定の項目と、指定の項目の一つ上の項目との間に新しい項目を追加する
 
-proc InsertMenuLine_Name*(ItemName: ptr TCHAR): cint
+proc InsertMenuLine_Name*(ItemName: cstring): cint
 ##  指定の項目と、指定の項目の一つ上の項目との間に区切り線を追加する
 
-proc InsertMenuLine_NameWithStrLen*(ItemName: ptr TCHAR; ItemNameLength: csize_t): cint
+proc InsertMenuLine_NameWithStrLen*(ItemName: cstring; ItemNameLength: csize_t): cint
 ##  指定の項目と、指定の項目の一つ上の項目との間に区切り線を追加する
 
-proc DeleteMenuItem_Name*(ItemName: ptr TCHAR): cint
+proc DeleteMenuItem_Name*(ItemName: cstring): cint
 ##  メニューから選択項目を削除する
 
-proc DeleteMenuItem_NameWithStrLen*(ItemName: ptr TCHAR; ItemNameLength: csize_t): cint
+proc DeleteMenuItem_NameWithStrLen*(ItemName: cstring; ItemNameLength: csize_t): cint
 ##  メニューから選択項目を削除する
 
-proc CheckMenuItemSelect_Name*(ItemName: ptr TCHAR): cint
+proc CheckMenuItemSelect_Name*(ItemName: cstring): cint
 ##  メニューが選択されたかどうかを取得する( 戻り値　0:選択されていない  1:選択された )
 
-proc CheckMenuItemSelect_NameWithStrLen*(ItemName: ptr TCHAR;
+proc CheckMenuItemSelect_NameWithStrLen*(ItemName: cstring;
                                         ItemNameLength: csize_t): cint
 ##  メニューが選択されたかどうかを取得する( 戻り値　0:選択されていない  1:選択された )
 
-proc SetMenuItemEnable_Name*(ItemName: ptr TCHAR; EnableFlag: cint): cint
+proc SetMenuItemEnable_Name*(ItemName: cstring; EnableFlag: cint): cint
 ##  メニューの項目を選択出来るかどうかを設定する( EnableFlag　1:選択できる  0:選択できない )
 
-proc SetMenuItemEnable_NameWithStrLen*(ItemName: ptr TCHAR; ItemNameLength: csize_t;
+proc SetMenuItemEnable_NameWithStrLen*(ItemName: cstring; ItemNameLength: csize_t;
                                       EnableFlag: cint): cint
 ##  メニューの項目を選択出来るかどうかを設定する( EnableFlag　1:選択できる  0:選択できない )
 
-proc SetMenuItemMark_Name*(ItemName: ptr TCHAR; Mark: cint): cint
+proc SetMenuItemMark_Name*(ItemName: cstring; Mark: cint): cint
 ##  メニューの項目にチェックマークやラジオボタンを表示するかどうかを設定する( Mark:設定するマーク( MENUITEM_MARK_NONE 等 ) )
 
-proc SetMenuItemMark_NameWithStrLen*(ItemName: ptr TCHAR; ItemNameLength: csize_t;
+proc SetMenuItemMark_NameWithStrLen*(ItemName: cstring; ItemNameLength: csize_t;
                                     Mark: cint): cint
 ##  メニューの項目にチェックマークやラジオボタンを表示するかどうかを設定する( Mark:設定するマーク( MENUITEM_MARK_NONE 等 ) )
 
-proc AddMenuItem_ID*(ParentItemID: cint; NewItemName: ptr TCHAR; NewItemID: cint = -1): cint
+proc AddMenuItem_ID*(ParentItemID: cint; NewItemName: cstring; NewItemID: cint = -1): cint
 ##  メニューに選択項目を追加する
 
-proc AddMenuItem_IDWithStrLen*(ParentItemID: cint; NewItemName: ptr TCHAR;
+proc AddMenuItem_IDWithStrLen*(ParentItemID: cint; NewItemName: cstring;
                               NewItemNameLength: csize_t; NewItemID: cint = -1): cint
 ##  メニューに選択項目を追加する
 
@@ -529,23 +529,23 @@ proc DeleteMenuItemAll*(): cint
 proc ClearMenuItemSelect*(): cint
 ##  メニューが選択されたかどうかの情報をリセット
 
-proc GetMenuItemID*(ItemName: ptr TCHAR): cint
+proc GetMenuItemID*(ItemName: cstring): cint
 ##  メニューの項目名から項目識別番号を取得する
 
-proc GetMenuItemIDDX*(ItemName: ptr TCHAR): cint
+proc GetMenuItemIDDX*(ItemName: cstring): cint
 ##  メニューの項目名から項目識別番号を取得する
 
-proc GetMenuItemIDWithStrLen*(ItemName: ptr TCHAR; ItemNameLength: csize_t): cint
+proc GetMenuItemIDWithStrLen*(ItemName: cstring; ItemNameLength: csize_t): cint
 ##  メニューの項目名から項目識別番号を取得する
 
-proc GetMenuItemName*(ItemID: cint; NameBuffer: ptr TCHAR): cint
+proc GetMenuItemName*(ItemID: cint; NameBuffer: cstring): cint
 ##  メニューの項目識別番号から項目名を取得する
 
 proc LoadMenuResource*(MenuResourceID: cint): cint
 ##  メニューをリソースから読み込む
 
 proc SetMenuItemSelectCallBackFunction*(CallBackFunction: proc (
-    ItemName: ptr TCHAR; ItemID: cint)): cint
+    ItemName: cstring; ItemID: cint)): cint
 ##  メニューの選択項目が選択されたときに呼ばれるコールバック関数を設定する( CallBackFunction:項目が選択されたときに呼ばれるコールバック関数、引数に項目名と項目の識別番号を渡されて呼ばれる )
 
 proc SetWindowMenu*(MenuID: cint; MenuProc: proc (ID: WORD): cint): cint

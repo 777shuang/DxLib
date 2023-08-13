@@ -20,7 +20,7 @@ proc DxLib_IsInit*(): cint
 proc GetLastErrorCode*(): cint
 ##  最後に発生したエラーのエラーコードを取得する( 戻り値　0:エラーが発生していない、又はエラーコード出力に対応したエラーが発生していない　　0以外：エラーコード、DX_ERRORCODE_WIN_DESKTOP_24BIT_COLOR など )
 
-proc GetLastErrorMessage*(StringBuffer: ptr TCHAR; StringBufferBytes: cint): cint
+proc GetLastErrorMessage*(StringBuffer: cstring; StringBufferBytes: cint): cint
 ##  最後に発生したエラーのエラーメッセージを指定の文字列バッファに取得する
 ##  メッセージ処理関数
 
@@ -111,66 +111,66 @@ proc GetBatteryLifePercent*(): cint
 ##  電池の残量を % で取得する( 戻り値： 100=フル充電状態  0=充電残量無し )
 ##  クリップボード関係
 
-proc GetClipboardText*(DestBuffer: ptr TCHAR): cint
+proc GetClipboardText*(DestBuffer: cstring): cint
 ##  クリップボードに格納されているテキストデータを読み出す( DestBuffer:文字列を格納するバッファの先頭アドレス   戻り値  -1:クリップボードにテキストデータが無い  -1以外:クリップボードに格納されている文字列データのサイズ( 単位:byte ) )
 
-proc SetClipboardText*(Text: ptr TCHAR): cint
+proc SetClipboardText*(Text: cstring): cint
 ##  クリップボードにテキストデータを格納する
 
-proc SetClipboardTextWithStrLen*(Text: ptr TCHAR; TextLength: csize_t): cint
+proc SetClipboardTextWithStrLen*(Text: cstring; TextLength: csize_t): cint
 ##  クリップボードにテキストデータを格納する
 ##  iniファイル関係
 
-proc GetPrivateProfileStringDx*(AppName: ptr TCHAR; KeyName: ptr TCHAR;
-                               Default: ptr TCHAR; ReturnedStringBuffer: ptr TCHAR;
+proc GetPrivateProfileStringDx*(AppName: cstring; KeyName: cstring;
+                               Default: cstring; ReturnedStringBuffer: cstring;
                                ReturnedStringBufferBytes: csize_t;
-                               IniFilePath: ptr TCHAR;
+                               IniFilePath: cstring;
                                IniFileCharCodeFormat: cint = -1): cint
 ##  GetPrivateProfileString のＤＸライブラリ版
 
-proc GetPrivateProfileStringDxWithStrLen*(AppName: ptr TCHAR;
-    AppNameLength: csize_t; KeyName: ptr TCHAR; KeyNameLength: csize_t;
-    Default: ptr TCHAR; DefaultLength: csize_t; ReturnedStringBuffer: ptr TCHAR;
-    ReturnedStringBufferBytes: csize_t; IniFilePath: ptr TCHAR;
+proc GetPrivateProfileStringDxWithStrLen*(AppName: cstring;
+    AppNameLength: csize_t; KeyName: cstring; KeyNameLength: csize_t;
+    Default: cstring; DefaultLength: csize_t; ReturnedStringBuffer: cstring;
+    ReturnedStringBufferBytes: csize_t; IniFilePath: cstring;
     IniFilePathLength: csize_t; IniFileCharCodeFormat: cint = -1): cint
 ##  GetPrivateProfileString のＤＸライブラリ版
 
-proc GetPrivateProfileIntDx*(AppName: ptr TCHAR; KeyName: ptr TCHAR; Default: cint;
-                            IniFilePath: ptr TCHAR;
+proc GetPrivateProfileIntDx*(AppName: cstring; KeyName: cstring; Default: cint;
+                            IniFilePath: cstring;
                             IniFileCharCodeFormat: cint = -1): cint
 ##  GetPrivateProfileInt のＤＸライブラリ版
 
-proc GetPrivateProfileIntDxWithStrLen*(AppName: ptr TCHAR; AppNameLength: csize_t;
-                                      KeyName: ptr TCHAR; KeyNameLength: csize_t;
-                                      Default: cint; IniFilePath: ptr TCHAR;
+proc GetPrivateProfileIntDxWithStrLen*(AppName: cstring; AppNameLength: csize_t;
+                                      KeyName: cstring; KeyNameLength: csize_t;
+                                      Default: cint; IniFilePath: cstring;
                                       IniFilePathLength: csize_t;
                                       IniFileCharCodeFormat: cint = -1): cint
 ##  GetPrivateProfileInt のＤＸライブラリ版
 
-proc GetPrivateProfileStringDxForMem*(AppName: ptr TCHAR; KeyName: ptr TCHAR;
-                                     Default: ptr TCHAR;
-                                     ReturnedStringBuffer: ptr TCHAR;
+proc GetPrivateProfileStringDxForMem*(AppName: cstring; KeyName: cstring;
+                                     Default: cstring;
+                                     ReturnedStringBuffer: cstring;
                                      ReturnedStringBufferBytes: csize_t;
                                      IniFileImage: pointer;
                                      IniFileImageBytes: csize_t;
                                      IniFileCharCodeFormat: cint = -1): cint
 ##  GetPrivateProfileStringDx のメモリから読み込む版
 
-proc GetPrivateProfileStringDxForMemWithStrLen*(AppName: ptr TCHAR;
-    AppNameLength: csize_t; KeyName: ptr TCHAR; KeyNameLength: csize_t;
-    Default: ptr TCHAR; DefaultLength: csize_t; ReturnedStringBuffer: ptr TCHAR;
+proc GetPrivateProfileStringDxForMemWithStrLen*(AppName: cstring;
+    AppNameLength: csize_t; KeyName: cstring; KeyNameLength: csize_t;
+    Default: cstring; DefaultLength: csize_t; ReturnedStringBuffer: cstring;
     ReturnedStringBufferBytes: csize_t; IniFileImage: pointer;
     IniFileImageBytes: csize_t; IniFileCharCodeFormat: cint = -1): cint
 ##  GetPrivateProfileStringDx のメモリから読み込む版
 
-proc GetPrivateProfileIntDxForMem*(AppName: ptr TCHAR; KeyName: ptr TCHAR;
+proc GetPrivateProfileIntDxForMem*(AppName: cstring; KeyName: cstring;
                                   Default: cint; IniFileImage: pointer;
                                   IniFileImageBytes: csize_t;
                                   IniFileCharCodeFormat: cint = -1): cint
 ##  GetPrivateProfileIntDx のメモリから読み込む版
 
-proc GetPrivateProfileIntDxForMemWithStrLen*(AppName: ptr TCHAR;
-    AppNameLength: csize_t; KeyName: ptr TCHAR; KeyNameLength: csize_t; Default: cint;
+proc GetPrivateProfileIntDxForMemWithStrLen*(AppName: cstring;
+    AppNameLength: csize_t; KeyName: cstring; KeyNameLength: csize_t; Default: cint;
     IniFileImage: pointer; IniFileImageBytes: csize_t;
     IniFileCharCodeFormat: cint = -1): cint
 ##  GetPrivateProfileIntDx のメモリから読み込む版
@@ -181,15 +181,15 @@ proc GetPrivateProfileIntDxForMemWithStrLen*(AppName: ptr TCHAR;
 ##  Subject     : タイトル( NULL で無効 )、メールアドレスが複数ある場合はカンマ『,』で区切ってください
 ##  Text        : 本文( NULL で無効 )、メールアドレスが複数ある場合はカンマ『,』で区切ってください
 
-proc MailApp_Send*(MailAddr: ptr TCHAR = nil; MailCCAddr: ptr TCHAR = nil;
-                  MailBCCAddr: ptr TCHAR = nil; Subject: ptr TCHAR = nil;
-                  Text: ptr TCHAR = nil): cint
-proc MailApp_SendWithStrLen*(MailAddr: ptr TCHAR = nil; MailAddrLength: csize_t = 0;
-                            MailCCAddr: ptr TCHAR = nil;
+proc MailApp_Send*(MailAddr: cstring = nil; MailCCAddr: cstring = nil;
+                  MailBCCAddr: cstring = nil; Subject: cstring = nil;
+                  Text: cstring = nil): cint
+proc MailApp_SendWithStrLen*(MailAddr: cstring = nil; MailAddrLength: csize_t = 0;
+                            MailCCAddr: cstring = nil;
                             MailCCAddrLength: csize_t = 0;
-                            MailBCCAddr: ptr TCHAR = nil;
+                            MailBCCAddr: cstring = nil;
                             MailBCCAddrLength: csize_t = 0;
-                            Subject: ptr TCHAR = nil; SubjectLength: csize_t = 0;
-                            Text: ptr TCHAR = nil; TextLength: csize_t = 0): cint
+                            Subject: cstring = nil; SubjectLength: csize_t = 0;
+                            Text: cstring = nil; TextLength: csize_t = 0): cint
 
 {.pop.}

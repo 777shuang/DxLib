@@ -3,17 +3,17 @@ import ../DxDll
 
 ##  DxLive2DCubism4.cpp 関数 プロトタイプ宣言
 
-proc Live2D_SetCubism4CoreDLLPath*(CoreDLLFilePath: ptr TCHAR): cint
+proc Live2D_SetCubism4CoreDLLPath*(CoreDLLFilePath: cstring): cint
 ##  Live2DCubismCore.dll のファイルパスを設定する
 
-proc Live2D_SetCubism4CoreDLLPathWithStrLen*(CoreDLLFilePath: ptr TCHAR;
+proc Live2D_SetCubism4CoreDLLPathWithStrLen*(CoreDLLFilePath: cstring;
     CoreDLLFilePathLength: csize_t): cint
 ##  Live2DCubismCore.dll のファイルパスを設定する
 
-proc Live2D_SetCubism3CoreDLLPath*(CoreDLLFilePath: ptr TCHAR): cint
+proc Live2D_SetCubism3CoreDLLPath*(CoreDLLFilePath: cstring): cint
 ##  Live2DCubismCore.dll のファイルパスを設定する
 
-proc Live2D_SetCubism3CoreDLLPathWithStrLen*(CoreDLLFilePath: ptr TCHAR;
+proc Live2D_SetCubism3CoreDLLPathWithStrLen*(CoreDLLFilePath: cstring;
     CoreDLLFilePathLength: csize_t): cint
 ##  Live2DCubismCore.dll のファイルパスを設定する
 
@@ -23,10 +23,10 @@ proc Live2D_RenderBegin*(): cint
 proc Live2D_RenderEnd*(): cint
 ##  Live2D の描画処理を終了する
 
-proc Live2D_LoadModel*(FilePath: ptr TCHAR): cint
+proc Live2D_LoadModel*(FilePath: cstring): cint
 ##  Live2D のモデルファイルを読み込む( 0以上:Live2Dモデルハンドル  マイナス値:エラー発生 )
 
-proc Live2D_LoadModelWithStrLen*(FilePath: ptr TCHAR; FilePathLength: csize_t): cint
+proc Live2D_LoadModelWithStrLen*(FilePath: cstring; FilePathLength: csize_t): cint
 ##  Live2D のモデルファイルを読み込む( 0以上:Live2Dモデルハンドル  マイナス値:エラー発生 )
 
 proc Live2D_DeleteModel*(Live2DModelHandle: cint): cint
@@ -69,10 +69,10 @@ proc Live2D_Model_SetRotate*(Live2DModelHandle: cint; RotAngle: cfloat): cint
 proc Live2D_Model_Draw*(Live2DModelHandle: cint): cint
 ##  Live2D のモデルを描画する
 
-proc Live2D_Model_StartMotion*(Live2DModelHandle: cint; group: ptr TCHAR; no: cint): cint
+proc Live2D_Model_StartMotion*(Live2DModelHandle: cint; group: cstring; no: cint): cint
 ##  Live2D のモデルの指定のモーションを再生する
 
-proc Live2D_Model_StartMotionWithStrLen*(Live2DModelHandle: cint; group: ptr TCHAR;
+proc Live2D_Model_StartMotionWithStrLen*(Live2DModelHandle: cint; group: cstring;
                                         groupLength: csize_t; no: cint): cint
 ##  Live2D のモデルの指定のモーションを再生する
 
@@ -85,123 +85,123 @@ proc Live2D_Model_IsMotionFinished*(Live2DModelHandle: cint): cint
 proc Live2D_Model_GetMotionPlayTime*(Live2DModelHandle: cint): cfloat
 ##  Live2D のモデルのモーション再生時間を取得する
 
-proc Live2D_Model_SetExpression*(Live2DModelHandle: cint; expressionID: ptr TCHAR): cint
+proc Live2D_Model_SetExpression*(Live2DModelHandle: cint; expressionID: cstring): cint
 ##  Live2D のモデルの指定の表情モーションを設定する
 
 proc Live2D_Model_SetExpressionWithStrLen*(Live2DModelHandle: cint;
-    expressionID: ptr TCHAR; expressionIDLength: csize_t): cint
+    expressionID: cstring; expressionIDLength: csize_t): cint
 ##  Live2D のモデルの指定の表情モーションを設定する
 
-proc Live2D_Model_HitTest*(Live2DModelHandle: cint; hitAreaName: ptr TCHAR; x: cfloat;
+proc Live2D_Model_HitTest*(Live2DModelHandle: cint; hitAreaName: cstring; x: cfloat;
                           y: cfloat): cint
 ##  指定の座標が Live2D のモデルの指定の当たり判定の矩形範囲内か判定する( TRUE:矩形範囲内  FALSE:矩形範囲外 )
 
 proc Live2D_Model_HitTestWithStrLen*(Live2DModelHandle: cint;
-                                    hitAreaName: ptr TCHAR;
+                                    hitAreaName: cstring;
                                     hitAreaNameLength: csize_t; x: cfloat; y: cfloat): cint
 ##  指定の座標が Live2D のモデルの指定の当たり判定の矩形範囲内か判定する( TRUE:矩形範囲内  FALSE:矩形範囲外 )
 
 proc Live2D_Model_GetParameterCount*(Live2DModelHandle: cint): cint
 ##  Live2D のモデルに設定されているパラメータの数を取得する
 
-proc Live2D_Model_GetParameterId*(Live2DModelHandle: cint; index: cint): ptr TCHAR
+proc Live2D_Model_GetParameterId*(Live2DModelHandle: cint; index: cint): cstring
 ##  Live2D のモデルに設定されているパラメータのIDを取得する
 
 proc Live2D_Model_GetParameterValue*(Live2DModelHandle: cint;
-                                    parameterId: ptr TCHAR): cfloat
+                                    parameterId: cstring): cfloat
 ##  Live2D のモデルに設定されているパラメータを取得する
 
 proc Live2D_Model_GetParameterValueWithStrLen*(Live2DModelHandle: cint;
-    parameterId: ptr TCHAR; parameterIdLength: csize_t): cfloat
+    parameterId: cstring; parameterIdLength: csize_t): cfloat
 ##  Live2D のモデルに設定されているパラメータを取得する
 
 proc Live2D_Model_SetParameterValue*(Live2DModelHandle: cint;
-                                    parameterId: ptr TCHAR; value: cfloat): cint
+                                    parameterId: cstring; value: cfloat): cint
 ##  Live2D のモデルに設定されているパラメータを設定する
 
 proc Live2D_Model_SetParameterValueWithStrLen*(Live2DModelHandle: cint;
-    parameterId: ptr TCHAR; parameterIdLength: csize_t; value: cfloat): cint
+    parameterId: cstring; parameterIdLength: csize_t; value: cfloat): cint
 ##  Live2D のモデルに設定されているパラメータを設定する
 
 proc Live2D_Model_GetHitAreasCount*(Live2DModelHandle: cint): cint
 ##  Live2D のモデルに設定された当たり判定の数を取得する
 
-proc Live2D_Model_GetHitAreaName*(Live2DModelHandle: cint; index: cint): ptr TCHAR
+proc Live2D_Model_GetHitAreaName*(Live2DModelHandle: cint; index: cint): cstring
 ##  Live2D のモデルの当たり判定に設定された名前を取得する
 
-proc Live2D_Model_GetPhysicsFileName*(Live2DModelHandle: cint): ptr TCHAR
+proc Live2D_Model_GetPhysicsFileName*(Live2DModelHandle: cint): cstring
 ##  Live2D のモデルの物理演算設定ファイルの名前を取得する
 
-proc Live2D_Model_GetPoseFileName*(Live2DModelHandle: cint): ptr TCHAR
+proc Live2D_Model_GetPoseFileName*(Live2DModelHandle: cint): cstring
 ##  Live2D のモデルのパーツ切り替え設定ファイルの名前を取得する
 
 proc Live2D_Model_GetExpressionCount*(Live2DModelHandle: cint): cint
 ##  Live2D のモデルの表情設定ファイルの数を取得する
 
-proc Live2D_Model_GetExpressionName*(Live2DModelHandle: cint; index: cint): ptr TCHAR
+proc Live2D_Model_GetExpressionName*(Live2DModelHandle: cint; index: cint): cstring
 ##  Live2D のモデルの表情設定ファイルを識別するIDを取得する
 
-proc Live2D_Model_GetExpressionFileName*(Live2DModelHandle: cint; index: cint): ptr TCHAR
+proc Live2D_Model_GetExpressionFileName*(Live2DModelHandle: cint; index: cint): cstring
 ##  Live2D のモデルの表情設定ファイルの名前を取得する
 
 proc Live2D_Model_GetMotionGroupCount*(Live2DModelHandle: cint): cint
 ##  Live2D のモデルのモーショングループの数を取得する
 
-proc Live2D_Model_GetMotionGroupName*(Live2DModelHandle: cint; index: cint): ptr TCHAR
+proc Live2D_Model_GetMotionGroupName*(Live2DModelHandle: cint; index: cint): cstring
 ##  Live2D のモデルのモーショングループの名前を取得する
 
-proc Live2D_Model_GetMotionCount*(Live2DModelHandle: cint; groupName: ptr TCHAR): cint
+proc Live2D_Model_GetMotionCount*(Live2DModelHandle: cint; groupName: cstring): cint
 ##  Live2D のモデルのモーショングループに含まれるモーションの数を取得する
 
 proc Live2D_Model_GetMotionCountWithStrLen*(Live2DModelHandle: cint;
-    groupName: ptr TCHAR; groupNameLength: csize_t): cint
+    groupName: cstring; groupNameLength: csize_t): cint
 ##  Live2D のモデルのモーショングループに含まれるモーションの数を取得する
 
-proc Live2D_Model_GetMotionFileName*(Live2DModelHandle: cint; groupName: ptr TCHAR;
-                                    index: cint): ptr TCHAR
+proc Live2D_Model_GetMotionFileName*(Live2DModelHandle: cint; groupName: cstring;
+                                    index: cint): cstring
 ##  Live2D のモデルのグループ名とインデックス値からモーションファイルの名前を取得する
 
 proc Live2D_Model_GetMotionFileNameWithStrLen*(Live2DModelHandle: cint;
-    groupName: ptr TCHAR; groupNameLength: csize_t; index: cint): ptr TCHAR
+    groupName: cstring; groupNameLength: csize_t; index: cint): cstring
 ##  Live2D のモデルのグループ名とインデックス値からモーションファイルの名前を取得する
 
 proc Live2D_Model_GetMotionSoundFileName*(Live2DModelHandle: cint;
-    groupName: ptr TCHAR; index: cint): ptr TCHAR
+    groupName: cstring; index: cint): cstring
 ##  Live2D のモデルのモーションに対応するサウンドファイルの名前を取得する
 
 proc Live2D_Model_GetMotionSoundFileNameWithStrLen*(Live2DModelHandle: cint;
-    groupName: ptr TCHAR; groupNameLength: csize_t; index: cint): ptr TCHAR
+    groupName: cstring; groupNameLength: csize_t; index: cint): cstring
 ##  Live2D のモデルのモーションに対応するサウンドファイルの名前を取得する
 
 proc Live2D_Model_GetMotionFadeInTimeValue*(Live2DModelHandle: cint;
-    groupName: ptr TCHAR; index: cint): cfloat
+    groupName: cstring; index: cint): cfloat
 ##  Live2D のモデルのモーション開始時のフェードイン処理時間を取得する
 
 proc Live2D_Model_GetMotionFadeInTimeValueWithStrLen*(Live2DModelHandle: cint;
-    groupName: ptr TCHAR; groupNameLength: csize_t; index: cint): cfloat
+    groupName: cstring; groupNameLength: csize_t; index: cint): cfloat
 ##  Live2D のモデルのモーション開始時のフェードイン処理時間を取得する
 
 proc Live2D_Model_GetMotionFadeOutTimeValue*(Live2DModelHandle: cint;
-    groupName: ptr TCHAR; index: cint): cfloat
+    groupName: cstring; index: cint): cfloat
 ##  Live2D のモデルのモーション終了時のフェードアウト処理時間を取得する
 
 proc Live2D_Model_GetMotionFadeOutTimeValueWithStrLen*(Live2DModelHandle: cint;
-    groupName: ptr TCHAR; groupNameLength: csize_t; index: cint): cfloat
+    groupName: cstring; groupNameLength: csize_t; index: cint): cfloat
 ##  Live2D のモデルのモーション終了時のフェードアウト処理時間を取得する
 
-proc Live2D_Model_GetUserDataFile*(Live2DModelHandle: cint): ptr TCHAR
+proc Live2D_Model_GetUserDataFile*(Live2DModelHandle: cint): cstring
 ##  Live2D のモデルのユーザデータのファイル名を取得する
 
 proc Live2D_Model_GetEyeBlinkParameterCount*(Live2DModelHandle: cint): cint
 ##  Live2D のモデルの目パチに関連付けられたパラメータの数を取得する
 
-proc Live2D_Model_GetEyeBlinkParameterId*(Live2DModelHandle: cint; index: cint): ptr TCHAR
+proc Live2D_Model_GetEyeBlinkParameterId*(Live2DModelHandle: cint; index: cint): cstring
 ##  Live2D のモデルの目パチに関連付けられたパラメータのIDを取得する
 
 proc Live2D_Model_GetLipSyncParameterCount*(Live2DModelHandle: cint): cint
 ##  Live2D のモデルのリップシンクに関連付けられたパラメータの数を取得する
 
-proc Live2D_Model_GetLipSyncParameterId*(Live2DModelHandle: cint; index: cint): ptr TCHAR
+proc Live2D_Model_GetLipSyncParameterId*(Live2DModelHandle: cint; index: cint): cstring
 ##  Live2D のモデルのリップシンクに関連付けられたパラメータのIDを取得する
 
 proc Live2D_Model_GetCanvasWidth*(Live2DModelHandle: cint): cfloat

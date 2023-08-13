@@ -56,17 +56,17 @@ proc GraphImageBltToMask*(BaseImage: ptr BASEIMAGE; ImageX: cint; ImageY: cint;
                          MaskHandle: cint): cint
 ##  マスクハンドルにBASEIMAGEデータを転送する
 
-proc LoadMask*(FileName: ptr TCHAR): cint
+proc LoadMask*(FileName: cstring): cint
 ##  画像ファイルを読み込みマスクハンドルを作成する
 
-proc LoadMaskWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t): cint
+proc LoadMaskWithStrLen*(FileName: cstring; FileNameLength: csize_t): cint
 ##  画像ファイルを読み込みマスクハンドルを作成する
 
-proc LoadDivMask*(FileName: ptr TCHAR; AllNum: cint; XNum: cint; YNum: cint; XSize: cint;
+proc LoadDivMask*(FileName: cstring; AllNum: cint; XNum: cint; YNum: cint; XSize: cint;
                  YSize: cint; HandleArray: ptr cint): cint
 ##  画像ファイルを分割読み込みしてマスクハンドルを作成する
 
-proc LoadDivMaskWithStrLen*(FileName: ptr TCHAR; FileNameLength: csize_t;
+proc LoadDivMaskWithStrLen*(FileName: cstring; FileNameLength: csize_t;
                            AllNum: cint; XNum: cint; YNum: cint; XSize: cint;
                            YSize: cint; HandleArray: ptr cint): cint
 ##  画像ファイルを分割読み込みしてマスクハンドルを作成する
@@ -82,27 +82,27 @@ proc CreateDivMaskFromMem*(FileImage: pointer; FileImageSize: cint; AllNum: cint
 proc DrawMask*(x: cint; y: cint; MaskHandle: cint; TransMode: cint): cint
 ##  マスクスクリーンにマスクハンドルの持つマスクイメージを書き込む
 
-proc DrawFormatStringMask*(x: cint; y: cint; Flag: cint; FormatString: ptr TCHAR): cint {.
+proc DrawFormatStringMask*(x: cint; y: cint; Flag: cint; FormatString: cstring): cint {.
     varargs.}
 ##  書式指定ありの文字列をマスクスクリーンに描画する
 
 proc DrawFormatStringMaskToHandle*(x: cint; y: cint; Flag: cint; FontHandle: cint;
-                                  FormatString: ptr TCHAR): cint {.varargs.}
+                                  FormatString: cstring): cint {.varargs.}
 ##  書式指定ありの文字列をマスクスクリーンに描画する( フォントハンドル指定版 )( SetFontCacheToTextureFlag( FALSE ) ; にして作成したフォントハンドルのみ使用可能 )
 
-proc DrawStringMask*(x: cint; y: cint; Flag: cint; String: ptr TCHAR): cint
+proc DrawStringMask*(x: cint; y: cint; Flag: cint; String: cstring): cint
 ##  文字列をマスクスクリーンに描画する
 
-proc DrawNStringMask*(x: cint; y: cint; Flag: cint; String: ptr TCHAR;
+proc DrawNStringMask*(x: cint; y: cint; Flag: cint; String: cstring;
                      StringLength: csize_t): cint
 ##  文字列をマスクスクリーンに描画する
 
 proc DrawStringMaskToHandle*(x: cint; y: cint; Flag: cint; FontHandle: cint;
-                            String: ptr TCHAR): cint
+                            String: cstring): cint
 ##  文字列をマスクスクリーンに描画する( フォントハンドル指定版 )( SetFontCacheToTextureFlag( FALSE ) ; にして作成したフォントハンドルのみ使用可能 )
 
 proc DrawNStringMaskToHandle*(x: cint; y: cint; Flag: cint; FontHandle: cint;
-                             String: ptr TCHAR; StringLength: csize_t): cint
+                             String: cstring; StringLength: csize_t): cint
 ##  文字列をマスクスクリーンに描画する( フォントハンドル指定版 )( SetFontCacheToTextureFlag( FALSE ) ; にして作成したフォントハンドルのみ使用可能 )
 
 proc DrawFillMask*(x1: cint; y1: cint; x2: cint; y2: cint; MaskHandle: cint): cint
