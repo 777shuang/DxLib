@@ -241,9 +241,9 @@ const
   DX_BLENDMODE_CUSTOM* = (32)   ##  カスタムブレンドモード
   DX_BLENDMODE_DST_RGB_SRC_A* = (33) ##  描画元の A のみを書き込む( 描画先の RGB は変更されない )
   DX_BLENDMODE_INVDESTCOLOR_A* = (34) ##  描画先の A の反転値を掛ける( 描画先の RGB は変更されない )
-  DX_BLENDMODE_MUL_A* = (35)    ##  A のみの乗算ブレンド( 描画先の RGB は変更されない )
+  DX_BLENDMODE_MUL_ONLY_A* = (35)    ##  A のみの乗算ブレンド( 描画先の RGB は変更されない )
   DX_BLENDMODE_PMA_INVDESTCOLOR_A* = (36) ##  乗算済みα用の DX_BLENDMODE_INVDESTCOLOR_A
-  DX_BLENDMODE_PMA_MUL_A* = (37) ##  乗算済みα用の DX_BLENDMODE_MUL_A
+  DX_BLENDMODE_PMA_MUL_ONLY_A* = (37) ##  乗算済みα用の DX_BLENDMODE_MUL_ONLY_A
   DX_BLENDMODE_NUM* = (38)      ##  ブレンドモードの数
 
 ##  カスタムブレンドモード用のブレンド要素タイプ
