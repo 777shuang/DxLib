@@ -30,6 +30,7 @@ const url =   "https://dxlib.xsrv.jp/DxLib/DxLibMake" &
 
 const zipFileName = "DxLibMake.zip"
 if not fileExists(zipFileName):
+  echo url
   try:
     let res = url.get
     if res.code != 200:
