@@ -94,6 +94,8 @@ proc convertNim(line: string): string =
         return "0xffffffff'u32"
   )
   buf = buf.replace("VERTEX_3D", "VERTEX3D_OLD")
+  buf = buf.replace("DX_BLENDMODE_MUL_A", "DX_BLENDMODE_MUL_ONLY_A")
+  buf = buf.replace("DX_BLENDMODE_PMA_MUL_A", "DX_BLENDMODE_PMA_MUL_ONLY_A")
   if buf.startsWith("proc _GetSystemInfo"):
     buf = buf.replace("_GetSystemInfo", "GetSystemInfo")
     buf = buf & " {.importc: \"_GetSystemInfo\".}"
