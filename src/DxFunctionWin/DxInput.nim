@@ -192,6 +192,12 @@ proc GetUseDirect3D11FeatureLevel*(): cint
 proc SetUseDirect3D11AdapterIndex*(Index: cint): cint
 ##  使用するグラフィックスデバイスのアダプターのインデックスを設定する
 
+proc SetUseDirect3D11AdapterLUID*(UseLUID: ptr LUID): cint
+##  使用する IDXGIAdapter の LUID を設定する
+
+proc GetUseDirect3D11AdapterLUID*(): LUID
+##  使用する IDXGIAdapter の LUID を取得する
+
 proc SetUseDirect3D11BGRASupport*(Flag: cint): cint
 ##  D3D11Device 作成時に D3D11_CREATE_DEVICE_BGRA_SUPPORT を指定するかどうかを設定する( TRUE:指定する  FALSE:指定しない( デフォルト ) )
 

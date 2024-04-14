@@ -442,6 +442,12 @@ proc SetFontOnlyDrawType*(OnlyType: cint): cint
 
 proc GetFontOnlyDrawType*(): cint
 ##  フォントの描画で縁のみ、又は本体のみ描画を行うかどうかを取得する( 戻り値  0:通常描画 1:本体のみ描画 2:縁のみ描画 )
+
+proc SetFontIgnoreLFFlag*(Flag: cint): cint
+##  DrawString などで \n を無視するかどうかを設定する( TRUE : 無視する    FALSE : 無視しない( デフォルト ) )
+
+proc GetFontIgnoreLFFlag*(): cint
+##  DrawString などで \n を無視するかどうかを取得する( TRUE : 無視する    FALSE : 無視しない( デフォルト ) )
 ##  FontCacheStringDraw の代わりに DrawString を使ってください
 
 proc FontCacheStringDrawToHandle*(x: cint; y: cint; StrData: cstring; Color: cuint;

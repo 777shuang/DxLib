@@ -239,7 +239,12 @@ const
   DX_BLENDMODE_SPINE_MULTIPLY* = (30) ##  Spine のブレンドモード Multiply 用
   DX_BLENDMODE_SPINE_SCREEN* = (31) ##  Spine のブレンドモード Screen 用
   DX_BLENDMODE_CUSTOM* = (32)   ##  カスタムブレンドモード
-  DX_BLENDMODE_NUM* = (33)      ##  ブレンドモードの数
+  DX_BLENDMODE_DST_RGB_SRC_A* = (33) ##  描画元の A のみを書き込む( 描画先の RGB は変更されない )
+  DX_BLENDMODE_INVDESTCOLOR_A* = (34) ##  描画先の A の反転値を掛ける( 描画先の RGB は変更されない )
+  DX_BLENDMODE_MUL_A* = (35)    ##  A のみの乗算ブレンド( 描画先の RGB は変更されない )
+  DX_BLENDMODE_PMA_INVDESTCOLOR_A* = (36) ##  乗算済みα用の DX_BLENDMODE_INVDESTCOLOR_A
+  DX_BLENDMODE_PMA_MUL_A* = (37) ##  乗算済みα用の DX_BLENDMODE_MUL_A
+  DX_BLENDMODE_NUM* = (38)      ##  ブレンドモードの数
 
 ##  カスタムブレンドモード用のブレンド要素タイプ
 ##  Rs = 描画元のR   Rg = 描画元のG   Rb = 描画元のB   Ra = 描画元のA
@@ -361,7 +366,9 @@ const
   DX_GRAPH_BLEND_PMA_NORMAL_ALPHACH* = (31) ##  αチャンネル付き画像の通常合成( 乗算済みα画像用 )
   DX_GRAPH_BLEND_PMA_ADD_ALPHACH* = (32) ##  αチャンネル付き画像の加算合成( 乗算済みα画像用 )
   DX_GRAPH_BLEND_PMA_MULTIPLE_A_ONLY* = (33) ##  アルファチャンネルのみの乗算( 乗算済みα画像用 )
-  DX_GRAPH_BLEND_NUM* = (34)
+  DX_GRAPH_BLEND_MASK* = (34)   ##  マスク( SrcGrHandle に BlendGrHandle を通常描画した上で、SrcGrHandle の A を優先 )
+  DX_GRAPH_BLEND_PMA_MASK* = (35) ##  マスク( DX_GRAPH_BLEND_MASK の乗算済みα画像用 )
+  DX_GRAPH_BLEND_NUM* = (36)
 
 ##  DX_GRAPH_BLEND_RGBA_SELECT_MIX 用の色選択用定義
 

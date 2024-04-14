@@ -306,6 +306,9 @@ proc SetUseDxLibWM_PAINTProcess*(Flag: cint): cint
 
 proc SetWindows10_WM_CHAR_CancelTime*(MilliSecond: cint): cint
 ##  Windows10 で WM_CHAR で短時間に連続して同じ文字が入力された場合の無効扱いにする時間を設定する( MilliSecond のミリ秒以内に連続して同じ文字が入力された場合に無効にする、MilliSecond の値をマイナスにするとデフォルトの設定に戻る )
+
+proc SetUseWindows10_WM_CHAR_CancelTime*(Flag: cint): cint
+##  Windows10 で WM_CHAR で短時間に連続して同じ文字が入力された場合の無効扱いにするかどうかを設定する( TRUE:短時間連続入力は無効扱いにする(デフォルト)  FALSE:短時間連続入力も無効にしない )
 ##  ドラッグ＆ドロップされたファイル関係
 
 proc SetDragFileValidFlag*(Flag: cint): cint

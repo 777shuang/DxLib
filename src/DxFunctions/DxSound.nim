@@ -4,7 +4,7 @@ import ../DxDll
 ##  DxSound.cpp関数プロトタイプ宣言
 ##  サウンドデータ管理系関数
 
-proc InitSoundMem*(LogOutFlag: cint = FALSE): cint
+proc InitSoundMem*(): cint
 ##  全てのサウンドハンドルを削除する
 
 proc AddSoundData*(Handle: cint = -1): cint
@@ -121,7 +121,7 @@ proc LoadSoundMem2ByMemImage*(FileImage1: pointer; FileImageSize1: csize_t;
 proc LoadSoundMemFromSoftSound*(SoftSoundHandle: cint; BufferNum: cint = 3): cint
 ##  ソフトウエアサウンドハンドルが持つサウンドデータからサウンドハンドルを作成する
 
-proc DeleteSoundMem*(SoundHandle: cint; LogOutFlag: cint = FALSE): cint
+proc DeleteSoundMem*(SoundHandle: cint): cint
 ##  サウンドハンドルを削除する
 
 proc PlaySoundMem*(SoundHandle: cint; PlayType: cint; TopPositionFlag: cint = TRUE): cint

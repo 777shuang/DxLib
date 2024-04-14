@@ -66,7 +66,8 @@ proc DrawObtainsString*(x: cint; y: cint; AddY: cint; String: cstring; StrColor:
                        SelectBackColor: cuint = 0xffffffff'u32;
                        SelectStrColor: cuint = 0;
                        SelectStrEdgeColor: cuint = 0xffffffff'u32;
-                       SelectStart: cint = -1; SelectEnd: cint = -1): cint
+                       SelectStart: cint = -1; SelectEnd: cint = -1;
+                       LineCount: ptr cint = nil): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画
 
 proc DrawObtainsNString*(x: cint; y: cint; AddY: cint; String: cstring;
@@ -75,7 +76,8 @@ proc DrawObtainsNString*(x: cint; y: cint; AddY: cint; String: cstring;
                         SelectBackColor: cuint = 0xffffffff'u32;
                         SelectStrColor: cuint = 0;
                         SelectStrEdgeColor: cuint = 0xffffffff'u32;
-                        SelectStart: cint = -1; SelectEnd: cint = -1): cint
+                        SelectStart: cint = -1; SelectEnd: cint = -1;
+                        LineCount: ptr cint = nil): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画
 
 proc DrawObtainsString_CharClip*(x: cint; y: cint; AddY: cint; String: cstring;
@@ -84,7 +86,8 @@ proc DrawObtainsString_CharClip*(x: cint; y: cint; AddY: cint; String: cstring;
                                 SelectBackColor: cuint = 0xffffffff'u32;
                                 SelectStrColor: cuint = 0;
                                 SelectStrEdgeColor: cuint = 0xffffffff'u32;
-                                SelectStart: cint = -1; SelectEnd: cint = -1): cint
+                                SelectStart: cint = -1; SelectEnd: cint = -1;
+                                LineCount: ptr cint = nil): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画( クリップが文字単位 )
 
 proc DrawObtainsNString_CharClip*(x: cint; y: cint; AddY: cint; String: cstring;
@@ -93,17 +96,44 @@ proc DrawObtainsNString_CharClip*(x: cint; y: cint; AddY: cint; String: cstring;
                                  SelectBackColor: cuint = 0xffffffff'u32;
                                  SelectStrColor: cuint = 0;
                                  SelectStrEdgeColor: cuint = 0xffffffff'u32;
-                                 SelectStart: cint = -1; SelectEnd: cint = -1): cint
+                                 SelectStart: cint = -1; SelectEnd: cint = -1;
+                                 LineCount: ptr cint = nil): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画( クリップが文字単位 )
+
+proc DrawObtainsString_WordClip*(x: cint; y: cint; AddY: cint; String: cstring;
+                                StrColor: cuint; StrEdgeColor: cuint = 0;
+                                FontHandle: cint = -1;
+                                SelectBackColor: cuint = 0xffffffff'u32;
+                                SelectStrColor: cuint = 0;
+                                SelectStrEdgeColor: cuint = 0xffffffff'u32;
+                                SelectStart: cint = -1; SelectEnd: cint = -1;
+                                LineCount: ptr cint = nil): cint
+##  描画可能領域に収まるように改行しながら文字列を描画( クリップが単語単位 )
+
+proc DrawObtainsNString_WordClip*(x: cint; y: cint; AddY: cint; String: cstring;
+                                 StringLength: csize_t; StrColor: cuint;
+                                 StrEdgeColor: cuint = 0; FontHandle: cint = -1;
+                                 SelectBackColor: cuint = 0xffffffff'u32;
+                                 SelectStrColor: cuint = 0;
+                                 SelectStrEdgeColor: cuint = 0xffffffff'u32;
+                                 SelectStart: cint = -1; SelectEnd: cint = -1;
+                                 LineCount: ptr cint = nil): cint
+##  描画可能領域に収まるように改行しながら文字列を描画( クリップが単語単位 )
 
 proc GetObtainsStringCharPosition*(x: cint; y: cint; AddY: cint; String: cstring;
                                   StrLen: cint; PosX: ptr cint; PosY: ptr cint;
-                                  FontHandle: cint = -1): cint
+                                  FontHandle: cint = -1; LineCount: ptr cint = nil): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画した場合の文字列の末端の座標を取得する
 
 proc GetObtainsStringCharPosition_CharClip*(x: cint; y: cint; AddY: cint;
-    String: cstring; StrLen: cint; PosX: ptr cint; PosY: ptr cint; FontHandle: cint = -1): cint
+    String: cstring; StrLen: cint; PosX: ptr cint; PosY: ptr cint;
+    FontHandle: cint = -1; LineCount: ptr cint = nil): cint
 ##  描画可能領域に収まるように改行しながら文字列を描画した場合の文字列の末端の座標を取得する( クリップが文字単位 )
+
+proc GetObtainsStringCharPosition_WordClip*(x: cint; y: cint; AddY: cint;
+    String: cstring; StrLen: cint; PosX: ptr cint; PosY: ptr cint;
+    FontHandle: cint = -1; LineCount: ptr cint = nil): cint
+##  描画可能領域に収まるように改行しながら文字列を描画した場合の文字列の末端の座標を取得する( クリップが単語単位 )
 
 proc DrawObtainsBox*(x1: cint; y1: cint; x2: cint; y2: cint; AddY: cint; Color: cuint;
                     FillFlag: cint): cint

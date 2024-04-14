@@ -95,7 +95,7 @@ proc DerivationGraphF*(SrcX: cfloat; SrcY: cfloat; Width: cfloat; Height: cfloat
                       SrcGraphHandle: cint): cint
 ##  指定のグラフィックハンドルの指定部分だけを抜き出して新たなグラフィックハンドルを作成する( float版 )
 
-proc DeleteGraph*(GrHandle: cint; LogOutFlag: cint = FALSE): cint
+proc DeleteGraph*(GrHandle: cint): cint
 ##  グラフィックハンドルを削除する
 
 proc DeleteSharingGraph*(GrHandle: cint): cint
@@ -114,7 +114,7 @@ proc FillRectGraph*(GrHandle: cint; x: cint; y: cint; Width: cint; Height: cint;
 proc SetGraphLostFlag*(GrHandle: cint; LostFlag: ptr cint): cint
 ##  指定のグラフィックハンドルが削除された際に 1 にする変数のアドレスを設定する
 
-proc InitGraph*(LogOutFlag: cint = FALSE): cint
+proc InitGraph*(): cint
 ##  すべてのグラフィックハンドルを削除する
 
 proc ReloadFileGraphAll*(): cint
@@ -951,7 +951,8 @@ proc DrawCircle*(x: cint; y: cint; r: cint; Color: cuint; FillFlag: cint = TRUE;
 ##  円を描画する
 
 proc DrawCircleAA*(x: cfloat; y: cfloat; r: cfloat; posnum: cint; Color: cuint;
-                  FillFlag: cint = TRUE; LineThickness: cfloat = 1.0f): cint
+                  FillFlag: cint = TRUE; LineThickness: cfloat = 1.0f;
+                  Angle: cdouble = 0.0): cint
 ##  円を描画する( アンチエイリアス付き )
 
 proc DrawOval*(x: cint; y: cint; rx: cint; ry: cint; Color: cuint; FillFlag: cint;
@@ -2015,7 +2016,8 @@ proc GetDisplayNum*(): cint
 
 proc GetDisplayInfo*(DisplayIndex: cint; DesktopRectX: ptr cint;
                     DesktopRectY: ptr cint; DesktopSizeX: ptr cint;
-                    DesktopSizeY: ptr cint; IsPrimary: ptr cint): cint
+                    DesktopSizeY: ptr cint; IsPrimary: ptr cint;
+                    DesktopRefreshRate: ptr cint = nil): cint
 ##  ディスプレイのデスクトップ上での矩形位置を取得する
 
 proc GetDisplayModeNum*(DisplayIndex: cint = 0): cint
@@ -2023,6 +2025,9 @@ proc GetDisplayModeNum*(DisplayIndex: cint = 0): cint
 
 proc GetDisplayMode*(ModeIndex: cint; DisplayIndex: cint = 0): DISPLAYMODEDATA
 ##  変更可能なディスプレイモードの情報を取得する( ModeIndex は 0 ～ GetDisplayModeNum の戻り値-1 )
+
+proc GetFullScreenUseDisplayMode*(): DISPLAYMODEDATA
+##  フルスクリーンモードで起動している場合の使用しているディスプレイモードの情報を取得する( 仮想フルスクリーンモードの場合は取得できない )
 
 proc GetDisplayMaxResolution*(SizeX: ptr cint; SizeY: ptr cint; DisplayIndex: cint = 0): cint
 ##  ディスプレイの最大解像度を取得する
@@ -2572,7 +2577,7 @@ proc GraphFilterRectBlt*(SrcGrHandle: cint; DestGrHandle: cint; SrcX1: cint;
 ##  画像のフィルター付き転送を行う( 矩形指定 )
 ## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_MONO, int Cb = 青色差( -255 ～ 255 ), int Cr = 赤色差( -255 ～ 255 ) ) ;
 ## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_GAUSS, int PixelWidth = 使用ピクセル幅( 8 , 16 , 32 の何れか ), int Param = ぼかしパラメータ( 100 で約1ピクセル分の幅 ) ) ;
-## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_DOWN_SCALE, int DivNum = 元のサイズの何分の１か、という値( 2 , 4 , 8 の何れか ) ) ;
+## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_DOWN_SCALE, int DivNum = 元のサイズの何分の１か、という値( 1 , 2 , 4 , 8 の何れか ) ) ;
 ## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_BRIGHT_CLIP, int CmpType = クリップタイプ( DX_CMP_LESS:CmpParam以下をクリップ  又は  DX_CMP_GREATER:CmpParam以上をクリップ ), int CmpParam = クリップパラメータ( 0 ～ 255 ), int ClipFillFlag = クリップしたピクセルを塗りつぶすかどうか( TRUE:塗りつぶす  FALSE:塗りつぶさない ), unsigned int ClipFillColor = クリップしたピクセルに塗る色値( GetColor で取得する )( ClipFillFlag が FALSE の場合は使用しない ), int ClipFillAlpha = クリップしたピクセルに塗るα値( 0 ～ 255 )( ClipFillFlag が FALSE の場合は使用しない ) ) ;
 ## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_BRIGHT_SCALE, int MinBright = 変換後に真っ暗になる明るさ( 0 ～ 255 ), int MaxBright = 変換後に真っ白になる明るさ( 0 ～ 255 ) ) ;
 ## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_HSB, int HueType = Hue の意味( 0:相対値  1:絶対値 ), int Hue = 色相パラメータ( HueType が 0 の場合 = ピクセルの色相に対する相対値( -180 ～ 180 )   HueType が 1 の場合 = 色相の絶対値( 0 ～ 360 ) ), int Saturation = 彩度( -255 ～ ), int Bright = 輝度( -255 ～ 255 ) ) ;
@@ -2616,24 +2621,42 @@ proc GraphBlendRectBlt2*(SrcGrHandle: cint; BlendGrHandle: cint; DestGrHandle: c
                         BlendType: cint): cint {.varargs.}
   ##  DX_GRAPH_BLEND_ADD 等
 ##  二つの画像をブレンドして結果を指定の画像に出力する( 矩形指定、ブレンド画像も矩形指定 )
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_NORMAL ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_RGBA_SELECT_MIX, int SelectR = ( 出力の赤分となる成分 DX_RGBA_SELECT_SRC_R 等 ), int SelectG = ( 出力の緑成分となる成分 DX_RGBA_SELECT_SRC_R 等 ), int SelectB = ( 出力の青成分となる成分 DX_RGBA_SELECT_SRC_R 等 ), int SelectA = ( 出力のα成分となる成分 DX_RGBA_SELECT_SRC_R 等 ) ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_MULTIPLE ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_DIFFERENCE ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_ADD ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_SCREEN ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_OVERLAY ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_DODGE ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_BURN ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_DARKEN ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_LIGHTEN ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_SOFTLIGHT ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_HARDLIGHT ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_EXCLUSION ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_NORMAL_ALPHACH ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_ADD_ALPHACH ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_MULTIPLE_A_ONLY ) ;
-## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_MULTIPLE_A_ONLY ) ;
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_NORMAL ) ; // 通常
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_RGBA_SELECT_MIX, int SelectR = ( 出力の赤分となる成分 DX_RGBA_SELECT_SRC_R 等 ), int SelectG = ( 出力の緑成分となる成分 DX_RGBA_SELECT_SRC_R 等 ), int SelectB = ( 出力の青成分となる成分 DX_RGBA_SELECT_SRC_R 等 ), int SelectA = ( 出力のα成分となる成分 DX_RGBA_SELECT_SRC_R 等 ) ) ;	// RGBAの要素を選択して合成
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_MULTIPLE ) ;	// 乗算
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_DIFFERENCE ) ;	// 減算
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_ADD ) ;		  	// 加算
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_SCREEN ) ;	// スクリーン
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_OVERLAY ) ;	// オーバーレイ
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_DODGE ) ;	// 覆い焼き
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_BURN ) ;	// 焼き込み
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_DARKEN ) ;	// 比較(暗)
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_LIGHTEN ) ;	// 比較(明)
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_SOFTLIGHT ) ;	// ソフトライト
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_HARDLIGHT ) ;	// ハードライト
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_EXCLUSION ) ;	// 除外
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_NORMAL_ALPHACH ) ;	// αチャンネル付き画像の通常合成
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_ADD_ALPHACH ) ;	// αチャンネル付き画像の加算合成
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_MULTIPLE_A_ONLY ) ;	// アルファチャンネルのみの乗算
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_MASK ) ;	// マスク( SrcGrHandle に BlendGrHandle を通常描画した上で、SrcGrHandle の A を優先 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_NORMAL ) ; // 通常( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_RGBA_SELECT_MIX ) ; // RGBAの要素を選択して合成( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_MULTIPLE ) ; // 乗算( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_DIFFERENCE ) ; // 減算( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_ADD ) ; // 加算( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_SCREEN ) ; // スクリーン( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_OVERLAY ) ; // オーバーレイ( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_DODGE ) ; // 覆い焼き( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_BURN ) ; // 焼き込み( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_DARKEN ) ; // 比較(暗)( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_LIGHTEN ) ; // 比較(明)( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_SOFTLIGHT ) ; // ソフトライト( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_HARDLIGHT ) ; // ハードライト( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_EXCLUSION ) ; // 除外( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_NORMAL_ALPHACH ) ; // αチャンネル付き画像の通常合成( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_ADD_ALPHACH ) ; // αチャンネル付き画像の加算合成( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_MULTIPLE_A_ONLY ) ;	// アルファチャンネルのみの乗算( 乗算済みα画像用 )
+## 		int			GraphBlend( int GrHandle, int BlendGrHandle, int BlendRatio, int BlendType = DX_GRAPH_BLEND_PMA_MASK ) ;	// マスク( DX_GRAPH_BLEND_MASK の 乗算済みα画像用 )
 ##  ムービーグラフィック関係関数
 
 proc PlayMovie*(FileName: cstring; ExRate: cint; PlayType: cint): cint
@@ -2684,8 +2707,14 @@ proc GetMovieStateToGraph*(GraphHandle: cint): cint
 proc SetMovieVolumeToGraph*(Volume: cint; GraphHandle: cint): cint
 ##  動画ファイルの音量を設定する(0～10000)
 
+proc GetMovieVolumeToGraph*(GraphHandle: cint): cint
+##  動画ファイルの音量を取得する(0～10000)
+
 proc ChangeMovieVolumeToGraph*(Volume: cint; GraphHandle: cint): cint
 ##  動画ファイルの音量を設定する(0～255)
+
+proc GetMovieVolumeToGraph2*(GraphHandle: cint): cint
+##  動画ファイルの音量を取得する(0～255)
 
 proc GetMovieBaseImageToGraph*(GraphHandle: cint; ImageUpdateFlag: ptr cint = nil;
                               ImageUpdateFlagSetOnly: cint = FALSE): ptr BASEIMAGE
@@ -2708,6 +2737,9 @@ proc GetOneFrameTimeMovieToGraph*(GraphHandle: cint): LONGLONG
 
 proc GetLastUpdateTimeMovieToGraph*(GraphHandle: cint): cint
 ##  動画ファイルのイメージを最後に更新した時間を得る(ミリ秒単位)
+
+proc UpdateMovieToGraph*(GraphHandle: cint): cint
+##  動画ファイルの更新処理を行う
 
 proc SetMovieRightImageAlphaFlag*(Flag: cint): cint
 ##  読み込む動画ファイル映像の右半分の赤成分をα情報として扱うかどうかをセットする( TRUE:α情報として扱う  FALSE:α情報として扱わない( デフォルト ) )

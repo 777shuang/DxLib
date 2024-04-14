@@ -111,7 +111,7 @@ proc GetBatteryLifePercent*(): cint
 ##  電池の残量を % で取得する( 戻り値： 100=フル充電状態  0=充電残量無し )
 ##  クリップボード関係
 
-proc GetClipboardText*(DestBuffer: cstring): cint
+proc GetClipboardText*(DestBuffer: cstring; DestBufferBytes: cint = -1): cint
 ##  クリップボードに格納されているテキストデータを読み出す( DestBuffer:文字列を格納するバッファの先頭アドレス   戻り値  -1:クリップボードにテキストデータが無い  -1以外:クリップボードに格納されている文字列データのサイズ( 単位:byte ) )
 
 proc SetClipboardText*(Text: cstring): cint
