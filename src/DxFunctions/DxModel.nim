@@ -22,6 +22,10 @@ proc MV1DuplicateModel*(SrcMHandle: cint): cint
 proc MV1CreateCloneModel*(SrcMHandle: cint): cint
 ##  指定のモデルをモデル基本データも含め複製する( MV1DuplicateModel はモデル基本データは共有しますが、こちらは複製元のモデルとは一切共有データの無いモデルハンドルを作成します )( -1:エラー  0以上:モデルハンドル )
 
+proc MV1CreateSimpleModel*(Vertex: ptr VERTEX3D; VertexNum: cint; Index: ptr cuint;
+                          IndexNum: cint; Material: ptr MATERIALPARAM; GrHandle: cint): cint
+##  指定の頂点データとマテリアル情報、テクスチャを使用したシンプルな３Ｄモデルのハンドルを作成する
+
 proc MV1DeleteModel*(MHandle: cint): cint
 ##  モデルを削除する
 
@@ -547,6 +551,10 @@ proc MV1SetMaterialSpcMapTexture*(MHandle: cint; MaterialIndex: cint; TexIndex: 
 proc MV1GetMaterialSpcMapTexture*(MHandle: cint; MaterialIndex: cint): cint
 ##  指定のマテリアルでスペキュラマップとして使用されているテクスチャのインデックスを取得する
 
+proc MV1SetMaterialNormalMapTexture*(MHandle: cint; MaterialIndex: cint;
+                                    TexIndex: cint): cint
+##  指定のマテリアルで法線マップとして使用するテクスチャを指定する
+
 proc MV1GetMaterialNormalMapTexture*(MHandle: cint; MaterialIndex: cint): cint
 ##  指定のマテリアルで法線マップとして使用されているテクスチャのインデックスを取得する
 
@@ -744,6 +752,41 @@ proc MV1SetTextureSampleFilterMode*(MHandle: cint; TexIndex: cint; FilterMode: c
 
 proc MV1GetTextureSampleFilterMode*(MHandle: cint; TexIndex: cint): cint
 ##  テクスチャのフィルタリングモードを取得する( 戻り値  DX_DRAWMODE_BILINEAR等 )
+
+proc MV1AddTexture*(MHandle: cint; Name: cstring; ColorFilePath: cstring;
+                   AlphaFilePath: cstring = nil; ColorFileImage: pointer = nil;
+                   AlphaFileImage: pointer = nil;
+                   AddressModeU: cint = DX_TEXADDRESS_WRAP;
+                   AddressModeV: cint = DX_TEXADDRESS_WRAP;
+                   FilterMode: cint = DX_DRAWMODE_ANISOTROPIC;
+                   BumpImageFlag: cint = FALSE;
+                   BumpImageNextPixelLength: cfloat = 0.1f;
+                   ReverseFlag: cint = FALSE;
+                   Bmp32AllZeroAlphaToXRGB8Flag: cint = FALSE): cint
+##  モデルで使用するテクスチャを追加する
+
+proc MV1AddTextureWithStrLen*(MHandle: cint; Name: cstring; NameLength: csize_t;
+                             ColorFilePath: cstring;
+                             ColorFilePathLength: csize_t;
+                             AlphaFilePath: cstring = nil;
+                             AlphaFilePathLength: csize_t = 0;
+                             ColorFileImage: pointer = nil;
+                             AlphaFileImage: pointer = nil;
+                             AddressModeU: cint = DX_TEXADDRESS_WRAP;
+                             AddressModeV: cint = DX_TEXADDRESS_WRAP;
+                             FilterMode: cint = DX_DRAWMODE_ANISOTROPIC;
+                             BumpImageFlag: cint = FALSE;
+                             BumpImageNextPixelLength: cfloat = 0.1f;
+                             ReverseFlag: cint = FALSE;
+                             Bmp32AllZeroAlphaToXRGB8Flag: cint = FALSE): cint
+##  モデルで使用するテクスチャを追加する
+
+proc MV1AddTextureGraphHandle*(MHandle: cint; Name: cstring; GrHandle: cint;
+                              SemiTransFlag: cint;
+                              AddressModeU: cint = DX_TEXADDRESS_WRAP;
+                              AddressModeV: cint = DX_TEXADDRESS_WRAP;
+                              FilterMode: cint = DX_DRAWMODE_ANISOTROPIC): cint
+##  モデルで使用するテクスチャを追加する( グラフィックハンドルをテクスチャとして追加 )
 
 proc MV1LoadTexture*(FilePath: cstring): cint
 ##  ３Ｄモデルに貼り付けるのに向いた画像の読み込み方式で画像を読み込む( 戻り値  -1:エラー  0以上:グラフィックハンドル )

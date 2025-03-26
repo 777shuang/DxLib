@@ -689,7 +689,7 @@ proc SetCreateDivGraphHandle*(HandleArray: ptr cint; HandleNum: cint): cint
 ##  作成するグラフィックハンドルのハンドル値を設定する、LoadDivGraph 等の分割画像読み込み用、HandleArray に NULL を渡すと設定解除( 存在しないグラフィックハンドルの値の場合のみ有効 )
 
 proc GetCreateDivGraphHandle*(HandleArray: ptr cint): cint
-##  作成するグラフィックハンドルのハンドル値を取得する、LoadDivGraph 等の分割画像読み込み用、戻り値は SetCreateDivGraphHandle の引数 HandleNum に渡した値、HandleArray を NULL にすることが可能
+##  作成するグラフィックハンドルのハンドル値を取得する、LoadDivGraph 等の分割画像読み込み用、戻り値は SetCreateDivGraphHandle の引数 HandleNum に渡した値、HandleArray は NULL でも可
 
 proc SetDrawValidGraphCreateFlag*(Flag: cint): cint
 ##  SetDrawScreen に引数として渡せる( 描画対象として使用できる )グラフィックハンドルを作成するかどうかを設定する( TRUE:描画可能グラフィックハンドルを作成する  FLASE:通常のグラフィックハンドルを作成する( デフォルト ) )
@@ -933,7 +933,8 @@ proc DrawLineAA*(x1: cfloat; y1: cfloat; x2: cfloat; y2: cfloat; Color: cuint;
                 Thickness: cfloat = 1.0f): cint
 ##  線を描画する( アンチエイリアス付き )
 
-proc DrawBox*(x1: cint; y1: cint; x2: cint; y2: cint; Color: cuint; FillFlag: cint): cint
+proc DrawBox*(x1: cint; y1: cint; x2: cint; y2: cint; Color: cuint; FillFlag: cint;
+             LineThickness: cint = 1): cint
 ##  四角形を描画する
 
 proc DrawBoxAA*(x1: cfloat; y1: cfloat; x2: cfloat; y2: cfloat; Color: cuint;
@@ -943,7 +944,8 @@ proc DrawBoxAA*(x1: cfloat; y1: cfloat; x2: cfloat; y2: cfloat; Color: cuint;
 proc DrawFillBox*(x1: cint; y1: cint; x2: cint; y2: cint; Color: cuint): cint
 ##  中身を塗りつぶす四角形を描画する
 
-proc DrawLineBox*(x1: cint; y1: cint; x2: cint; y2: cint; Color: cuint): cint
+proc DrawLineBox*(x1: cint; y1: cint; x2: cint; y2: cint; Color: cuint;
+                 LineThickness: cint = 1): cint
 ##  枠だけの四角形の描画 する
 
 proc DrawCircle*(x: cint; y: cint; r: cint; Color: cuint; FillFlag: cint = TRUE;
@@ -1062,6 +1064,22 @@ proc DrawCapsule3DD*(Pos1: VECTOR_D; Pos2: VECTOR_D; r: cdouble; DivNum: cint;
                     DifColor: cuint; SpcColor: cuint; FillFlag: cint): cint
 ##  ３Ｄのカプセルを描画する
 
+proc DrawCylinder3D*(Pos1: VECTOR; Pos2: VECTOR; r: cfloat; DivNum: cint;
+                    DifColor: cuint; SpcColor: cuint; FillFlag: cint): cint
+##  ３Ｄの円柱を描画する
+
+proc DrawCylinder3DD*(Pos1: VECTOR_D; Pos2: VECTOR_D; r: cdouble; DivNum: cint;
+                     DifColor: cuint; SpcColor: cuint; FillFlag: cint): cint
+##  ３Ｄの円柱を描画する
+
+proc DrawTube3D*(Pos1: VECTOR; Pos2: VECTOR; r1: cfloat; r2: cfloat; DivNum: cint;
+                DifColor: cuint; SpcColor: cuint; FillFlag: cint): cint
+##  ３Ｄの筒を描画する
+
+proc DrawTube3DD*(Pos1: VECTOR_D; Pos2: VECTOR_D; r1: cdouble; r2: cdouble; DivNum: cint;
+                 DifColor: cuint; SpcColor: cuint; FillFlag: cint): cint
+##  ３Ｄの筒を描画する
+
 proc DrawCone3D*(TopPos: VECTOR; BottomPos: VECTOR; r: cfloat; DivNum: cint;
                 DifColor: cuint; SpcColor: cuint; FillFlag: cint): cint
 ##  ３Ｄの円錐を描画する
@@ -1131,8 +1149,8 @@ proc DrawReverseGraph*(x: cint; y: cint; GrHandle: cint; TransFlag: cint;
 proc DrawGraphF*(xf: cfloat; yf: cfloat; GrHandle: cint; TransFlag: cint): cint
 ##  画像の描画( 座標指定が float 版 )
 
-proc DrawExtendGraphF*(x1f: cfloat; y1f: cfloat; x2f: cfloat; y2: cfloat; GrHandle: cint;
-                      TransFlag: cint): cint
+proc DrawExtendGraphF*(x1f: cfloat; y1f: cfloat; x2f: cfloat; y2f: cfloat;
+                      GrHandle: cint; TransFlag: cint): cint
 ##  画像の拡大描画( 座標指定が float 版 )
 
 proc DrawRotaGraphF*(xf: cfloat; yf: cfloat; ExRate: cdouble; Angle: cdouble;
@@ -1677,6 +1695,9 @@ proc SetZBias3D*(Bias: cint): cint
 proc SetDrawZ*(Z: cfloat): cint
 ##  ２Ｄ描画でＺバッファに書き込むＺ値を設定する( Z:書き込むＺ値( デフォルト:0.2f ) )
 
+proc SetUseReversedZ*(Flag: cint): cint
+##  Ｚバッファに書き込むＺ値を標準方式と反転した値( リバースＺ )にするかどうかを設定する、DxLib_Init実行前のみ使用可能( TRUE:反転した値にする　FALSE:通常の値にする( デフォルト ) )
+
 proc SetDrawArea*(x1: cint; y1: cint; x2: cint; y2: cint): cint
 ##  描画可能領域の設定する
 
@@ -1878,6 +1899,37 @@ proc SetFogDensity*(density: cfloat): cint
 
 proc GetFogDensity*(): cfloat
 ##  フォグの密度を取得する( 0.0f ～ 1.0f )
+
+proc SetVerticalFogEnable*(Flag: cint): cint
+##  高さフォグを有効にするかどうかを設定する( TRUE:有効  FALSE:無効 )
+
+proc GetVerticalFogEnable*(): cint
+##  高さフォグが有効かどうかを取得する( TRUE:有効  FALSE:無効 )
+
+proc SetVerticalFogMode*(Mode: cint): cint
+  ##  DX_FOGMODE_NONE 等
+##  高さフォグモードを設定する
+
+proc GetVerticalFogMode*(): cint
+##  高さフォグモードを取得する
+
+proc SetVerticalFogColor*(r: cint; g: cint; b: cint): cint
+##  高さフォグカラーを設定する
+
+proc GetVerticalFogColor*(r: ptr cint; g: ptr cint; b: ptr cint): cint
+##  高さフォグカラーを取得する
+
+proc SetVerticalFogStartEnd*(start: cfloat; `end`: cfloat): cint
+##  高さフォグが始まる距離と終了する距離を設定する( 0.0f ～ 1.0f )
+
+proc GetVerticalFogStartEnd*(start: ptr cfloat; `end`: ptr cfloat): cint
+##  高さフォグが始まる距離と終了する距離を取得する( 0.0f ～ 1.0f )
+
+proc SetVerticalFogDensity*(start: cfloat; density: cfloat): cint
+##  高さフォグが始まる処理と密度を設定する( 0.0f ～ 1.0f )
+
+proc GetVerticalFogDensity*(start: ptr cfloat; density: ptr cfloat): cint
+##  高さフォグの始まる処理と密度を取得する( 0.0f ～ 1.0f )
 ##  画面関係関数
 
 proc GetPixel*(x: cint; y: cint): cuint
@@ -2986,6 +3038,9 @@ proc SetGlobalAmbientLight*(Color: COLOR_F): cint
 
 proc SetUseLightAngleAttenuation*(UseFlag: cint): cint
 ##  ３Ｄ描画のライティング計算で角度減衰を行うかどうかを設定する( TRUE:角度減衰を行う( デフォルト )  FALSE:角度減衰を行わない )
+
+proc SetUseHalfLambertLighting*(UseFlag: cint): cint
+##  ３Ｄ描画のライティング計算でハーフランバートを使用するかどうかを設定する( TRUE:ハーフランバートを使用する  FALSE:ハーフランバートを使用しない( デフォルト ) )
 
 proc ChangeLightTypeDir*(Direction: VECTOR): cint
 ##  デフォルトライトのタイプをディレクショナルライトにする

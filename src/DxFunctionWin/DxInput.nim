@@ -256,6 +256,10 @@ proc SetDrawScreen_ID3D11RenderTargetView*(pID3D11RenderTargetView: pointer;
 proc RefreshDxLibDirect3DSetting*(): cint
 ##  ＤＸライブラリが行ったDirect3Dの設定を再度行う( 特殊用途 )
 
+proc SetUseDirect3D11SwapEffect*(SwapEffect: cint): cint
+  ##  DX_SWAP_EFFECT_DISCARD 等
+##  Direct3D11 を使用した場合の SwapEffect を指定する( DxLib_Init の前でのみ有効 )
+
 proc SetUseMediaFoundationFlag*(Flag: cint): cint
 ##  Media Foundation を使用するかどうかを設定する( TRUE:使用する( デフォルト )  FALSE:使用しない )
 ##  色情報取得用関数

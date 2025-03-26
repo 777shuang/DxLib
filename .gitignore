@@ -8,3 +8,5 @@ htmldocs/
 /*.h
 /*.nim
 *.zip
+nimble.develop
+nimble.paths

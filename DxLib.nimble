@@ -1,6 +1,6 @@
 # Package
 
-version       = "3.24.4.1"
+version       = "3.24.6"
 author        = "777shuang"
 description   = "A Nim binding for DX Library"
 license       = "MIT"

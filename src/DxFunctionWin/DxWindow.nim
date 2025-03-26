@@ -65,7 +65,7 @@ proc GetMouseDispFlag*(): cint
 proc GetAlwaysRunFlag*(): cint
 ##  メインウインドウが非アクティブになっても処理を実行し続けるかどうかの設定を取得する( TRUE:実行する  FALSE:停止する )
 
-proc GetSystemInfo*(DxLibVer: ptr cint; DirectXVer: ptr cint; WindowsVer: ptr cint): cint {.importc: "_GetSystemInfo".}
+proc GetSystemInfo_*(DxLibVer: ptr cint; DirectXVer: ptr cint; WindowsVer: ptr cint): cint
 ##  ＤＸライブラリと DirectX のバージョンと Windows のバージョン番号を取得する
 
 proc GetPcInfo*(OSString: cstring; DirectXString: cstring; CPUString: cstring; CPUSpeed: ptr cint; ##  単位MHz
