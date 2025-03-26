@@ -1,6 +1,7 @@
-import os, strutils, encodings, nre, options
+import os, strutils, encodings, nre, options, strformat
 import puppy
 import zippy/ziparchives
+import DxLibVersion
 
 {.push header: "DxLibHeaderSpliter.c".}
 proc SEEK_SET(): cint {.importc: "get_SEEK_SET".}
@@ -12,22 +13,7 @@ proc HexToInt(hex: cstring): cint
 
 var fileRead, fileWrite : File
 
-# このパッケージのバージョンと DX ライブラリのバージョンは対応する。
-const NimblePkgVersion {.strdefine.} = "0.0.0"
-const DxLibVersion = NimblePkgVersion.split(".")
-# DX ライブラリのバージョン表記は [数字1桁].[数字2桁][アルファベット小文字1文字(ないこともある)] である
-# バインディングのバージョン表記は[数字1桁].[数字2桁].[数字1桁(0:何もなし,1:a,2:b,3:c...)].[バインディング内部のバージョン]
-when DxLibVersion[2] != "0":
-  const ch = $char(int('a') + DxLibVersion[2].parseInt - 1)
-else:
-  const ch = ""
-const url =   "https://dxlib.xsrv.jp/DxLib/DxLibMake" &
-  DxLibVersion[0] &
-  "_" &
-  DxLibVersion[1] &
-  ch &
-  ".zip"
-
+const url = fmt"https://dxlib.xsrv.jp/DxLib/DxLibMake{DxLibVersion.DxLibVersion}.zip"
 const zipFileName = "DxLibMake.zip"
 if not fileExists(zipFileName):
   echo url
@@ -110,7 +96,7 @@ proc close(path: string) =
     before = functionsWriting.splitFile.name & ".nim"
     after = "src" / path / before
   fileRead = open(before, FileMode.fmRead)
-  fileWrite = open(after, FileMode.fmWrite)       
+  fileWrite = open(after, FileMode.fmWrite)
   fileWrite.writeLine("import ../DxDll")
   fileWrite.writeLine("{.push dynlib: DLL, importc.}")
   fileWrite.writeLine("")
