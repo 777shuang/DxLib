@@ -30,6 +30,15 @@ proc ProcessMessage*(): cint
 
 proc SetAlwaysRunFlag*(Flag: cint): cint
 ##  アプリが非アクティブ状態でも処理を実行するかどうかを設定する( TRUE:実行する  FALSE:停止する( デフォルト ) )
+
+proc SetNotDrawFlag*(Flag: cint): cint
+##  ＤＸライブラリの描画機能を使うかどうかを設定する( TRUE:使用しない  FALSE:使用する( デフォルト ) )
+
+proc SetNotSoundFlag*(Flag: cint): cint
+##  ＤＸライブラリのサウンド機能を使うかどうかを設定する( TRUE:使用しない  FALSE:使用する( デフォルト ) )
+
+proc SetNotInputFlag*(Flag: cint): cint
+##  ＤＸライブラリの入力状態の取得機能を使うかどうかを設定する( TRUE:使用しない  FALSE:使用する( デフォルト ) )
 ##  ウエイト系関数
 
 proc WaitTimer*(WaitTime: cint): cint

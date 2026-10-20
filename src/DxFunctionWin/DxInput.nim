@@ -122,6 +122,9 @@ proc CreateGraphFromID3D11Texture2D*(pID3D11Texture2D: pointer): cint
 ##  ID3D11Texture2D からグラフィックハンドルを作成する
 ##  画像情報関係関数
 
+proc GetGraphIDirect3DTexture9*(GrHandle: cint): pointer
+##  グラフィックハンドルが持つ IDirect3DTexture9 を取得する( Direct3D9 を使用している場合のみ有効 )( 戻り値を IDirect3DTexture9 * にキャストしてください )
+
 proc GetGraphID3D11Texture2D*(GrHandle: cint): pointer
 ##  グラフィックハンドルが持つ ID3D11Texture2D を取得する( Direct3D11 を使用している場合のみ有効 )( 戻り値を ID3D11Texture2D * にキャストしてください )
 

@@ -72,14 +72,15 @@ proc Live2D_Model_Draw*(Live2DModelHandle: cint): cint
 proc Live2D_Model_StartMotion*(Live2DModelHandle: cint; group: cstring; no: cint;
                               fadeInSeconds: cfloat = -1.0f;
                               fadeOutSeconds: cfloat = -1.0f;
-                              isLoopFadeIn: cint = TRUE): cint
+                              isLoopFadeIn: cint = TRUE; isLoop: cint = FALSE): cint
 ##  Live2D のモデルの指定のモーションを再生する
 
 proc Live2D_Model_StartMotionWithStrLen*(Live2DModelHandle: cint; group: cstring;
                                         groupLength: csize_t; no: cint;
                                         fadeInSeconds: cfloat = -1.0f;
                                         fadeOutSeconds: cfloat = -1.0f;
-                                        isLoopFadeIn: cint = TRUE): cint
+                                        isLoopFadeIn: cint = TRUE;
+                                        isLoop: cint = FALSE): cint
 ##  Live2D のモデルの指定のモーションを再生する
 
 proc Live2D_Model_GetLastPlayMotionNo*(Live2DModelHandle: cint): cint

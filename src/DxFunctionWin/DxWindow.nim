@@ -247,15 +247,6 @@ proc SetWindowInitPosition*(x: cint; y: cint): cint
 proc SetNotWinFlag*(Flag: cint): cint
 ##  ＤＸライブラリのウインドウ関連の機能を使用しないかどうかを設定する( TRUE:使用しない  FALSE:使用する( デフォルト ) )
 
-proc SetNotDrawFlag*(Flag: cint): cint
-##  ＤＸライブラリの描画機能を使うかどうかを設定する( TRUE:使用しない  FALSE:使用する( デフォルト ) )
-
-proc SetNotSoundFlag*(Flag: cint): cint
-##  ＤＸライブラリのサウンド機能を使うかどうかを設定する( TRUE:使用しない  FALSE:使用する( デフォルト ) )
-
-proc SetNotInputFlag*(Flag: cint): cint
-##  ＤＸライブラリの入力状態の取得機能を使うかどうかを設定する( TRUE:使用しない  FALSE:使用する( デフォルト ) )
-
 proc SetDialogBoxHandle*(WindowHandle: HWND): cint
 ##  ＤＸライブラリでメッセージ処理を行うダイアログボックスを登録する
 

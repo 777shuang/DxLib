@@ -772,6 +772,9 @@ proc GetCreateDrawValidGraphChannelNum*(): cint
 proc SetCreateDrawValidGraphMultiSample*(Samples: cint; Quality: cint): cint
 ##  SetDrawScreen の引数として渡せる( 描画対象として使用できる )グラフィックハンドルに適用するマルチサンプリング( アンチエイリアシング )設定を行う( Samples:マルチサンプル処理に使用するドット数( 多いほど重くなります )  Quality:マルチサンプル処理の品質 )
 
+proc GetCreateDrawValidGraphMultiSample*(Samples: ptr cint; Quality: ptr cint): cint
+##  SetDrawScreen の引数として渡せる( 描画対象として使用できる )グラフィックハンドルに適用するマルチサンプリング( アンチエイリアシング )設定を取得する( Samples:マルチサンプル処理に使用するドット数( 多いほど重くなります )  Quality:マルチサンプル処理の品質 )
+
 proc SetDrawValidMultiSample*(Samples: cint; Quality: cint): cint
 ##  SetCreateDrawValidGraphMultiSample の旧名称
 
@@ -1579,6 +1582,12 @@ proc DrawBillboard3D*(Pos: VECTOR; cx: cfloat; cy: cfloat; Size: cfloat; Angle: 
                      GrHandle: cint; TransFlag: cint; ReverseXFlag: cint = FALSE;
                      ReverseYFlag: cint = FALSE): cint
 ##  ３Ｄ空間上に画像を描画
+
+proc DrawRectBillboard3D*(Pos: VECTOR; SrcX: cint; SrcY: cint; SrcWidth: cint;
+                         SrcHeight: cint; cx: cfloat; cy: cfloat; Size: cfloat;
+                         Angle: cfloat; GrHandle: cint; TransFlag: cint;
+                         ReverseXFlag: cint = FALSE; ReverseYFlag: cint = FALSE): cint
+##  ３Ｄ空間上に画像を描画( 画像内矩形指定あり )
 ##  描画設定関係関数
 
 proc SetDrawMode*(DrawMode: cint): cint
@@ -2559,6 +2568,56 @@ proc DrawPrimitive32bitIndexed3DToShader*(VertexArray: ptr VERTEX3DSHADER;
   ##  DX_PRIMTYPE_TRIANGLELIST 等
 ##  シェーダーを使って３Ｄプリミティブを描画する( 頂点インデックスを使用する )
 
+proc DrawPolygon2DToShader2*(VertexArray: ptr VERTEX2D; PolygonNum: cint): cint
+##  シェーダーを使って２Ｄポリゴンを描画する( 頂点データが VERTEX2D版 )
+
+proc DrawPolygon3DToShader2*(VertexArray: ptr VERTEX3D; PolygonNum: cint): cint
+##  シェーダーを使って３Ｄポリゴンを描画する( 頂点データが VERTEX3D版 )
+
+proc DrawPolygonIndexed2DToShader2*(VertexArray: ptr VERTEX2D; VertexNum: cint;
+                                   IndexArray: ptr cushort; PolygonNum: cint): cint
+##  シェーダーを使って２Ｄポリゴンを描画する( 頂点インデックスを使用する )( 頂点データが VERTEX2D版 )
+
+proc DrawPolygon32bitIndexed2DToShader2*(VertexArray: ptr VERTEX2D; VertexNum: cint;
+                                        IndexArray: ptr cuint; PolygonNum: cint): cint
+##  シェーダーを使って２Ｄポリゴンを描画する( 頂点インデックスを使用する )( 頂点データが VERTEX2D版 )
+
+proc DrawPolygonIndexed3DToShader2*(VertexArray: ptr VERTEX3D; VertexNum: cint;
+                                   IndexArray: ptr cushort; PolygonNum: cint): cint
+##  シェーダーを使って３Ｄポリゴンを描画する( 頂点インデックスを使用する )( 頂点データが VERTEX3D版 )
+
+proc DrawPolygon32bitIndexed3DToShader2*(VertexArray: ptr VERTEX3D; VertexNum: cint;
+                                        IndexArray: ptr cuint; PolygonNum: cint): cint
+##  シェーダーを使って３Ｄポリゴンを描画する( 頂点インデックスを使用する )( 頂点データが VERTEX3D版 )
+
+proc DrawPrimitive2DToShader2*(VertexArray: ptr VERTEX2D; VertexNum: cint; PrimitiveType: cint): cint
+  ##  DX_PRIMTYPE_TRIANGLELIST 等
+##  シェーダーを使って２Ｄプリミティブを描画する( 頂点データが VERTEX2D版 )
+
+proc DrawPrimitive3DToShader2*(VertexArray: ptr VERTEX3D; VertexNum: cint; PrimitiveType: cint): cint
+  ##  DX_PRIMTYPE_TRIANGLELIST 等
+##  シェーダーを使って３Ｄプリミティブを描画する( 頂点データが VERTEX3D版 )
+
+proc DrawPrimitiveIndexed2DToShader2*(VertexArray: ptr VERTEX2D; VertexNum: cint;
+                                     IndexArray: ptr cushort; IndexNum: cint; PrimitiveType: cint): cint
+  ##  DX_PRIMTYPE_TRIANGLELIST 等
+##  シェーダーを使って２Ｄプリミティブを描画する( 頂点インデックスを使用する )( 頂点データが VERTEX2D版 )
+
+proc DrawPrimitive32bitIndexed2DToShader2*(VertexArray: ptr VERTEX2D;
+    VertexNum: cint; IndexArray: ptr cuint; IndexNum: cint; PrimitiveType: cint): cint
+  ##  DX_PRIMTYPE_TRIANGLELIST 等
+##  シェーダーを使って２Ｄプリミティブを描画する( 頂点インデックスを使用する )( 頂点データが VERTEX2D版 )
+
+proc DrawPrimitiveIndexed3DToShader2*(VertexArray: ptr VERTEX3D; VertexNum: cint;
+                                     IndexArray: ptr cushort; IndexNum: cint; PrimitiveType: cint): cint
+  ##  DX_PRIMTYPE_TRIANGLELIST 等
+##  シェーダーを使って３Ｄプリミティブを描画する( 頂点インデックスを使用する )( 頂点データが VERTEX3D版 )
+
+proc DrawPrimitive32bitIndexed3DToShader2*(VertexArray: ptr VERTEX3D;
+    VertexNum: cint; IndexArray: ptr cuint; IndexNum: cint; PrimitiveType: cint): cint
+  ##  DX_PRIMTYPE_TRIANGLELIST 等
+##  シェーダーを使って３Ｄプリミティブを描画する( 頂点インデックスを使用する )( 頂点データが VERTEX3D版 )
+
 proc DrawPolygon3DToShader_UseVertexBuffer*(VertexBufHandle: cint): cint
 ##  シェーダーを使って３Ｄポリゴンを描画する( 頂点バッファ使用版 )
 
@@ -2638,6 +2697,7 @@ proc GraphFilterRectBlt*(SrcGrHandle: cint; DestGrHandle: cint; SrcX1: cint;
 ## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_TWO_COLOR, int Threshold = 閾値( 0 ～ 255 ), unsigned int LowColor = 閾値より値が低かったピクセルの変換後の色値( GetColor で取得する ), int LowAlpha = 閾値より値が低かったピクセルの変換後のα値( 0 ～ 255 ), unsigned int HighColor = 閾値より値が高かったピクセルの変換後の色値( GetColor で取得する ), int HighAlpha = 閾値より値が高かったピクセルの変換後のα値( 0 ～ 255 ) ) ;
 ## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_GRADIENT_MAP, int MapGrHandle = グラデーションマップのグラフィックハンドル( 元画像の輝度からグラデーションマップ画像の x 座標を算出しますので縦幅は1dotでもＯＫ ), int Reverse = グラデーションマップ左右反転フラグ( TRUE : グラデーションマップを左右反転して使う  FALSE : 左右反転しない ) ) ;
 ## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_REPLACEMENT, int TargetR, int TargetG, int TargetB, int TargetA = 置換対象の色( 0～255 ), int R, int G, int B, int A = 置換後の色( 0～255 ) ) ;
+## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_BILATERAL_BLUR ) ;			// バイラテラルブラー
 ## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_PREMUL_ALPHA ) ;			// 通常のアルファチャンネル付き画像を乗算済みアルファ画像に変換するフィルタ
 ## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_INTERP_ALPHA ) ;			// 乗算済みα画像を通常のアルファチャンネル付き画像に変換するフィルタ
 ## 		int			GraphFilter( int GrHandle, int FilterType = DX_GRAPH_FILTER_YUV_TO_RGB ) ;				// YUVカラーをRGBカラーに変換するフィルタ

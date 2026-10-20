@@ -134,6 +134,13 @@ proc MV1SaveModelToXFileWithStrLen*(MHandle: cint; FileName: cstring;
                                    AnimMHandle: cint = -1;
                                    AnimNameCheck: cint = TRUE): cint
 ##  指定のパスにモデルをＸファイル形式で保存する( 戻り値  0:成功  -1:メモリ不足  -2:使われていないアニメーションがあった )
+
+proc MV1SetNotSaveTopFrameName*(FrameName: cstring): cint
+##  MV1SaveModelToMV1File で保存を除外するトップフレーム名を設定する
+
+proc MV1SetNotSaveTopFrameNameWithStrLen*(FrameName: cstring;
+    FrameNameLength: csize_t): cint
+##  MV1SaveModelToMV1File で保存を除外するトップフレーム名を設定する
 ##  モデル描画関係
 
 proc MV1DrawModel*(MHandle: cint): cint
@@ -557,6 +564,27 @@ proc MV1SetMaterialNormalMapTexture*(MHandle: cint; MaterialIndex: cint;
 
 proc MV1GetMaterialNormalMapTexture*(MHandle: cint; MaterialIndex: cint): cint
 ##  指定のマテリアルで法線マップとして使用されているテクスチャのインデックスを取得する
+
+proc MV1SetMaterialEmissiveMapTexture*(MHandle: cint; MaterialIndex: cint;
+                                      TexIndex: cint): cint
+##  指定のマテリアルで自己発光マップとして使用するテクスチャを指定する
+
+proc MV1GetMaterialEmissiveMapTexture*(MHandle: cint; MaterialIndex: cint): cint
+##  指定のマテリアルで自己発光マップとして使用されているテクスチャのインデックスを取得する
+
+proc MV1SetMaterialShininessMapTexture*(MHandle: cint; MaterialIndex: cint;
+                                       TexIndex: cint): cint
+##  指定のマテリアルでラフネスマップとして使用するテクスチャを指定する
+
+proc MV1GetMaterialShininessMapTexture*(MHandle: cint; MaterialIndex: cint): cint
+##  指定のマテリアルでラフネスマップとして使用されているテクスチャのインデックスを取得する
+
+proc MV1SetMaterialReflectionFactorMapTexture*(MHandle: cint; MaterialIndex: cint;
+    TexIndex: cint): cint
+##  指定のマテリアルでメタリックマップとして使用するテクスチャを指定する
+
+proc MV1GetMaterialReflectionFactorMapTexture*(MHandle: cint; MaterialIndex: cint): cint
+##  指定のマテリアルでメタリックマップとして使用されているテクスチャのインデックスを取得する
 
 proc MV1SetMaterialDifGradTexture*(MHandle: cint; MaterialIndex: cint; TexIndex: cint): cint
 ##  指定のマテリアルでトゥーンレンダリングのディフューズグラデーションマップとして使用するテクスチャを設定する
