@@ -10,3 +10,8 @@ htmldocs/
 *.zip
 nimble.develop
 nimble.paths
+
+# Local Nimble runtime and generated state
+.nim_runtime/
+nimbledeps/
+config.nims

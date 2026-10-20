@@ -29,12 +29,12 @@ jobs:
       - name: Run DxLibHeaderSpliter
         run: nimble run DxLibHeaderSpliter
 
-      - name: Commit and push generated changes
+      - name: Commit and push generated source changes
         shell: pwsh
         run: |
-          git add -A
+          git add -A -- src
           if (git diff --cached --quiet) {
-            Write-Host "No generated changes to commit."
+            Write-Host "No generated source changes to commit."
           } else {
             git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Update generated DxLib bindings"
             git push
