@@ -1,0 +1,30 @@
+name: Build and Run Nim Project
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-run:
+    name: Build and run on Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Nim
+        uses: jiro4989/setup-nim-action@v2
+        with:
+          nim-version: stable
+
+      - name: Install dependencies
+        run: nimble install -y
+
+      - name: Build project
+        run: nimble build -y
+
+      - name: Run DxLibHeaderSpliter
+        run: nimble run DxLibHeaderSpliter
